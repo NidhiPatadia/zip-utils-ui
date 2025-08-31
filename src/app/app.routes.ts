@@ -1,9 +1,34 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ZipTextComponent } from './zip-text/zip-text.component';
+import { ZipUrlComponent } from './zip-url/zip-url.component';
+import { ZipQrComponent } from './zip-qr/zip-qr.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'text',
+    component: ZipTextComponent,
+  },
+  {
+    path: 'url',
+    component: ZipUrlComponent,
+  },
+  {
+    path: 'qr',
+    component: ZipQrComponent,
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '404',
   },
 ];

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 enum ThemeType {
   LIGHT = 'light',
@@ -9,7 +10,7 @@ enum ThemeType {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
