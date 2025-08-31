@@ -11,7 +11,7 @@ body {
   height: 100%;
 }
 
-/********** custom scrollbar css *************/
+/********** custom scrollbar css **********/
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
@@ -20,20 +20,21 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #e97000;
+  background: var(--scrollbar-color);
   height: 40vh;
   width: 40vw;
 }
 
-/********** css for theme toggle *************/
+/********** css for theme toggle **********/
 :root {
   --bg: #f0f2f5;
   --card-bg: #f8f9fa;
-  --text: #000000;
+  --text: black;
   --primary: #4b6cb7;
   --secondary: #182848;
   --shadow: rgba(0, 0, 0, 0.06);
   --banner-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+  --scrollbar-color: var(--primary);
 }
 
 [data-theme='dark'] {
@@ -44,12 +45,15 @@ body {
   --secondary: #2d6cca;
   --shadow: rgba(0, 0, 0, 0.4);
   --banner-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+  --scrollbar-color: #ddd;
 }
 
+/********** general css **********/
 body {
+  font-family: 'Segoe UI', sans-serif;
   background: var(--bg);
   color: var(--text);
   transition:
-    background 0.3s,
-    color 0.3s;
+    background 0.5s,
+    color 0.5s;
 }

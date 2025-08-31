@@ -1,7 +1,12 @@
-<header>
-  <div class="theme-toggle">
+<header class="py-5 px-3">
+  <div class="toggle-button home-redirect">
+    <button id="homeRedirect">🏠 Home</button>
+  </div>
+
+  <div class="toggle-button theme-toggle">
     <button id="themeToggle" (click)="toggleTheme()">Toggle Theme</button>
   </div>
-  <h1 class="app-name">Zip-Utils</h1>
-  <p class="app-description">One place. Many tools. Quick and simple.</p>
+
+  <h1 class="app-name">{{ pageTitle }}</h1>
+  <p class="app-description my-2">{{ pageDescription }}</p>
 </header>

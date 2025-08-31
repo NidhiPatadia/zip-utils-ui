@@ -15,6 +15,8 @@ enum ThemeType {
 })
 export class HeaderComponent implements OnInit {
   private readonly isBrowser: boolean;
+  protected pageTitle = 'Zip-Utils';
+  protected pageDescription = 'One place. Many tools. Quick and simple.';
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
