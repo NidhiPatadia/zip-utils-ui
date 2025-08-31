@@ -7,6 +7,8 @@
     <button id="themeToggle" (click)="toggleTheme()">Toggle Theme</button>
   </div>
 
-  <h1 class="app-name">{{ pageTitle }}</h1>
-  <p class="app-description my-2">{{ pageDescription }}</p>
+  <h1 class="app-name">{{ pageTitleAndDescription().pageTitle }}</h1>
+  <p class="app-description my-2">
+    {{ pageTitleAndDescription().pageDescription }}
+  </p>
 </header>

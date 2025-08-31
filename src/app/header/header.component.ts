@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { HeaderService } from '../services/header/header.service';
 
 enum ThemeType {
   LIGHT = 'light',
@@ -16,8 +17,9 @@ enum ThemeType {
 })
 export class HeaderComponent implements OnInit {
   private readonly isBrowser: boolean;
-  protected pageTitle = 'Zip-Utils';
-  protected pageDescription = 'One place. Many tools. Quick and simple.';
+  private readonly headerService = inject(HeaderService);
+  protected pageTitleAndDescription =
+    this.headerService.pageTitleAndDescription;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
