@@ -1,0 +1,129 @@
+.footer-box {
+  background-color: #222;
+}
+
+.footer-head {
+  border-bottom: 1px solid #737373;
+}
+
+.footer-title {
+  width: 150px;
+  max-width: 100%;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+}
+
+.social-links {
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  color: white;
+}
+
+.follow-us-text {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 0.22px;
+}
+
+.social-icon-container {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.social-icon-container > li {
+  display: inline-block;
+  list-style: none;
+  margin: 0 5px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.social-icon-container .fb:hover {
+  color: #4267b2;
+}
+
+.social-icon-container .twitter:hover {
+  color: #1da1f2;
+}
+
+.social-icon-container .insta:hover {
+  color: #bc2a8d;
+}
+
+.social-icon-container .youtube:hover {
+  color: #ff0000;
+}
+
+.copyright-text {
+  font-family: 'Roboto Regular', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22px;
+  color: white;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .footer-title {
+    font-size: 1.5rem;
+  }
+
+  .follow-us-text,
+  .copyright-text {
+    font-size: 11px;
+    letter-spacing: 0.2px;
+  }
+
+  .social-icon-container {
+    padding-left: 8px;
+  }
+
+  .social-icon-container > li {
+    margin: 0 3px;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .footer-title {
+    font-size: 1.2rem;
+  }
+
+  .follow-us-text,
+  .copyright-text {
+    font-size: 11px;
+    letter-spacing: 0.2px;
+  }
+
+  .social-icon-container {
+    padding-left: 8px;
+  }
+
+  .social-icon-container > li {
+    margin: 0 3px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 575px) {
+  .footer-title {
+    font-size: 1rem;
+  }
+
+  .follow-us-text,
+  .copyright-text {
+    font-size: 9px;
+    letter-spacing: 0.1px;
+  }
+
+  .social-icon-container {
+    padding-left: 5px;
+  }
+
+  .social-icon-container > li {
+    margin: 0 2px;
+    font-size: 16px;
+  }
+}

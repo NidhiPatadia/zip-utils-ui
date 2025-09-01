@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
       error: (err) => {
         const msg = 'Server is down. Please try again later.';
         console.error(msg, err);
-        alert(msg);
+        if (this.isBrowser) alert(msg);
       },
       complete: () => {
         console.log('Completed healthCheck call...');
