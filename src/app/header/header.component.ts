@@ -2,6 +2,9 @@ import { Component, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderService } from '../services/header/header.service';
+import { CommonService } from '../services/common/common.service';
+import { IHealthCheckResponse } from '../models/common';
+import { ApolloQueryResult } from '@apollo/client/core/types';
 
 enum ThemeType {
   LIGHT = 'light',
@@ -17,6 +20,7 @@ enum ThemeType {
 })
 export class HeaderComponent implements OnInit {
   private readonly isBrowser: boolean;
+  private readonly commonService = inject(CommonService);
   private readonly headerService = inject(HeaderService);
   protected pageTitleAndDescription =
     this.headerService.pageTitleAndDescription;
@@ -26,15 +30,33 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let theme = ThemeType.LIGHT;
+    this.healthCheck();
 
     // if code is executing in browser then get theme from localStorage or user prefrence
+    let theme = ThemeType.LIGHT;
     if (this.isBrowser) {
       const storedTheme = localStorage.getItem('theme') as ThemeType;
       theme = storedTheme || this.detectSystemTheme();
     }
-
     this.applyTheme(theme);
+  }
+
+  healthCheck() {
+    this.commonService.healthCheck().subscribe({
+      next: (response: ApolloQueryResult<IHealthCheckResponse>) => {
+        if (response?.data?.healthCheck) {
+          console.log('Server is healthy...');
+        }
+      },
+      error: (err) => {
+        const msg = 'Server is down. Please try again later.';
+        console.error(msg, err);
+        alert(msg);
+      },
+      complete: () => {
+        console.log('Completed healthCheck call...');
+      },
+    });
   }
 
   private detectSystemTheme(): ThemeType {
