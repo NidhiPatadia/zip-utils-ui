@@ -1,0 +1,43 @@
+.main-content-url {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.tool-box {
+  background: var(--card-bg);
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 16px var(--shadow);
+  max-width: 800px;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.tool-box input {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.tool-box button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.tool-box button:hover {
+  background: var(--secondary);
+}

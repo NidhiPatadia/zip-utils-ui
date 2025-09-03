@@ -1,0 +1,9 @@
+.main-content-qr {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 16px var(--shadow);
+  text-align: center;
+}
