@@ -57,3 +57,16 @@ body {
     background 0.5s,
     color 0.5s;
 }
+
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty,
+textarea.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-dirty {
+  border-color: red !important;
+  color: red !important;
+}
+
+.validation-error {
+  font-style: italic;
+  color: red;
+}
