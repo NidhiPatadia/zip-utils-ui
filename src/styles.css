@@ -70,3 +70,29 @@ textarea.ng-invalid.ng-dirty {
   font-style: italic;
   color: red;
 }
+
+
+/* Chrome, Safari, Edge */
+textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 0.75rem;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 0.75rem;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Firefox */
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) #f1f1f1;
+}
