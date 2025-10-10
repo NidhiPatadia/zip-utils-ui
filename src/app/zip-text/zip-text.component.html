@@ -1,6 +1,10 @@
 <div class="main-content-text">
   <div class="textarea-flex-wrapper">
-    <textarea [(ngModel)]="textInput" rows="8" placeholder="Paste your text here..."></textarea>
+    <textarea
+      [(ngModel)]="textInput"
+      rows="8"
+      placeholder="Paste your text here..."
+    ></textarea>
     <div class="button-row">
       <div class="dropdown-group">
         <label for="expiry-select">Expiry Time:</label>
@@ -12,7 +16,9 @@
           <option value="1440">1 day</option>
         </select>
       </div>
-      <button [disabled]="!textInput.trim()" (click)="generateLink()">Generate Link</button>
+      <button [disabled]="!textInput.trim()" (click)="generateLink()">
+        Generate Link
+      </button>
     </div>
   </div>
 </div>

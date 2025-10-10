@@ -30,14 +30,19 @@ export class ZipTextComponent implements OnInit {
   generateLink() {
     if (!this.textInput.trim()) return;
     this.commonService.setTempText(this.textInput);
-    this.commonService.generateZipTextUrl(this.textInput, parseInt(this.expiryInMinutes.toString(), 10)).subscribe({
-      next: (response) => {
-        const id = response.data?.generateZipTextUrl;
-        if (id) {
-          this.router.navigate(['/t', id]);
-        }
-      },
-      error: (err) => console.error('Error generating link', err),
-    });
+    this.commonService
+      .generateZipTextUrl(
+        this.textInput,
+        parseInt(this.expiryInMinutes.toString(), 10),
+      )
+      .subscribe({
+        next: (response) => {
+          const id = response.data?.generateZipTextUrl;
+          if (id) {
+            this.router.navigate(['/t', id]);
+          }
+        },
+        error: (err) => console.error('Error generating link', err),
+      });
   }
 }
