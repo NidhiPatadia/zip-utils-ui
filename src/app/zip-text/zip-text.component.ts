@@ -16,9 +16,16 @@ export class ZipTextComponent implements OnInit {
   private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
   private readonly router = inject(Router);
+  readonly expiryTimes = [
+    { text: '10 min', value: 10 },
+    { text: '30 min', value: 30 },
+    { text: '1 hour', value: 60 },
+    { text: '6 hours', value: 360 },
+    { text: '1 day', value: 1440 },
+  ];
 
-  textInput: string = '';
-  expiryInMinutes: number = 10;
+  textInput = '';
+  expiryInMinutes = 10;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
