@@ -62,14 +62,14 @@ jobs:
             echo "Building for production (auto merge deploy)..."
 
             npm run build:prod
-            DEPLOY_REPO="mochinikunj/zip-utils-ui-prod"
+            echo "DEPLOY_REPO=mochinikunj/zip-utils-ui-prod" >> $GITHUB_ENV
 
           else
             ENVIRONMENT=${{ github.event.inputs.environment }}
             echo "Building for ${ENVIRONMENT} environment (manual deploy)..."
             
             npm run build:${ENVIRONMENT}
-            DEPLOY_REPO="mochinikunj/zip-utils-ui-${ENVIRONMENT}"
+            echo "DEPLOY_REPO=mochinikunj/zip-utils-ui-${ENVIRONMENT}" >> $GITHUB_ENV
           fi
 
           cd dist/zip-utils-ui/browser
@@ -89,6 +89,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ env.DEPLOY_REPO }}
+          token: ${{ secrets.ZIP_UTILS_UI_DEPLOY_TOKEN }}
 
       - name: Copy Compiled JS
         run: |
