@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HeaderService } from '../services/header/header.service';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../enums/common';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-zip-text',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',
 })
