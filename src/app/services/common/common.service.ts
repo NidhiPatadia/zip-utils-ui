@@ -1,8 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { GraphQL } from '../../graphql/zip-utils.graphql';
-import { IHealthCheckResponse, IGenerateZipTextUrlResponse, IGetZipTextUrlResponse } from '../../models/common';
-
+import {
+  IHealthCheckResponse,
+  IGenerateZipTextUrlResponse,
+  IGetZipTextUrlResponse,
+} from '../../models/common';
 
 @Injectable({
   providedIn: 'root',
