@@ -12,9 +12,14 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch to deploy'
+        description: 'Branch to deploy (dev/test/main)'
         required: true
         default: 'dev'
+        type: choice
+        options:
+          - dev
+          - test
+          - main
       environment:
         description: 'Environment to deploy (dev/prod)'
         required: true
