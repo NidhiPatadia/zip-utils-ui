@@ -1,19 +1,123 @@
 name: zip-utils-ui ci/cd
-on: workflow_dispatch
-jobs:
-  Test:
-    runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: zip-utils-ui
+on:
+  # Option 1: Auto trigger only when PR merged into 'prod' branch
+  pull_request:
+    branches:
+      - prod
+    types:
+      - closed
+
+  # Option 2: Manual trigger
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'dev'
+      environment:
+        description: 'Environment to deploy (dev/prod)'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  test:
+    # Run only when manual or when PR is merged
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.event.pull_request.base.ref || github.ref_name }}
+
       - name: Setup Node.js latest version
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm test
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:ci
+
+  build-and-deploy:
+    # Run only when manual or when PR is merged
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.event.pull_request.base.ref || github.ref_name }}
+
+      - name: Setup Node.js latest version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular app
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "Building for production (auto merge deploy)..."
+
+            npm run build:prod
+            DEPLOY_REPO="mochinikunj/zip-utils-ui-prod"
+
+          else
+            ENVIRONMENT=${{ github.event.inputs.environment }}
+            echo "Building for ${ENVIRONMENT} environment (manual deploy)..."
+            
+            npm run build:${ENVIRONMENT}
+            DEPLOY_REPO="mochinikunj/zip-utils-ui-${ENVIRONMENT}"
+          fi
+
+          cd dist/zip-utils-ui/browser
+          mv index.csr.html index.html
+          cp index.html 404.html
+          cp ../../../robots.txt . || echo "robots.txt not found, skipping"
+          cp ../../../sitemap.xml . || echo "sitemap.xml not found, skipping"
+
+          # Create CNAME file dynamically based on environment
+          if [[ "${{ github.event_name }}" == "pull_request" || "${{ github.event.inputs.environment }}" == "prod" ]]; then
+            echo "ziputils.com" > CNAME
+          else
+            echo "dev.ziputils.com" > CNAME
+          fi
+
+      - name: Checkout Compiled JS Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.DEPLOY_REPO }}
+
+      - name: Copy Compiled JS
+        run: |
+          # Copy files from dist/zip-utils-ui/browser to compiled-js/, replacing existing files
+          cp -r dist/zip-utils-ui/browser/* compiled-js/
+          echo "Copied compiled JS files to compiled-js, replacing existing files"
+
+      - name: Commit and Push from compiled-js to GitHub repo
+        run: |
+          cd compiled-js
+          git config user.name "Nikunj Mochi"
+          git config user.email "mochinikunj2@gmail.com "
+          git add .
+          git commit -m "Update compiled JS from zip-utils-ui's branch build"
+          git push
