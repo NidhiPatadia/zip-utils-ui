@@ -1,95 +1,78 @@
-name: zip-utils-ui ci/cd
+name: Deploy to GitHub Pages
 
 on:
-  # Option 1: Auto trigger only when PR merged into 'prod' branch
   pull_request:
-    branches:
-      - prod
-    types:
-      - closed
-
-  # Option 2: Manual trigger
+    types: [closed]
+    branches: [dev, prod]
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to deploy (dev/test/main)'
-        required: true
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - test
-          - main
-      environment:
-        description: 'Environment to deploy (dev/prod)'
-        required: true
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - prod
 
 jobs:
-  build-and-deploy:
-    # Run only when manual or when PR is merged
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
-
+  setup:
     runs-on: ubuntu-latest
-
+    outputs:
+      should-deploy: ${{ steps.check.outputs.should-deploy }}
+      source-branch: ${{ steps.check.outputs.source-branch }}
     steps:
-      - name: Check out repository code
+      - name: Check deployment conditions
+        id: check
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.pull_request.merged }}" == "true" && ("${{ github.event.pull_request.base.ref }}" == "dev" || "${{ github.event.pull_request.base.ref }}" == "prod") ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "source-branch=${{ github.event.pull_request.base.ref }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" && ("${{ github.ref_name }}" == "dev" || "${{ github.ref_name }}" == "prod") ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "source-branch=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+            echo "source-branch=" >> $GITHUB_OUTPUT
+          fi
+
+  deploy:
+    needs: setup
+    runs-on: ubuntu-latest
+    if: ${{ needs.setup.outputs.should-deploy == 'true' }}
+    steps:
+      - name: Checkout source repo
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.event.pull_request.base.ref || github.ref_name }}
+          ref: ${{ needs.setup.outputs.source-branch }}
 
-      - name: Setup Node.js latest version
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      # - name: Run tests
-      #   run: npm run test:ci
-
       - name: Build Angular app
         run: |
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-            echo "Building for production (auto merge deploy)..."
-
-            npm run build:prod
-            echo "DEPLOY_REPO=mochinikunj/zip-utils-ui-prod" >> $GITHUB_ENV
-
-          else
-            ENVIRONMENT=${{ github.event.inputs.environment }}
-            echo "Building for ${ENVIRONMENT} environment (manual deploy)..."
-            
-            npm run build:${ENVIRONMENT}
-            echo "DEPLOY_REPO=mochinikunj/zip-utils-ui-${ENVIRONMENT}" >> $GITHUB_ENV
-          fi
-
+          npm run build:${{ needs.setup.outputs.source-branch }}
+          echo "repo_suffix=${{ needs.setup.outputs.source-branch }}" >> $GITHUB_ENV
           cd dist/zip-utils-ui/browser
+
           mv index.csr.html index.html
           cp index.html 404.html
           cp ../../../robots.txt . || echo "robots.txt not found, skipping"
           cp ../../../sitemap.xml . || echo "sitemap.xml not found, skipping"
 
           # Create CNAME file dynamically based on environment
-          if [[ "${{ github.event_name }}" == "pull_request" || "${{ github.event.inputs.environment }}" == "prod" ]]; then
+          if [ ${{ needs.setup.outputs.source-branch }} == "prod" ]; then
             echo "ziputils.com" > CNAME
           else
             echo "dev.ziputils.com" > CNAME
           fi
 
-      - name: Checkout Compiled JS Repository
+      - name: Checkout target repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ env.DEPLOY_REPO }}
-          token: ${{ secrets.ZIP_UTILS_UI_DEPLOY_TOKEN }}
+          repository: mochinikunj/zip-utils-ui-${{ env.repo_suffix }}
+          path: compiled-js
+
+      - name: Copy build files to target
+        run: |
+          cp -r dist/zip-utils-ui/browser/* compiled-js/
 
       - name: Copy Compiled JS
         run: |
