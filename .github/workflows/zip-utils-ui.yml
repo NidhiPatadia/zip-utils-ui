@@ -5,29 +5,12 @@ on:
   pull_request:
     branches:
       - prod
+      - dev
     types:
       - closed
 
   # Option 2: Manual trigger
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to deploy (dev/test/main)'
-        required: true
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - test
-          - main
-      environment:
-        description: 'Environment to deploy (dev/prod)'
-        required: true
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - prod
 
 jobs:
   build-and-deploy:
@@ -90,9 +73,15 @@ jobs:
         with:
           repository: ${{ env.DEPLOY_REPO }}
           token: ${{ secrets.ZIP_UTILS_UI_DEPLOY_TOKEN }}
+          path: compiled-js
 
       - name: Copy Compiled JS
         run: |
+          pwd
+          ls
+          ls ../
+          ls ../../
+          ls ../../../
           # Copy files from dist/zip-utils-ui/browser to compiled-js/, replacing existing files
           cp -r dist/zip-utils-ui/browser/* compiled-js/
           echo "Copied compiled JS files to compiled-js, replacing existing files"
