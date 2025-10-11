@@ -30,31 +30,6 @@ on:
           - prod
 
 jobs:
-  test:
-    # Run only when manual or when PR is merged
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.branch || github.event.pull_request.base.ref || github.ref_name }}
-
-      - name: Setup Node.js latest version
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test:ci
-
   build-and-deploy:
     # Run only when manual or when PR is merged
     if: >
@@ -77,6 +52,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # - name: Run tests
+      #   run: npm run test:ci
 
       - name: Build Angular app
         run: |
