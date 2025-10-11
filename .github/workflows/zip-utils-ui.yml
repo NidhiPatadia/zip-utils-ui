@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: zip-utils-ui ci/cd
 
 on:
   pull_request:
@@ -68,6 +68,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: mochinikunj/zip-utils-ui-${{ env.repo_suffix }}
+          token: ${{ secrets.ZIP_UTILS_UI_DEPLOY_TOKEN }}
           path: compiled-js
 
       - name: Copy build files to target
