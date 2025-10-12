@@ -9,8 +9,11 @@
       <div class="dropdown-group">
         <label for="expiry-select">Expiry Time:</label>
         <select id="expiry-select" [(ngModel)]="expiryInMinutes">
-          <option *ngFor="let expiry of expiryTimes" [value]="expiry.value">
-            {{ expiry.text }}
+          <option
+            *ngFor="let expiryTime of expiryTimes"
+            [value]="expiryTime.value"
+          >
+            {{ expiryTime.text }}
           </option>
         </select>
       </div>
