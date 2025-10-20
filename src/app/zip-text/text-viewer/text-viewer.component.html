@@ -1,0 +1,35 @@
+<div class="main-content-text">
+  <div class="textarea-flex-wrapper">
+    <textarea rows="8" readonly>{{ text }}</textarea>
+    <button
+      class="copy-text-btn"
+      (click)="copyText()"
+      [class.copied]="textCopied"
+      title="Copy text"
+    >
+      <span *ngIf="!textCopied"><i class="fa-solid fa fa-copy"></i></span>
+      <span *ngIf="textCopied"
+        ><i class="fa-solid fa fa-clipboard-check"></i
+      ></span>
+    </button>
+  </div>
+
+  <div class="copy-url-wrapper">
+    <span class="copy-url-label">Copy URL:</span>
+    <div class="copy-url-box">
+      <span class="url-text">{{ currentUrl }}</span>
+      <button
+        class="copy-btn"
+        (click)="copyUrl()"
+        [class.copied]="copied"
+        title="Copy link"
+      >
+        <span *ngIf="!copied"><i class="fa-solid fa fa-copy"></i></span>
+        <span *ngIf="copied"
+          ><i class="fa-solid fa fa-clipboard-check"></i
+        ></span>
+      </button>
+    </div>
+  </div>
+  <div class="snackbar" *ngIf="showSnackbar">✅ Copied to clipboard!</div>
+</div>

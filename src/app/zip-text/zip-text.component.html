@@ -1,6 +1,25 @@
 <div class="main-content-text">
-  <h3>Enter your text</h3>
-  <textarea rows="8" placeholder="Paste your text here..."></textarea>
-  <br />
-  <button>Generate Link</button>
+  <div class="textarea-flex-wrapper">
+    <textarea
+      [(ngModel)]="textInput"
+      rows="8"
+      placeholder="Paste your text here..."
+    ></textarea>
+    <div class="button-row">
+      <div class="dropdown-group">
+        <label for="expiry-select">Expiry Time:</label>
+        <select id="expiry-select" [(ngModel)]="expiryInMinutes">
+          <option
+            *ngFor="let expiryTime of expiryTimes"
+            [value]="expiryTime.value"
+          >
+            {{ expiryTime.text }}
+          </option>
+        </select>
+      </div>
+      <button [disabled]="!textInput.trim()" (click)="generateLink()">
+        Generate Link
+      </button>
+    </div>
+  </div>
 </div>
