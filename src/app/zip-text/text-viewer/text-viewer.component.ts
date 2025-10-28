@@ -76,4 +76,8 @@ export class ZipTextViewerComponent implements OnInit {
       }, 2000);
     }
   }
+
+  goBack() {
+    this.router.navigate(['/text']);
+  }
 }
