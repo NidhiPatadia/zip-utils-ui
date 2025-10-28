@@ -1,4 +1,7 @@
 <div class="main-content-text">
+  <button class="back-btn" (click)="goBack()" title="Go back">
+    <i class="fa-solid fa-arrow-left fa"></i> Back
+  </button>
   <div class="textarea-flex-wrapper">
     <textarea rows="8" readonly>{{ text }}</textarea>
     <button
@@ -8,9 +11,7 @@
       title="Copy text"
     >
       <span *ngIf="!textCopied"><i class="fa-solid fa fa-copy"></i></span>
-      <span *ngIf="textCopied"
-        ><i class="fa-solid fa fa-clipboard-check"></i
-      ></span>
+      <span *ngIf="textCopied"><i class="fa-solid fa fa-clipboard-check"></i></span>
     </button>
   </div>
 
@@ -25,11 +26,10 @@
         title="Copy link"
       >
         <span *ngIf="!copied"><i class="fa-solid fa fa-copy"></i></span>
-        <span *ngIf="copied"
-          ><i class="fa-solid fa fa-clipboard-check"></i
-        ></span>
+        <span *ngIf="copied"><i class="fa-solid fa fa-clipboard-check"></i></span>
       </button>
     </div>
   </div>
+
   <div class="snackbar" *ngIf="showSnackbar">✅ Copied to clipboard!</div>
 </div>
