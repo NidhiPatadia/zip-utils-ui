@@ -27,6 +27,7 @@ export class ZipTextComponent implements OnInit {
 
   textInput = '';
   expiryInMinutes = 10;
+  loading = false;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
@@ -37,6 +38,8 @@ export class ZipTextComponent implements OnInit {
 
   generateLink() {
     if (!this.textInput.trim()) return;
+
+    this.loading = true;
     this.commonService.setTempText(this.textInput);
     this.commonService
       .generateZipTextUrl(
@@ -47,7 +50,12 @@ export class ZipTextComponent implements OnInit {
         next: (response) => {
           const id = response.data?.generateZipTextUrl;
           if (id) {
-            this.router.navigate(['/t', id]);
+            setTimeout(() => {
+              this.loading = false;
+              this.router.navigate(['/t', id]);
+            }, 300);
+          } else {
+            this.loading = false;
           }
         },
         error: (err) => console.error('Error generating link', err),
