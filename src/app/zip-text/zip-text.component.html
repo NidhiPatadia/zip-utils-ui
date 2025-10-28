@@ -1,10 +1,11 @@
-<div class="main-content-text">
+<div class="main-content-text" [class.fade-out]="loading">
   <div class="textarea-flex-wrapper">
     <textarea
       [(ngModel)]="textInput"
       rows="8"
       placeholder="Paste your text here..."
     ></textarea>
+
     <div class="button-row">
       <div class="dropdown-group">
         <label for="expiry-select">Expiry Time:</label>
@@ -17,9 +18,16 @@
           </option>
         </select>
       </div>
+
       <button [disabled]="!textInput.trim()" (click)="generateLink()">
         Generate Link
       </button>
     </div>
+  </div>
+
+  <!-- Loader overlay -->
+  <div class="loader-overlay" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Generating link...</p>
   </div>
 </div>
