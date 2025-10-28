@@ -4,7 +4,8 @@ import { CommonService } from '../../services/common/common.service';
 import { ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { HeaderService } from '../../services/header/header.service';
+import { PAGE_DESCRIPTION, PAGE_TITLE } from '../../enums/common';
 @Component({
   selector: 'app-text-viewer',
   standalone: true,
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 export class ZipTextViewerComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
   private readonly router = inject(Router);
 
@@ -28,6 +30,11 @@ export class ZipTextViewerComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     const tempText = this.commonService.getTempText();
+
+    this.headerService.setTitleAndDescription({
+      pageTitle: PAGE_TITLE.ZIP_TEXT,
+      pageDescription: PAGE_DESCRIPTION.ZIP_TEXT,
+    });
 
     if (tempText) {
       this.text = tempText;
