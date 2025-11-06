@@ -29,6 +29,10 @@ export const routes: Routes = [
     component: ZipTextViewerComponent,
   },
   {
+    path: 'u/:id',
+    component: ZipUrlComponent,
+  },
+  {
     path: '404',
     component: PageNotFoundComponent,
   },
