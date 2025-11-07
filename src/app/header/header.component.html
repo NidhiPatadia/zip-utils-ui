@@ -2,11 +2,12 @@
   <div class="toggle-button home-redirect">
     <button id="homeRedirect" routerLink="/">🏠 Home</button>
   </div>
-
   <div class="toggle-button theme-toggle">
-    <button id="themeToggle" (click)="toggleTheme()">Toggle Theme</button>
+    <button id="themeToggle" (click)="toggleTheme()">
+      <span *ngIf="currentTheme === 'light'"><i class="fa fa-moon"></i> Dark</span>
+      <span *ngIf="currentTheme === 'dark'"><i class="fa fa-sun yellow-sun"></i> Light</span>
+    </button>
   </div>
-
   <h1 class="app-name">{{ pageTitleAndDescription().pageTitle }}</h1>
   <p class="app-description my-2">
     {{ pageTitleAndDescription().pageDescription }}
