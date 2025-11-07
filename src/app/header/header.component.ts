@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderService } from '../services/header/header.service';
@@ -14,7 +15,7 @@ enum ThemeType {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
   private readonly isBrowser: boolean;
   private readonly commonService = inject(CommonService);
   private readonly headerService = inject(HeaderService);
+  protected currentTheme: ThemeType = ThemeType.LIGHT;
   protected pageTitleAndDescription =
     this.headerService.pageTitleAndDescription;
 
@@ -70,6 +72,7 @@ export class HeaderComponent implements OnInit {
   private applyTheme(theme: ThemeType) {
     if (!this.isBrowser) return;
 
+    this.currentTheme = theme;
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }
