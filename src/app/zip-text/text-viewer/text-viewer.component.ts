@@ -26,6 +26,7 @@ export class ZipTextViewerComponent implements OnInit {
   copied = false;
   textCopied = false;
   showSnackbar = false;
+  backButtonText: string = '';
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -39,7 +40,9 @@ export class ZipTextViewerComponent implements OnInit {
     if (tempText) {
       this.text = tempText;
       this.commonService.clearTempText();
+      this.backButtonText = 'Back';
     } else if (this.id) {
+      this.backButtonText = 'Add New Text';
       this.commonService.getZipText(this.id).subscribe({
         next: (response: any) => {
           this.text = response.data?.getZipText || '';
