@@ -67,7 +67,13 @@ export class ZipUrlComponent implements OnInit {
     this.loading = true;
     this.commonService
       .generateZipShortUrl(url)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(
+        finalize(() =>
+          setTimeout(() => {
+            this.loading = false;
+          }, 300),
+        ),
+      )
       .subscribe({
         next: (response) => {
           const shortUrl = response?.data?.generateUrl;

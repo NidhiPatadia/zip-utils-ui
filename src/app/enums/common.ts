@@ -11,5 +11,5 @@ export enum PAGE_DESCRIPTION {
   ZIP_TEXT = 'Paste and share text instantly using a unique link.',
   ZIP_URL = 'Shorten long URLs into simple, shareable links.',
   ZIP_QR = 'Generate QR codes for links, text, or any data in one click.',
-  NOT_FOUND = 'The page you are looking for does not exist or may have been moved.',
+  NOT_FOUND = 'The page you are looking for does not exist or may have been removed.',
 }
