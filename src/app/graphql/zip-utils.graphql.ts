@@ -18,4 +18,16 @@ export const GraphQL = {
       getZipText(url: $id)
     }
   `,
+
+  generateZipShortUrl: gql`
+    mutation GenerateZipShortUrl($url: String!) {
+      generateUrl(url: $url)
+    }
+  `,
+
+  getZipShortUrl: gql`
+    query GetZipShortUrl($url: String!) {
+      getUrl(url: $url)
+    }
+  `,
 };
