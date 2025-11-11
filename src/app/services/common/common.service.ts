@@ -5,6 +5,8 @@ import {
   IHealthCheckResponse,
   IGenerateZipTextUrlResponse,
   IGetZipTextUrlResponse,
+  IGetZipShortUrlResponse,
+  IGenerateZipShortUrlResponse,
 } from '../../models/common';
 
 @Injectable({
@@ -40,6 +42,21 @@ export class CommonService {
         text,
         expiryInMinutes,
       },
+    });
+  }
+
+  generateZipShortUrl(url: string) {
+    return this.apollo.mutate<IGenerateZipShortUrlResponse>({
+      mutation: GraphQL.generateZipShortUrl,
+      variables: { url },
+    });
+  }
+
+  getZipShortUrl(id: String) {
+    return this.apollo.query<IGetZipShortUrlResponse>({
+      query: GraphQL.getZipShortUrl,
+      variables: { url: id },
+      fetchPolicy: 'no-cache',
     });
   }
 

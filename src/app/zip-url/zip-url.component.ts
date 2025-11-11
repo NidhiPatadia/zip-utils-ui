@@ -1,13 +1,17 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HeaderService } from '../services/header/header.service';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../enums/common';
+import { CommonService } from '../services/common/common.service';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-zip-url',
@@ -17,8 +21,18 @@ import { PAGE_DESCRIPTION, PAGE_TITLE } from '../enums/common';
   styleUrl: './zip-url.component.css',
 })
 export class ZipUrlComponent implements OnInit {
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly headerService = inject(HeaderService);
+  private readonly commonService = inject(CommonService);
   readonly urlForm: FormGroup;
+
+  loading = false;
+  id: string | null = null;
+  shortUrl = '';
+  copied = false;
+  showSnackbar = false;
 
   constructor(private fb: FormBuilder) {
     const URL_REGEX =
@@ -34,13 +48,90 @@ export class ZipUrlComponent implements OnInit {
       pageTitle: PAGE_TITLE.ZIP_URL,
       pageDescription: PAGE_DESCRIPTION.ZIP_URL,
     });
+
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.getShortUrl(this.id);
+    }
   }
 
   onSubmit() {
     if (this.urlForm.valid) {
       const url = this.urlForm.value.url;
       console.log('URL to shorten:', url);
-      // 👉 Call your shortening service here
+      this.generateShortUrl(url);
+    }
+  }
+
+  generateShortUrl(url: string) {
+    this.loading = true;
+    this.commonService
+      .generateZipShortUrl(url)
+      .pipe(
+        finalize(() =>
+          setTimeout(() => {
+            this.loading = false;
+          }, 300),
+        ),
+      )
+      .subscribe({
+        next: (response) => {
+          const shortUrl = response?.data?.generateUrl;
+          if (!shortUrl) {
+            throw new Error();
+          }
+          this.shortUrl = `${environment.angularUrl}/u/${shortUrl}`;
+          this.urlForm.reset();
+        },
+        error: (err) => {
+          const errMsg = `Error generating link, ${err}`;
+          console.error(errMsg);
+          alert(errMsg);
+        },
+      });
+  }
+
+  getShortUrl(id: string) {
+    this.loading = true;
+    this.commonService
+      .getZipShortUrl(id)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (response) => {
+          const shortUrl = response?.data?.getUrl;
+          if (!shortUrl) {
+            throw new Error(`No URL found for the id: ${id}`);
+          }
+          this.openUrl(shortUrl);
+        },
+        error: (err) => {
+          console.error('Error fetching URL', err);
+          this.router.navigate(['/404']);
+        },
+      });
+  }
+
+  copyUrl() {
+    if (isPlatformBrowser(this.platformId)) {
+      navigator.clipboard.writeText(this.shortUrl);
+      this.copied = true;
+      this.showSnackbar = true;
+
+      setTimeout(() => {
+        this.copied = false;
+        this.showSnackbar = false;
+      }, 2000);
+    }
+  }
+
+  openUrl(url: string) {
+    if (isPlatformBrowser(this.platformId)) {
+      url = url.trim();
+      // If user forgot protocol, assume https://
+      if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url)) {
+        url = 'https://' + url;
+      }
+      window.location.assign(url);
     }
   }
 }
