@@ -23,6 +23,7 @@ export class ZipTextComponent implements OnInit {
     { text: '1 hour', value: 60 },
     { text: '6 hours', value: 360 },
     { text: '1 day', value: 1440 },
+    { text: 'No Expiry', value: null }
   ];
 
   textInput = '';
@@ -41,10 +42,11 @@ export class ZipTextComponent implements OnInit {
 
     this.loading = true;
     this.commonService.setTempText(this.textInput);
+    const expiry = this.expiryInMinutes ? parseInt(this.expiryInMinutes.toString(), 10) : null;
     this.commonService
       .generateZipTextUrl(
         this.textInput,
-        parseInt(this.expiryInMinutes.toString(), 10),
+        expiry,
       )
       .subscribe({
         next: (response) => {

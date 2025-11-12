@@ -33,7 +33,7 @@ export class CommonService {
     });
   }
 
-  generateZipTextUrl(text: string, expiryInMinutes: number) {
+  generateZipTextUrl(text: string, expiryInMinutes: number | null) {
     const MUTATION = GraphQL.generateZipTextUrl;
 
     return this.apollo.mutate<IGenerateZipTextUrlResponse>({
