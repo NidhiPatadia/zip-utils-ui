@@ -5,11 +5,12 @@ import { HeaderService } from '../services/header/header.service';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../enums/common';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 
 @Component({
   selector: 'app-zip-text',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, LoaderOverlayComponent],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',
 })

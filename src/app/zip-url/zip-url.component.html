@@ -32,30 +32,7 @@
   </form>
 
   <div *ngIf="shortUrl">
-    <div class="copy-url-wrapper">
-      <span class="copy-url-label">Copy URL:</span>
-      <div class="copy-url-box">
-        <span class="url-text">{{ shortUrl }}</span>
-        <button
-          class="copy-btn"
-          (click)="copyUrl()"
-          [class.copied]="copied"
-          title="Copy link"
-        >
-          <span *ngIf="!copied"><i class="fa-solid fa fa-copy"></i></span>
-          <span *ngIf="copied">
-            <i class="fa-solid fa fa-clipboard-check"></i>
-          </span>
-        </button>
-      </div>
-    </div>
-
-    <div class="snackbar" *ngIf="showSnackbar">✅ Copied to clipboard!</div>
+    <app-copy-url-box [shortUrl]="shortUrl"></app-copy-url-box>
   </div>
-
-  <!-- Loader overlay -->
-  <div class="loader-overlay" *ngIf="loading">
-    <div class="spinner"></div>
-    <p>Processing...</p>
-  </div>
+  <app-loader-overlay *ngIf="loading" [message]="'Processing...'"></app-loader-overlay>
 </div>

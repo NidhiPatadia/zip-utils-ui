@@ -6,10 +6,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../services/header/header.service';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../../enums/common';
+import { CopyUrlBoxComponent } from '../../copy-url-box/copy-url-box.component';
+
 @Component({
   selector: 'app-text-viewer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CopyUrlBoxComponent],
   templateUrl: './text-viewer.component.html',
   styleUrl: './text-viewer.component.css',
 })
@@ -23,9 +25,7 @@ export class ZipTextViewerComponent implements OnInit {
   id: string | null = null;
   text: string = '';
   currentUrl: string = '';
-  copied = false;
   textCopied = false;
-  showSnackbar = false;
   backButtonText: string = '';
 
   ngOnInit(): void {
@@ -61,28 +61,13 @@ export class ZipTextViewerComponent implements OnInit {
     }
   }
 
-  copyUrl() {
-    if (isPlatformBrowser(this.platformId)) {
-      navigator.clipboard.writeText(this.currentUrl);
-      this.copied = true;
-      this.showSnackbar = true;
-
-      setTimeout(() => {
-        this.copied = false;
-        this.showSnackbar = false;
-      }, 2000);
-    }
-  }
-
   copyText() {
     if (isPlatformBrowser(this.platformId)) {
       navigator.clipboard.writeText(this.text);
       this.textCopied = true;
-      this.showSnackbar = true;
 
       setTimeout(() => {
         this.textCopied = false;
-        this.showSnackbar = false;
       }, 2000);
     }
   }
