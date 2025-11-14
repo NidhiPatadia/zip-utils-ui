@@ -24,7 +24,7 @@ export class ZipTextComponent implements OnInit {
     { text: '1 hour', value: 60 },
     { text: '6 hours', value: 360 },
     { text: '1 day', value: 1440 },
-    { text: 'No Expiry', value: null }
+    { text: 'No Expiry', value: null },
   ];
 
   textInput = '';
@@ -43,25 +43,22 @@ export class ZipTextComponent implements OnInit {
 
     this.loading = true;
     this.commonService.setTempText(this.textInput);
-    const expiry = this.expiryInMinutes ? parseInt(this.expiryInMinutes.toString(), 10) : null;
-    this.commonService
-      .generateZipTextUrl(
-        this.textInput,
-        expiry,
-      )
-      .subscribe({
-        next: (response) => {
-          const id = response.data?.generateZipTextUrl;
-          if (id) {
-            setTimeout(() => {
-              this.loading = false;
-              this.router.navigate(['/t', id]);
-            }, 300);
-          } else {
+    const expiry = this.expiryInMinutes
+      ? parseInt(this.expiryInMinutes.toString(), 10)
+      : null;
+    this.commonService.generateZipTextUrl(this.textInput, expiry).subscribe({
+      next: (response) => {
+        const id = response.data?.generateZipTextUrl;
+        if (id) {
+          setTimeout(() => {
             this.loading = false;
-          }
-        },
-        error: (err) => console.error('Error generating link', err),
-      });
+            this.router.navigate(['/t', id]);
+          }, 300);
+        } else {
+          this.loading = false;
+        }
+      },
+      error: (err) => console.error('Error generating link', err),
+    });
   }
 }

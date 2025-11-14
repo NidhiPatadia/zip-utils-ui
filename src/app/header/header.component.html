@@ -4,8 +4,12 @@
   </div>
   <div class="toggle-button theme-toggle">
     <button id="themeToggle" (click)="toggleTheme()">
-      <span *ngIf="currentTheme === 'light'"><i class="fa fa-moon"></i> Dark</span>
-      <span *ngIf="currentTheme === 'dark'"><i class="fa fa-sun yellow-sun"></i> Light</span>
+      <span *ngIf="currentTheme === 'light'"
+        ><i class="fa fa-moon"></i> Dark</span
+      >
+      <span *ngIf="currentTheme === 'dark'"
+        ><i class="fa fa-sun yellow-sun"></i> Light</span
+      >
     </button>
   </div>
   <h1 class="app-name">{{ pageTitleAndDescription().pageTitle }}</h1>

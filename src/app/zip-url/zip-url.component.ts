@@ -18,7 +18,12 @@ import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.compone
 @Component({
   selector: 'app-zip-url',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CopyUrlBoxComponent, LoaderOverlayComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    CopyUrlBoxComponent,
+    LoaderOverlayComponent,
+  ],
   templateUrl: './zip-url.component.html',
   styleUrl: './zip-url.component.css',
 })

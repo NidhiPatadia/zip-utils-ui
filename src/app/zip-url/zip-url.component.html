@@ -34,5 +34,8 @@
   <div *ngIf="shortUrl">
     <app-copy-url-box [shortUrl]="shortUrl"></app-copy-url-box>
   </div>
-  <app-loader-overlay *ngIf="loading" [message]="'Processing...'"></app-loader-overlay>
+  <app-loader-overlay
+    *ngIf="loading"
+    [message]="'Processing...'"
+  ></app-loader-overlay>
 </div>

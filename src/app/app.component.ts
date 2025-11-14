@@ -10,7 +10,13 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, PageNotFoundComponent, CommonModule],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    PageNotFoundComponent,
+    CommonModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
