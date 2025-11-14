@@ -1,11 +1,16 @@
-<div class="custom-container">
-  <div class="header-container">
-    <app-header></app-header>
+<ng-container *ngIf="!showNotFoundPage; else notFound">
+  <div class="custom-container">
+    <div class="header-container">
+      <app-header></app-header>
+    </div>
+    <div class="main-content">
+      <router-outlet />
+    </div>
+    <div class="footer-container">
+      <app-footer></app-footer>
+    </div>
   </div>
-  <div class="main-content">
-    <router-outlet />
-  </div>
-  <div class="footer-container">
-    <app-footer></app-footer>
-  </div>
-</div>
+</ng-container>
+<ng-template #notFound>
+  <app-page-not-found></app-page-not-found>
+</ng-template>

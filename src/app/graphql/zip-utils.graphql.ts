@@ -8,7 +8,7 @@ export const GraphQL = {
   `,
 
   generateZipTextUrl: gql`
-    mutation GenerateZipTextUrl($text: String!, $expiryInMinutes: Int!) {
+    mutation GenerateZipTextUrl($text: String!, $expiryInMinutes: Int) {
       generateZipTextUrl(text: $text, expiryInMinutes: $expiryInMinutes)
     }
   `,
