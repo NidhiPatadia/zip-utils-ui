@@ -12,11 +12,13 @@ import { CommonService } from '../services/common/common.service';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { CopyUrlBoxComponent } from '../copy-url-box/copy-url-box.component';
+import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 
 @Component({
   selector: 'app-zip-url',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CopyUrlBoxComponent, LoaderOverlayComponent],
   templateUrl: './zip-url.component.html',
   styleUrl: './zip-url.component.css',
 })
@@ -31,8 +33,6 @@ export class ZipUrlComponent implements OnInit {
   loading = false;
   id: string | null = null;
   shortUrl = '';
-  copied = false;
-  showSnackbar = false;
 
   constructor(private fb: FormBuilder) {
     const URL_REGEX =
@@ -109,19 +109,6 @@ export class ZipUrlComponent implements OnInit {
           this.router.navigate(['/404']);
         },
       });
-  }
-
-  copyUrl() {
-    if (isPlatformBrowser(this.platformId)) {
-      navigator.clipboard.writeText(this.shortUrl);
-      this.copied = true;
-      this.showSnackbar = true;
-
-      setTimeout(() => {
-        this.copied = false;
-        this.showSnackbar = false;
-      }, 2000);
-    }
   }
 
   openUrl(url: string) {
