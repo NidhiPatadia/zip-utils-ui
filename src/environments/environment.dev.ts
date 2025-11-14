@@ -1,6 +1,5 @@
 export const environment = {
   production: false,
-  nodeUrl:
-    'https://qcy0juqkdh.execute-api.ap-south-1.amazonaws.com/dev/graphql',
+  nodeUrl: 'https://dev-api.ziputils.com',
   angularUrl: 'https://dev.ziputils.com',
 };
