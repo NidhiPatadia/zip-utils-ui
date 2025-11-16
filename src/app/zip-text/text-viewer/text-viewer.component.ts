@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { HeaderService } from '../../services/header/header.service';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../../enums/common';
 import { CopyUrlBoxComponent } from '../../copy-url-box/copy-url-box.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-text-viewer',
@@ -55,7 +56,7 @@ export class ZipTextViewerComponent implements OnInit {
     }
 
     if (isPlatformBrowser(this.platformId)) {
-      this.currentUrl = `${window.location.origin}/t/${this.id}`;
+      this.currentUrl = `${environment.textViewerUrl}/${this.id}`;
     } else {
       this.currentUrl = `/t/${this.id}`;
     }

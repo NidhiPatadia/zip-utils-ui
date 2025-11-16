@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   nodeUrl: 'http://localhost:4000/local/graphql',
   angularUrl: 'http://localhost:4200',
+  textViewerUrl: `https://local-t.localhost:4200`,
+  urlViewerUrl: `https://local-u.localhost:4200`,
 };
 
 /*

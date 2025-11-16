@@ -18,7 +18,12 @@ import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.compone
 @Component({
   selector: 'app-zip-url',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CopyUrlBoxComponent, LoaderOverlayComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    CopyUrlBoxComponent,
+    LoaderOverlayComponent,
+  ],
   templateUrl: './zip-url.component.html',
   styleUrl: './zip-url.component.css',
 })
@@ -80,7 +85,7 @@ export class ZipUrlComponent implements OnInit {
           if (!shortUrl) {
             throw new Error();
           }
-          this.shortUrl = `${environment.angularUrl}/u/${shortUrl}`;
+          this.shortUrl = `${environment.urlViewerUrl}/${shortUrl}`;
           this.urlForm.reset();
         },
         error: (err) => {

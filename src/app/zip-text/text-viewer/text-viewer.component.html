@@ -11,7 +11,9 @@
       title="Copy text"
     >
       <span *ngIf="!textCopied"><i class="fa-solid fa fa-copy"></i></span>
-      <span *ngIf="textCopied"><i class="fa-solid fa fa-clipboard-check"></i></span>
+      <span *ngIf="textCopied"
+        ><i class="fa-solid fa fa-clipboard-check"></i
+      ></span>
     </button>
   </div>
   <app-copy-url-box [shortUrl]="currentUrl"></app-copy-url-box>
