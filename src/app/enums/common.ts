@@ -1,3 +1,5 @@
+export const MAIN_DOMAIN = 'ziputils.com';
+
 export enum PAGE_TITLE {
   ZIP_UTILS = 'Zip-Utils',
   ZIP_TEXT = 'Zip-Text',

@@ -85,7 +85,7 @@ export class ZipUrlComponent implements OnInit {
           if (!shortUrl) {
             throw new Error();
           }
-          this.shortUrl = `${environment.angularUrl}/u/${shortUrl}`;
+          this.shortUrl = `${environment.urlViewerUrl}/${shortUrl}`;
           this.urlForm.reset();
         },
         error: (err) => {
