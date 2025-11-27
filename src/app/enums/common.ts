@@ -13,3 +13,8 @@ export enum PAGE_DESCRIPTION {
   ZIP_QR = '📱 Generate QR codes for links, text, or data — in one click.',
   NOT_FOUND = 'The page you are looking for does not exist or may have been moved.',
 }
+
+export enum RedirectionType {
+  TEXT = 't',
+  URL = 'u',
+}
