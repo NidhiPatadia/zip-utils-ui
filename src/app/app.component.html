@@ -1,4 +1,4 @@
-<ng-container *ngIf="!showNotFoundPage; else notFound">
+<ng-container *ngIf="!showLoaderOverlay && !showNotFoundPage; else initialView">
   <div class="custom-container">
     <div class="header-container">
       <app-header></app-header>
@@ -11,6 +11,8 @@
     </div>
   </div>
 </ng-container>
-<ng-template #notFound>
-  <app-page-not-found></app-page-not-found>
+
+<ng-template #initialView>
+  <app-loader-overlay *ngIf="showLoaderOverlay"></app-loader-overlay>
+  <app-page-not-found *ngIf="showNotFoundPage"></app-page-not-found>
 </ng-template>
