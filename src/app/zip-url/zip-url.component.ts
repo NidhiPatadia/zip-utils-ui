@@ -53,11 +53,6 @@ export class ZipUrlComponent implements OnInit {
       pageTitle: PAGE_TITLE.ZIP_URL,
       pageDescription: PAGE_DESCRIPTION.ZIP_URL,
     });
-
-    this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id) {
-      this.getShortUrl(this.id);
-    }
   }
 
   onSubmit() {
@@ -94,36 +89,5 @@ export class ZipUrlComponent implements OnInit {
           alert(errMsg);
         },
       });
-  }
-
-  getShortUrl(id: string) {
-    this.loading = true;
-    this.commonService
-      .getZipShortUrl(id)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (response) => {
-          const shortUrl = response?.data?.getUrl;
-          if (!shortUrl) {
-            throw new Error(`No URL found for the id: ${id}`);
-          }
-          this.openUrl(shortUrl);
-        },
-        error: (err) => {
-          console.error('Error fetching URL', err);
-          this.router.navigate(['/404']);
-        },
-      });
-  }
-
-  openUrl(url: string) {
-    if (isPlatformBrowser(this.platformId)) {
-      url = url.trim();
-      // If user forgot protocol, assume https://
-      if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url)) {
-        url = 'https://' + url;
-      }
-      window.location.assign(url);
-    }
   }
 }
