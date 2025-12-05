@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  nodeUrl: 'http://localhost:4000/local/graphql',
+  nodeUrl: 'http://localhost:4000/dev/graphql',
   angularUrl: 'http://localhost:4200',
+  gaMeasurementId: null,
 };
 
 /*
