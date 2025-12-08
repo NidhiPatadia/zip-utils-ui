@@ -54,10 +54,7 @@ jobs:
           npm run build:${{ needs.setup.outputs.source-branch }}
           echo "repo_suffix=${{ needs.setup.outputs.source-branch }}" >> $GITHUB_ENV
           cd dist/zip-utils-ui/browser
-
-          if [ -f "index.csr.html" ]; then
-            mv index.csr.html index.html
-          fi
+          mv index.csr.html index.html
           cp index.html 404.html
           cp ../../../robots.txt . || echo "robots.txt not found, skipping"
           cp ../../../sitemap.xml . || echo "sitemap.xml not found, skipping"
