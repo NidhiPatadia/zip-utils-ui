@@ -9,7 +9,6 @@ import { filter } from 'rxjs/operators';
 import { LoaderOverlayComponent } from './loader-overlay/loader-overlay.component';
 import { RedirectionType } from './enums/common';
 import { CommonService } from './services/common/common.service';
-import { GoogleAnalyticsService } from './services/google-analytics/google-analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -28,14 +27,12 @@ import { GoogleAnalyticsService } from './services/google-analytics/google-analy
 export class AppComponent {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly commonService = inject(CommonService);
-  private readonly gaService = inject(GoogleAnalyticsService);
   showNotFoundPage = false;
   showLoaderOverlay = true;
 
   constructor(private router: Router) {
     this.changeScreenToShowLoader();
 
-    this.gaService.init();
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((event) => {
@@ -53,8 +50,6 @@ export class AppComponent {
             this.changeScreenToShowApp();
           }
         }
-        const url = event.urlAfterRedirects || event.url;
-        this.gaService.trackPageView(url);
       });
   }
 
