@@ -35,7 +35,7 @@ export class AppComponent {
 
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe((event) => {
+      .subscribe(() => {
         const currentRoute = this.router.routerState.snapshot.root.firstChild;
         const path = currentRoute?.routeConfig?.path;
         if (path === '**') {
