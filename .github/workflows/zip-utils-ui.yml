@@ -69,7 +69,7 @@ jobs:
       - name: Checkout target repo
         uses: actions/checkout@v4
         with:
-          repository: mochinikunj/zip-utils-ui-${{ env.repo_suffix }}
+          repository: NidhiPatadia/zip-utils-ui-${{ env.repo_suffix }}
           token: ${{ secrets.ZIP_UTILS_UI_DEPLOY_TOKEN }}
           path: compiled-js
 
@@ -86,8 +86,8 @@ jobs:
       - name: Commit and Push from compiled-js to GitHub repo
         run: |
           cd compiled-js
-          git config user.name "Nikunj Mochi"
-          git config user.email "mochinikunj2@gmail.com "
+          git config user.name "Nidhi Patadia"
+          git config user.email "nidhipatadia27@gmail.com"
           git add .
           git commit -m "Update compiled JS from zip-utils-ui's branch build"
           git push
