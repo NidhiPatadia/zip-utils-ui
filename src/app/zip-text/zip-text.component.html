@@ -18,8 +18,9 @@
           </option>
         </select>
       </div>
+      <app-bot-guard #botGuard></app-bot-guard>
 
-      <button [disabled]="!textInput.trim()" (click)="generateLink()">
+      <button [disabled]="!textInput.trim()" (click)="generateLink(botGuard)">
         Generate Link
       </button>
     </div>
