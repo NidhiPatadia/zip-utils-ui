@@ -50,7 +50,7 @@ export class ZipUrlComponent implements OnInit {
     });
   }
 
-  ngOnInit(botGuard: any): void {
+  ngOnInit(): void {
     this.headerService.setTitleAndDescription({
       pageTitle: PAGE_TITLE.ZIP_URL,
       pageDescription: PAGE_DESCRIPTION.ZIP_URL,
