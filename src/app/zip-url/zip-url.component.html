@@ -1,5 +1,5 @@
 <div class="main-content-url">
-  <form [formGroup]="urlForm" (ngSubmit)="onSubmit()" class="tool-box">
+  <form [formGroup]="urlForm" (ngSubmit)="onSubmit(botGuard)" class="tool-box">
     <input
       id="url"
       name="url"
@@ -25,7 +25,7 @@
         Please enter a valid URL.
       </div>
     </div>
-
+    <app-bot-guard #botGuard></app-bot-guard>
     <button type="submit" class="btn btn-primary" [disabled]="urlForm.invalid">
       Shorten URL
     </button>
