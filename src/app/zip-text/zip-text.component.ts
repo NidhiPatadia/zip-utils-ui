@@ -6,11 +6,12 @@ import { PAGE_DESCRIPTION, PAGE_TITLE } from '../enums/common';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
+import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 
 @Component({
   selector: 'app-zip-text',
   standalone: true,
-  imports: [FormsModule, CommonModule, LoaderOverlayComponent],
+  imports: [FormsModule, CommonModule, LoaderOverlayComponent, BotGuardComponent],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',
 })
@@ -38,7 +39,12 @@ export class ZipTextComponent implements OnInit {
     });
   }
 
-  generateLink() {
+  generateLink(botGuard: any) {
+    const guardResult = botGuard.validate();
+    if (!guardResult.valid) {
+      console.warn('Blocked by bot guard:', guardResult.reason);
+      return;
+    }
     if (!this.textInput.trim()) return;
 
     this.loading = true;
