@@ -57,7 +57,7 @@ export class ZipUrlComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(botGuard: any) {
     const guardResult = botGuard.validate();
     if (!guardResult.valid) {
       console.warn('Blocked by bot guard:', guardResult.reason);
