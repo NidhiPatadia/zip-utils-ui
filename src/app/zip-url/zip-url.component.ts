@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CopyUrlBoxComponent } from '../copy-url-box/copy-url-box.component';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
+import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 
 @Component({
   selector: 'app-zip-url',
@@ -23,6 +24,7 @@ import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.compone
     ReactiveFormsModule,
     CopyUrlBoxComponent,
     LoaderOverlayComponent,
+    BotGuardComponent
   ],
   templateUrl: './zip-url.component.html',
   styleUrl: './zip-url.component.css',
@@ -48,7 +50,7 @@ export class ZipUrlComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(botGuard: any): void {
     this.headerService.setTitleAndDescription({
       pageTitle: PAGE_TITLE.ZIP_URL,
       pageDescription: PAGE_DESCRIPTION.ZIP_URL,
@@ -56,6 +58,11 @@ export class ZipUrlComponent implements OnInit {
   }
 
   onSubmit() {
+    const guardResult = botGuard.validate();
+    if (!guardResult.valid) {
+      console.warn('Blocked by bot guard:', guardResult.reason);
+      return;
+    }
     if (this.urlForm.valid) {
       const url = this.urlForm.value.url;
       console.log('URL to shorten:', url);
