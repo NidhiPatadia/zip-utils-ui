@@ -24,7 +24,7 @@ export class HeaderService {
     this._pageTitleAndDescription.set(pageTitleAndDescription);
 
     // Update browser tab title
-    this.title.setTitle(pageTitleAndDescription.pageTitle);
+    this.title.setTitle(pageTitleAndDescription.tabTitle ?? pageTitleAndDescription.pageTitle);
 
     // Update meta title tag
     this.meta.updateTag({

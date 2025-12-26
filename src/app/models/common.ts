@@ -1,6 +1,7 @@
 export interface IPageTitleAndDescription {
   pageTitle: string;
   pageDescription: string;
+  tabTitle?: string;
 }
 
 export interface IHealthCheckResponse {
