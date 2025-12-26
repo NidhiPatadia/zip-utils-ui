@@ -1,6 +1,6 @@
 export enum PAGE_TITLE {
   ZIP_UTILS = 'Zip-Utils',
-  ZIP_TEXT = 'Zip-Text',
+  ZIP_TEXT = 'Text Uploader',
   ZIP_URL = 'Zip-URL',
   ZIP_QR = 'Zip-QR',
   NOT_FOUND = 'Page Not Found!',
@@ -17,4 +17,16 @@ export enum PAGE_DESCRIPTION {
 export enum RedirectionType {
   TEXT = 't',
   URL = 'u',
+}
+
+export enum TAB_TITLE {
+  ZIP_TEXT = 'Text Transfer Online – Secure Text Uploader with Expiry | ZipUtils',
+}
+
+export enum COMPONENT_TITLE {
+  ZIP_TEXT = 'Text Transfer Online – Secure Text Uploader',
+}
+
+export enum COMPONENT_DESCRIPTION {
+  ZIP_TEXT = '💬 ZipUtils helps you transfer text online securely without email or messaging apps. Upload text, generate a private link, and share it instantly with automatic expiry. 🔒',
 }
