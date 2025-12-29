@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HeaderService } from '../services/header/header.service';
-import { PAGE_DESCRIPTION, PAGE_TITLE } from '../enums/common';
+import { PAGE_DESCRIPTION, PAGE_TITLE, TAB_TITLE, COMPONENT_TITLE, COMPONENT_DESCRIPTION } from '../enums/common';
 import { CommonService } from '../services/common/common.service';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,8 @@ import { environment } from '../../environments/environment';
 import { CopyUrlBoxComponent } from '../copy-url-box/copy-url-box.component';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
-
+import { ZIP_URL_FAQ } from '../content/text-faq.content';
+import { FaqComponent } from '../faq/faq.component';
 @Component({
   selector: 'app-zip-url',
   standalone: true,
@@ -24,7 +25,8 @@ import { BotGuardComponent } from '../bot-guard/bot-guard.component';
     ReactiveFormsModule,
     CopyUrlBoxComponent,
     LoaderOverlayComponent,
-    BotGuardComponent
+    BotGuardComponent,
+    FaqComponent,
   ],
   templateUrl: './zip-url.component.html',
   styleUrl: './zip-url.component.css',
@@ -39,6 +41,7 @@ export class ZipUrlComponent implements OnInit {
 
   loading = false;
   id: string | null = null;
+  faqItems = ZIP_URL_FAQ;
   shortUrl = '';
 
   constructor(private fb: FormBuilder) {
@@ -52,8 +55,9 @@ export class ZipUrlComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
-      pageTitle: PAGE_TITLE.ZIP_URL,
-      pageDescription: PAGE_DESCRIPTION.ZIP_URL,
+      pageTitle: COMPONENT_TITLE.ZIP_URL,
+      pageDescription: COMPONENT_DESCRIPTION.ZIP_URL,
+      tabTitle: TAB_TITLE.ZIP_URL,
     });
   }
 
