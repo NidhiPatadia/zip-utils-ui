@@ -41,7 +41,8 @@ export class HeaderService {
   }
 
   setCanonical(path: string) {
-    const canonicalUrl = `${environment.angularUrl}${path}`;
+    const normalizedPath = (path === '/' ? '/' : path.endsWith('/') ? path : `${path}/`);
+    const canonicalUrl = `${environment.angularUrl}${normalizedPath}`;
 
     let link = document.querySelector(
       "link[rel='canonical']"
