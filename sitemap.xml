@@ -14,13 +14,13 @@
 
    <!-- zip-text page -->
   <url>
-    <loc>https://ziputils.com/text</loc>
+    <loc>https://ziputils.com/text/</loc>
     <lastmod>2025-05-30T05:36:59+00:00</lastmod>
   </url>
 
   <!-- zip-url page -->
   <url>
-    <loc>https://ziputils.com/url</loc>
+    <loc>https://ziputils.com/url/</loc>
     <lastmod>2025-05-30T05:36:59+00:00</lastmod>
   </url>
 </urlset>
