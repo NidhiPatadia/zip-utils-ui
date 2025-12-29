@@ -9,6 +9,7 @@ import { filter } from 'rxjs/operators';
 import { LoaderOverlayComponent } from './loader-overlay/loader-overlay.component';
 import { RedirectionType } from './enums/common';
 import { CommonService } from './services/common/common.service';
+import { HeaderService } from './services/header/header.service';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ import { CommonService } from './services/common/common.service';
 export class AppComponent {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly commonService = inject(CommonService);
+  private readonly headerService = inject(HeaderService);
   showNotFoundPage = false;
   showLoaderOverlay = true;
 
@@ -35,7 +37,9 @@ export class AppComponent {
 
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe(() => {
+      .subscribe((e) => {
+        const canonicalPath = e.urlAfterRedirects.split('?')[0];
+        this.headerService.setCanonical(canonicalPath);
         const currentRoute = this.router.routerState.snapshot.root.firstChild;
         const path = currentRoute?.routeConfig?.path;
         if (path === '**') {
