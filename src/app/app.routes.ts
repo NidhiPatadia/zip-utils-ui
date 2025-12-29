@@ -8,10 +8,9 @@ import { ZipQrComponent } from './zip-qr/zip-qr.component';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'text',
     component: ZipTextComponent,
@@ -31,10 +30,6 @@ export const routes: Routes = [
   {
     path: 'u/:id',
     component: ZipUrlComponent,
-  },
-  {
-    path: '404',
-    component: PageNotFoundComponent,
   },
   {
     path: '**',
