@@ -6,4 +6,71 @@
   border-radius: 1.5rem;
   box-shadow: 0 6px 16px var(--shadow);
   text-align: center;
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
+
+.main-content-qr h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+textarea,
+input[type='text'] {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background: white;
+  color: #333;
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--secondary);
+}
+
+button:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+  box-shadow: none;
+}
+
+.textarea-flex-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+.main-content-qr.fade-out {
+  opacity: 0.4; /* dim it instead of fully hiding */
+}
+
+/* .footer-note {
+  max-width: 1200px;
+  margin: 1rem auto;
+  font-size: 14px;
+} */

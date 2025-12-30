@@ -1,3 +1,30 @@
 <div class="main-content-qr">
-  <h2>🚀 We’re coming soon with this feature — stay tuned!</h2>
+  <div class="textarea-flex-wrapper">
+    <textarea
+      [(ngModel)]="textInput"
+      rows="8"
+      placeholder="Paste your text here..."
+    ></textarea>
+
+    <div class="button-row">
+      <app-bot-guard #botGuard></app-bot-guard>
+
+      <button [disabled]="!textInput.trim()" (click)="generateLink(botGuard)">
+        Generate Link
+      </button>
+    </div>
+  </div>
+
+  <!-- <qrcode [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'"> </qrcode> -->
+
+  <app-loader-overlay
+    *ngIf="loading"
+    [message]="'Generating link...'"
+  ></app-loader-overlay>
 </div>
+<!-- <p class="footer-note">
+  Note - We encrypt every message before storing it, ensuring complete privacy.
+  No one can access your text, and it’s permanently removed once the expiry time
+  is reached.
+</p> -->
+<app-faq [items]="faqItems"></app-faq>

@@ -3,8 +3,6 @@ import { CommonService } from '../services/common/common.service';
 import { FormsModule } from '@angular/forms';
 import { HeaderService } from '../services/header/header.service';
 import {
-  PAGE_DESCRIPTION,
-  PAGE_TITLE,
   TAB_TITLE,
   COMPONENT_TITLE,
   COMPONENT_DESCRIPTION,
