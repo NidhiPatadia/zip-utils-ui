@@ -6,7 +6,7 @@ import { ZipTextViewerComponent } from './zip-text/text-viewer/text-viewer.compo
 import { ZipUrlComponent } from './zip-url/zip-url.component';
 import { ZipQrComponent } from './zip-qr/zip-qr.component';
 import { SocialMetaResolver } from './resolvers/social-meta.resolver';
-import { PAGE_TITLE, PAGE_DESCRIPTION } from './enums/common';
+import { PAGE_DESCRIPTION, OPEN_GRAPH_TITLE } from './enums/common';
 
 export const routes: Routes = [
   {
@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: ZipTextComponent,
     resolve: { social: SocialMetaResolver },
     data: {
-      pageTitle: PAGE_TITLE.ZIP_TEXT,
+      pageTitle: OPEN_GRAPH_TITLE.ZIP_TEXT,
       pageDescription: PAGE_DESCRIPTION.ZIP_TEXT,
       canonical: '/text',
     },
@@ -28,7 +28,7 @@ export const routes: Routes = [
     component: ZipUrlComponent,
     resolve: { social: SocialMetaResolver },
     data: {
-      pageTitle: PAGE_TITLE.ZIP_URL,
+      pageTitle: OPEN_GRAPH_TITLE.ZIP_URL,
       pageDescription: PAGE_DESCRIPTION.ZIP_URL,
       canonical: '/url',
     },
@@ -38,7 +38,7 @@ export const routes: Routes = [
     component: ZipQrComponent,
     resolve: { social: SocialMetaResolver },
     data: {
-      pageTitle: PAGE_TITLE.ZIP_QR,
+      pageTitle: OPEN_GRAPH_TITLE.ZIP_QR,
       pageDescription: PAGE_DESCRIPTION.ZIP_QR,
       canonical: '/qr',
     },
