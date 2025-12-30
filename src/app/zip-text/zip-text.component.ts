@@ -2,7 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonService } from '../services/common/common.service';
 import { FormsModule } from '@angular/forms';
 import { HeaderService } from '../services/header/header.service';
-import { PAGE_DESCRIPTION, PAGE_TITLE, TAB_TITLE, COMPONENT_TITLE, COMPONENT_DESCRIPTION } from '../enums/common';
+import {
+  PAGE_DESCRIPTION,
+  PAGE_TITLE,
+  TAB_TITLE,
+  COMPONENT_TITLE,
+  COMPONENT_DESCRIPTION,
+} from '../enums/common';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
@@ -13,7 +19,13 @@ import { FaqComponent } from '../faq/faq.component';
 @Component({
   selector: 'app-zip-text',
   standalone: true,
-  imports: [FormsModule, CommonModule, LoaderOverlayComponent, BotGuardComponent, FaqComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    LoaderOverlayComponent,
+    BotGuardComponent,
+    FaqComponent,
+  ],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',
 })

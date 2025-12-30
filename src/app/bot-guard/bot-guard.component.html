@@ -1,3 +1,11 @@
 <div aria-hidden="true">
-  <input *ngFor="let field of honeypots" type="text" [name]="field.name" [(ngModel)]="field.value" tabindex="-1" autocomplete="off" class="host"/>
+  <input
+    *ngFor="let field of honeypots"
+    type="text"
+    [name]="field.name"
+    [(ngModel)]="field.value"
+    tabindex="-1"
+    autocomplete="off"
+    class="host"
+  />
 </div>

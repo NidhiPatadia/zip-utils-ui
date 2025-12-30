@@ -7,7 +7,13 @@ import {
 } from '@angular/forms';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HeaderService } from '../services/header/header.service';
-import { PAGE_DESCRIPTION, PAGE_TITLE, TAB_TITLE, COMPONENT_TITLE, COMPONENT_DESCRIPTION } from '../enums/common';
+import {
+  PAGE_DESCRIPTION,
+  PAGE_TITLE,
+  TAB_TITLE,
+  COMPONENT_TITLE,
+  COMPONENT_DESCRIPTION,
+} from '../enums/common';
 import { CommonService } from '../services/common/common.service';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { ActivatedRoute, Router } from '@angular/router';
