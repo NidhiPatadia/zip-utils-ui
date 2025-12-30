@@ -38,6 +38,43 @@ export class HeaderService {
       name: 'description',
       content: pageTitleAndDescription.pageDescription,
     });
+
+    // ---- Open Graph (reuse same title & description) ----
+    this.meta.updateTag({
+      property: 'og:title',
+      content: pageTitleAndDescription.pageTitle,
+    });
+
+    this.meta.updateTag({
+      property: 'og:description',
+      content: pageTitleAndDescription.pageDescription,
+    });
+
+    this.meta.updateTag({
+      property: 'og:type',
+      content: 'website',
+    });
+
+    this.meta.updateTag({
+      property: 'og:site_name',
+      content: 'Zip-Utils',
+    });
+
+    // ---- Twitter (reuse same data) ----
+    this.meta.updateTag({
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    });
+
+    this.meta.updateTag({
+      name: 'twitter:title',
+      content: pageTitleAndDescription.pageTitle,
+    });
+
+    this.meta.updateTag({
+      name: 'twitter:description',
+      content: pageTitleAndDescription.pageDescription,
+    });
   }
 
   setCanonical(path: string) {
@@ -55,5 +92,9 @@ export class HeaderService {
     }
 
     link.setAttribute('href', canonicalUrl);
+    this.meta.updateTag({
+      property: 'og:url',
+      content: canonicalUrl,
+    });
   }
 }
