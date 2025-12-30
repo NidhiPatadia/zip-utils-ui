@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../../enums/common';
 import { IPageTitleAndDescription } from '../../models/common';
 import { Meta, Title } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class HeaderService {
     this._pageTitleAndDescription.set(pageTitleAndDescription);
 
     // Update browser tab title
-    this.title.setTitle(pageTitleAndDescription.pageTitle);
+    this.title.setTitle(pageTitleAndDescription.tabTitle ?? pageTitleAndDescription.pageTitle);
 
     // Update meta title tag
     this.meta.updateTag({
@@ -37,5 +38,22 @@ export class HeaderService {
       name: 'description',
       content: pageTitleAndDescription.pageDescription,
     });
+  }
+
+  setCanonical(path: string) {
+    const normalizedPath = (path === '/' ? '/' : path.endsWith('/') ? path : `${path}/`);
+    const canonicalUrl = `${environment.angularUrl}${normalizedPath}`;
+
+    let link = document.querySelector(
+      "link[rel='canonical']"
+    ) as HTMLLinkElement;
+
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      document.head.appendChild(link);
+    }
+
+    link.setAttribute('href', canonicalUrl);
   }
 }

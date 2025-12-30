@@ -2,16 +2,18 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonService } from '../services/common/common.service';
 import { FormsModule } from '@angular/forms';
 import { HeaderService } from '../services/header/header.service';
-import { PAGE_DESCRIPTION, PAGE_TITLE } from '../enums/common';
+import { PAGE_DESCRIPTION, PAGE_TITLE, TAB_TITLE, COMPONENT_TITLE, COMPONENT_DESCRIPTION } from '../enums/common';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
+import { ZIP_TEXT_FAQ } from '../content/text-faq.content';
+import { FaqComponent } from '../faq/faq.component';
 
 @Component({
   selector: 'app-zip-text',
   standalone: true,
-  imports: [FormsModule, CommonModule, LoaderOverlayComponent, BotGuardComponent],
+  imports: [FormsModule, CommonModule, LoaderOverlayComponent, BotGuardComponent, FaqComponent],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',
 })
@@ -31,11 +33,13 @@ export class ZipTextComponent implements OnInit {
   textInput = '';
   expiryInMinutes = 10;
   loading = false;
+  faqItems = ZIP_TEXT_FAQ;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
-      pageTitle: PAGE_TITLE.ZIP_TEXT,
-      pageDescription: PAGE_DESCRIPTION.ZIP_TEXT,
+      pageTitle: COMPONENT_TITLE.ZIP_TEXT,
+      pageDescription: COMPONENT_DESCRIPTION.ZIP_TEXT,
+      tabTitle: TAB_TITLE.ZIP_TEXT,
     });
   }
 

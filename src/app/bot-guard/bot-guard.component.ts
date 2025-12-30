@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-bot-guard',
@@ -13,10 +14,18 @@ export class BotGuardComponent implements OnInit {
   private startTime = Date.now();
   private userInteracted = false;
   private jsEnabled = true;
+  private isBrowser = false;
 
   honeypots: { name: string; value: string }[] = [];
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
   ngOnInit(): void {
+    if (!this.isBrowser) {
+      return;
+    }
     this.createHoneypots();
     this.detectUserInteraction();
   }
@@ -36,6 +45,9 @@ export class BotGuardComponent implements OnInit {
   }
 
   validate(): { valid: boolean; reason?: string } {
+    if (!this.isBrowser) {
+      return { valid: true };
+    }
     const timeTaken = Date.now() - this.startTime;
 
     // JS execution check
