@@ -8,7 +8,7 @@
 }
 
 .textarea-flex-wrapper {
-  position: relative; /* required for absolute positioning of copy btn */
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -45,7 +45,6 @@
   transform: translateX(-2px);
 }
 
-/* Floating copy button for textarea */
 .copy-text-btn {
   position: absolute;
   top: 0.6rem;
@@ -67,4 +66,39 @@
 .copy-text-btn.copied {
   color: #28a745;
   transform: scale(1.1);
+}
+
+@media (max-width: 1024px) {
+  .main-content-text {
+    max-width: 100%;
+    margin: 0.75rem;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .textarea-flex-wrapper textarea {
+    padding: 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  .back-btn {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .copy-text-btn {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .textarea-flex-wrapper textarea {
+    font-size: 0.9rem;
+  }
+
+  .copy-text-btn {
+    font-size: 0.9rem;
+  }
 }
