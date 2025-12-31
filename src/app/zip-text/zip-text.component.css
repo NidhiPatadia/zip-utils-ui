@@ -92,11 +92,48 @@ button:disabled {
 }
 
 .main-content-text.fade-out {
-  opacity: 0.4; /* dim it instead of fully hiding */
+  opacity: 0.4;
 }
 
 .footer-note {
   max-width: 1200px;
   margin: 1rem auto;
   font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+  .main-content-text {
+    max-width: 100%;
+    margin: 0.75rem;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .dropdown-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown-group select {
+    flex: 1;
+    max-width: 60%;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .footer-note {
+    max-width: 100%;
+    font-size: 13px;
+    margin: 0.75rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
 }
