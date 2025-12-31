@@ -4,6 +4,7 @@ header {
   color: white;
   box-shadow: 0 4px 12px var(--shadow);
   position: relative;
+  padding: 2.5rem 1rem 1.5rem; /* space for buttons */
 }
 
 header h1 {
@@ -13,8 +14,9 @@ header h1 {
 }
 
 header p {
-  margin: 0.5rem auto 1rem auto;
+  margin: 0.5rem auto 0;
   font-size: 1rem;
+  max-width: 800px;
 }
 
 .toggle-button {
@@ -35,35 +37,56 @@ header p {
   background: var(--card-bg);
   border: none;
   border-radius: 1.5rem;
-  padding: 0.3rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   color: var(--primary);
   box-shadow: 0 2px 5px var(--shadow);
   transition:
-    background 0.3s,
-    color 0.3s;
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
+  header {
+    padding: 2.25rem 0.75rem 1.25rem;
+  }
+
   header h1 {
     font-size: 2rem;
   }
 
+  header p {
+    font-size: 0.95rem;
+  }
+
   .toggle-button {
-    top: 0.5rem;
+    top: 0.75rem;
   }
 
   .theme-toggle {
-    right: 0.5rem;
+    right: 0.75rem;
   }
 
   .home-redirect {
-    left: 0.5rem;
+    left: 0.75rem;
+  }
+
+  .theme-toggle button,
+  .home-redirect button {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.7rem;
   }
 }
-
+@media screen and (max-width: 480px) {
+  header h1 {
+    font-size: 1.75rem;
+  }
+  header p {
+    font-size: 0.9rem;
+  }
+}
 .yellow-sun {
   color: yellow;
 }
