@@ -1,3 +1,67 @@
-<div class="main-content-qr">
-  <h2>🚀 We’re coming soon with this feature — stay tuned!</h2>
+<div class="qr-container">
+  <!-- Tabs -->
+  <div class="qr-tabs">
+    <button [class.active]="mode === 'generator'" (click)="mode = 'generator'">
+      QR Generator
+    </button>
+
+    <button [class.active]="mode === 'scanner'" (click)="mode = 'scanner'">
+      QR Scanner
+    </button>
+  </div>
+
+  <!-- GENERATOR -->
+  <section *ngIf="mode === 'generator'" class="qr-panel">
+    <input
+      type="text"
+      placeholder="Enter text or URL"
+      [(ngModel)]="inputValue"
+    />
+
+    <button
+      class="primary action-btn"
+      [disabled]="!inputValue.trim() || inputValue.length > 300"
+      (click)="generateQr()"
+    >
+      Generate QR
+    </button>
+
+    <!-- Error message box -->
+    <div *ngIf="inputValue.length > 300" class="validation-error">
+      Text or URL length must be less then 300 characters!
+    </div>
+
+    <!-- QR RESULT -->
+    <div *ngIf="generatedValue" class="qr-card">
+      <span class="close" (click)="clearQr()">✕</span>
+
+      <qrcode [qrdata]="generatedValue" [width]="200"> </qrcode>
+
+      <div class="qr-actions">
+        <button (click)="downloadQr()">Download</button>
+        <button (click)="shareQr()">Share</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCANNER -->
+  <section *ngIf="mode === 'scanner'" class="qr-panel">
+    <div class="scanner-card">
+      <zxing-scanner
+        [formats]="allowedFormats"
+        (scanSuccess)="onScanSuccess($event)"
+      >
+      </zxing-scanner>
+    </div>
+
+    <div *ngIf="scannedResult" class="scan-result">
+      <label>Scanned Result</label>
+      <p>{{ scannedResult }}</p>
+    </div>
+  </section>
 </div>
+
+<app-loader-overlay
+  *ngIf="loading"
+  [message]="'Generating link...'"
+></app-loader-overlay>

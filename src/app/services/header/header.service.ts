@@ -25,7 +25,9 @@ export class HeaderService {
     this._pageTitleAndDescription.set(pageTitleAndDescription);
 
     // Update browser tab title
-    this.title.setTitle(pageTitleAndDescription.tabTitle ?? pageTitleAndDescription.pageTitle);
+    this.title.setTitle(
+      pageTitleAndDescription.tabTitle ?? pageTitleAndDescription.pageTitle,
+    );
 
     // Update meta title tag
     this.meta.updateTag({
@@ -41,11 +43,12 @@ export class HeaderService {
   }
 
   setCanonical(path: string) {
-    const normalizedPath = (path === '/' ? '/' : path.endsWith('/') ? path : `${path}/`);
+    const normalizedPath =
+      path === '/' ? '/' : path.endsWith('/') ? path : `${path}/`;
     const canonicalUrl = `${environment.angularUrl}${normalizedPath}`;
 
     let link = document.querySelector(
-      "link[rel='canonical']"
+      "link[rel='canonical']",
     ) as HTMLLinkElement;
 
     if (!link) {
