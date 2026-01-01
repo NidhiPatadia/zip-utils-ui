@@ -34,6 +34,7 @@ export enum COMPONENT_TITLE {
 export enum COMPONENT_DESCRIPTION {
   ZIP_TEXT = '💬 ZipUtils helps you transfer text online securely without email or messaging apps. Upload text, generate a private link, and share it instantly with automatic expiry. 🔒',
   ZIP_URL = '🔗 Shorten long URLs instantly with ZipUtils. Create clean, shareable short links that are fast, reliable, and easy to use. ⚡',
+  ZIP_QR = '📱 Generate QR codes for links, text, or data — in one click.',
 }
 
 export enum OPEN_GRAPH_TITLE {

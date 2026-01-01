@@ -26,6 +26,7 @@
     "@angular/ssr": "^18.2.10",
     "@apollo/client": "^3.14.0",
     "@popperjs/core": "^2.11.8",
+    "@zxing/ngx-scanner": "^18.0.1",
     "angularx-qrcode": "^18.0.2",
     "apollo-angular": "^11.0.0",
     "bootstrap": "^5.3.7",

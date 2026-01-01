@@ -1,30 +1,67 @@
-<div class="main-content-qr">
-  <div class="textarea-flex-wrapper">
-    <textarea
-      [(ngModel)]="textInput"
-      rows="8"
-      placeholder="Paste your text here..."
-    ></textarea>
+<div class="qr-container">
+  <!-- Tabs -->
+  <div class="qr-tabs">
+    <button [class.active]="mode === 'generator'" (click)="mode = 'generator'">
+      QR Generator
+    </button>
 
-    <div class="button-row">
-      <app-bot-guard #botGuard></app-bot-guard>
-
-      <button [disabled]="!textInput.trim()" (click)="generateLink(botGuard)">
-        Generate Link
-      </button>
-    </div>
+    <button [class.active]="mode === 'scanner'" (click)="mode = 'scanner'">
+      QR Scanner
+    </button>
   </div>
 
-  <!-- <qrcode [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'"> </qrcode> -->
+  <!-- GENERATOR -->
+  <section *ngIf="mode === 'generator'" class="qr-panel">
+    <input
+      type="text"
+      placeholder="Enter text or URL"
+      [(ngModel)]="inputValue"
+    />
 
-  <app-loader-overlay
-    *ngIf="loading"
-    [message]="'Generating link...'"
-  ></app-loader-overlay>
+    <button
+      class="primary action-btn"
+      [disabled]="!inputValue.trim() || inputValue.length > 300"
+      (click)="generateQr()"
+    >
+      Generate QR
+    </button>
+
+    <!-- Error message box -->
+    <div *ngIf="inputValue.length > 300" class="validation-error">
+      Text or URL length must be less then 300 characters!
+    </div>
+
+    <!-- QR RESULT -->
+    <div *ngIf="generatedValue" class="qr-card">
+      <span class="close" (click)="clearQr()">✕</span>
+
+      <qrcode [qrdata]="generatedValue" [width]="200"> </qrcode>
+
+      <div class="qr-actions">
+        <button (click)="downloadQr()">Download</button>
+        <button (click)="shareQr()">Share</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCANNER -->
+  <section *ngIf="mode === 'scanner'" class="qr-panel">
+    <div class="scanner-card">
+      <zxing-scanner
+        [formats]="allowedFormats"
+        (scanSuccess)="onScanSuccess($event)"
+      >
+      </zxing-scanner>
+    </div>
+
+    <div *ngIf="scannedResult" class="scan-result">
+      <label>Scanned Result</label>
+      <p>{{ scannedResult }}</p>
+    </div>
+  </section>
 </div>
-<!-- <p class="footer-note">
-  Note - We encrypt every message before storing it, ensuring complete privacy.
-  No one can access your text, and it’s permanently removed once the expiry time
-  is reached.
-</p> -->
-<app-faq [items]="faqItems"></app-faq>
+
+<app-loader-overlay
+  *ngIf="loading"
+  [message]="'Generating link...'"
+></app-loader-overlay>
