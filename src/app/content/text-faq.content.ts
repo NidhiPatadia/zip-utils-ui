@@ -21,6 +21,11 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
     answer:
       'Only people with the generated private link can access your uploaded text. Once expired, the link no longer works.',
   },
+  {
+    question: 'Can I share links or create QR codes instead of sharing text?',
+    answer:
+      'Yes. If you only need to share a website link, you can use the <a href="/url/">URL Shortener</a> to create a clean, shareable link. You can also generate a <a href="/qr/">QR Code</a> for your text or links to make sharing easier on mobile or offline.',
+  },
 ];
 
 export const ZIP_URL_FAQ: FaqItem[] = [
@@ -58,5 +63,10 @@ export const ZIP_URL_FAQ: FaqItem[] = [
     question: 'Can I share shortened URLs on social media?',
     answer:
       'Absolutely. Shortened URLs are ideal for sharing on social media platforms, messaging apps, emails, and anywhere character limits or clean presentation matter.',
+  },
+  {
+    question: 'Can I share text or create QR codes instead of shortening a URL?',
+    answer:
+      'Yes. If you need to share actual content like notes or messages, you can use the <a href="/text/">Text<a> Sharing tool to generate a private link. If you want to share links or text offline or on mobile, you can also create a <a href="/qr/">QR Code</a> for quick scanning.',
   },
 ];
