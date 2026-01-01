@@ -1,22 +1,26 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { HeaderService } from '../services/header/header.service';
-import { PAGE_DESCRIPTION, PAGE_TITLE, TAB_TITLE, COMPONENT_TITLE, COMPONENT_DESCRIPTION } from '../enums/common';
+import {
+  TAB_TITLE,
+  COMPONENT_TITLE,
+  COMPONENT_DESCRIPTION,
+} from '../enums/common';
 import { CommonService } from '../services/common/common.service';
 import { finalize } from 'rxjs/internal/operators/finalize';
-import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CopyUrlBoxComponent } from '../copy-url-box/copy-url-box.component';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_URL_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
+
 @Component({
   selector: 'app-zip-url',
   standalone: true,
@@ -32,9 +36,6 @@ import { FaqComponent } from '../faq/faq.component';
   styleUrl: './zip-url.component.css',
 })
 export class ZipUrlComponent implements OnInit {
-  private readonly platformId = inject(PLATFORM_ID);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
   private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
   readonly urlForm: FormGroup;
