@@ -25,7 +25,7 @@
         class="accordion-content"
         [class.hidden]="openIndex !== i"
       >
-        <p>{{ item.answer }}</p>
+        <p [innerHTML]="item.answer"></p>
       </div>
     </div>
   </div>
