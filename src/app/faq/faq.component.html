@@ -17,10 +17,7 @@
           aria-hidden="true"
         ></span>
       </h3>
-      <div
-        class="accordion-content"
-        [class.hidden]="openIndex !== i"
-      >
+      <div class="accordion-content" [class.hidden]="openIndex !== i">
         <p [innerHTML]="item.answer"></p>
       </div>
     </div>

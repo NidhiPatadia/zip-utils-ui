@@ -1,4 +1,5 @@
 # ZipUtils.com ⚡
+
 Fast, Simple & Privacy-Focused Online Utility Tools
 
 **ZipUtils.com** is a lightweight web platform that provides simple, fast, and privacy-first online tools for everyday use.
@@ -21,12 +22,14 @@ Below are the main tools and pages available on ZipUtils, along with their direc
 ---
 
 ### ✍️ Text Sharing Tool
+
 **URL:** `/text`
 👉 https://ziputils.com/text
 
 The Text tool allows users to paste text and generate a private, shareable link with optional expiry.
 
 **Key features:**
+
 - Paste and share text instantly
 - Configurable expiry time (minutes, hours, or days)
 - No login or account required
@@ -36,12 +39,14 @@ The Text tool allows users to paste text and generate a private, shareable link 
 ---
 
 ### 🔗 URL Shortener
+
 **URL:** `/url`
 👉 https://ziputils.com/url
 
 The URL Shortener converts long URLs into clean, short, and shareable links.
 
 **Key features:**
+
 - Instant URL shortening
 - Simple redirection
 - Useful for sharing links via messages or social platforms
@@ -49,12 +54,14 @@ The URL Shortener converts long URLs into clean, short, and shareable links.
 ---
 
 ### 📱 QR Code Generator
+
 **URL:** `/qr`
 👉 https://ziputils.com/qr
 
 The QR tool allows users to generate QR codes for links or text in a single step.
 
 **Key features:**
+
 - One-click QR code generation
 - Works on desktop and mobile devices
 - No tracking or unnecessary data storage
@@ -63,9 +70,11 @@ The QR tool allows users to generate QR codes for links or text in a single step
 ---
 
 ### ❓ Helpful Information & FAQs
+
 **Available on:** All major tool pages
 
 Each primary page includes a collapsible **Helpful Information / FAQ** section that explains:
+
 - How the tool works
 - Privacy and expiry details
 - Common usage questions

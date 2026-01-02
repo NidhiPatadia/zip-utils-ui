@@ -65,7 +65,8 @@ export const ZIP_URL_FAQ: FaqItem[] = [
       'Absolutely. Shortened URLs are ideal for sharing on social media platforms, messaging apps, emails, and anywhere character limits or clean presentation matter.',
   },
   {
-    question: 'Can I share text or create QR codes instead of shortening a URL?',
+    question:
+      'Can I share text or create QR codes instead of shortening a URL?',
     answer:
       'Yes. If you need to share actual content like notes or messages, you can use the <a href="/text/">Text<a> Sharing tool to generate a private link. If you want to share links or text offline or on mobile, you can also create a <a href="/qr/">QR Code</a> for quick scanning.',
   },
