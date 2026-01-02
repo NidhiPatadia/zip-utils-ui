@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import {
   COMPONENT_DESCRIPTION,
   COMPONENT_TITLE,
@@ -11,6 +11,8 @@ import { BarcodeFormat } from '@zxing/library';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
+import { ZIP_QR_FAQ } from '../content/text-faq.content';
+import { FaqComponent } from '../faq/faq.component';
 
 type Mode = 'generator' | 'scanner';
 
@@ -23,12 +25,14 @@ type Mode = 'generator' | 'scanner';
     QRCodeModule,
     ZXingScannerModule,
     LoaderOverlayComponent,
+    FaqComponent,
   ],
   templateUrl: './zip-qr.component.html',
   styleUrl: './zip-qr.component.css',
 })
 export class ZipQrComponent implements OnInit {
   private readonly headerService = inject(HeaderService);
+  faqItems = ZIP_QR_FAQ;
   loading = false;
 
   mode: Mode = 'generator';
@@ -40,6 +44,7 @@ export class ZipQrComponent implements OnInit {
 
   // Scanner
   scannedResult: string | null = null;
+  textCopied = false;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
@@ -50,6 +55,8 @@ export class ZipQrComponent implements OnInit {
   }
 
   generateQr() {
+    // if (!isPlatformBrowser(this.platformId)) return;
+
     this.loading = true;
     if (!this.inputValue.trim()) return;
 
@@ -64,6 +71,8 @@ export class ZipQrComponent implements OnInit {
   }
 
   downloadQr() {
+    // if (!isPlatformBrowser(this.platformId)) return;
+
     const canvas = document.querySelector('canvas');
     if (!canvas) return;
 
@@ -73,16 +82,45 @@ export class ZipQrComponent implements OnInit {
     link.click();
   }
 
-  shareQr() {
-    if (!navigator.share) return;
+  async shareQr() {
+    // if (!isPlatformBrowser(this.platformId)) return;
 
-    navigator.share({
-      title: TAB_TITLE.ZIP_QR,
-      text: this.generatedValue || '',
+    const canvas = document.querySelector('canvas');
+    if (!canvas || !navigator.canShare) return;
+
+    const blob: Blob | null = await new Promise((resolve) =>
+      canvas.toBlob(resolve),
+    );
+
+    if (!blob) return;
+
+    const file = new File([blob], 'qr-code.png', { type: 'image/png' });
+
+    if (!navigator.canShare({ files: [file] })) {
+      alert('Sharing images is not supported on this device.');
+      return;
+    }
+
+    await navigator.share({
+      title: 'QR Code',
+      files: [file],
     });
   }
 
   onScanSuccess(result: string) {
     this.scannedResult = result;
+  }
+
+  copyText() {
+    // if (!isPlatformBrowser(this.platformId)) return;
+
+    if (this.scannedResult) {
+      navigator.clipboard.writeText(this.scannedResult as string);
+      this.textCopied = true;
+
+      setTimeout(() => {
+        this.textCopied = false;
+      }, 2000);
+    }
   }
 }
