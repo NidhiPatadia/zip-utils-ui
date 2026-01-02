@@ -1,72 +1,55 @@
-<div class="footer-box">
-  <div class="container py-3">
-    <div class="row">
-      <div class="col-12">
-        <div class="footer-head">
-          <div class="row mb-2">
-            <div class="col-3 col-sm-4 col-lg-3">
-              <div class="footer-logo-container">
-                <a
-                  class="d-inline-block h-100 mw-100 text-decoration-none"
-                  routerLink="/"
-                >
-                  <div class="footer-title">{{ TITLE.ZIP_UTILS }}</div>
-                </a>
-              </div>
-            </div>
+<footer class="footer-box">
+  <div class="footer-container">
+    <!-- Brand -->
+    <div class="footer-section footer-brand">
+      <a routerLink="/" class="footer-title">
+        {{ TITLE.ZIP_UTILS }}
+      </a>
+      <p class="footer-tagline">
+        A free utility platform for text, links, and QR tools.
+      </p>
+    </div>
 
-            <!-- <div class="col-4 col-sm-4 col-lg-6">
-              <div class="visitors-count"></div>
-            </div> -->
+    <!-- Tools -->
+    <div class="footer-section">
+      <h4 class="footer-heading">Tools</h4>
+      <ul class="footer-list">
+        <li><a routerLink="/text/">Text Sharing</a></li>
+        <li><a routerLink="/url/">URL Shortener</a></li>
+        <li><a routerLink="/qr/">QR Code Generator</a></li>
+      </ul>
+    </div>
 
-            <!-- <div class="col-5 col-sm-4 col-lg-3">
-              <div class="social-links">
-                <ul class="social-icon-container">
-                  <li class="fb"><i class="fab fa-facebook-square"></i></li>
-                  <li class="twitter"><i class="fab fa-twitter-square"></i></li>
-                  <li class="insta"><i class="fab fa-instagram"></i></li>
-                  <li class="youtube"><i class="fab fa-youtube"></i></li>
-                </ul>
-                <span class="follow-us-text">
-                  {{ 'footer.follow_us' | translate }}
-                </span>
-              </div>
-            </div> -->
+    <!-- Legal -->
+    <div class="footer-section">
+      <h4 class="footer-heading">Legal</h4>
+      <ul class="footer-list">
+        <li>
+          <a
+            href="https://drive.google.com/file/d/1Ed_Can1LipXpwhIEqy_igWL9qxn28tMQ/view"
+            target="_blank"
+            rel="noopener"
+          >
+            Legal & Policy
+          </a>
+        </li>
+      </ul>
+    </div>
 
-            <div class="col-9 col-sm-8 col-lg-9">
-              <div class="footer-links text-end">
-                <div class="legal-policy">
-                  <label for="legal-policy"></label>
-                  <a
-                    id="legal-policy"
-                    class="text-decoration-none footer-link"
-                    href="https://drive.google.com/file/d/1Ed_Can1LipXpwhIEqy_igWL9qxn28tMQ/view"
-                    target="_blank"
-                  >
-                    Legal &amp; Policy Documents
-                  </a>
-                </div>
-
-                <div class="contact-us">
-                  <label for="contact-us">Contact Us:</label>
-                  <a
-                    id="contact-us"
-                    href="mailto:ziputils25@gmail.com"
-                    class="text-decoration-none footer-link"
-                  >
-                    ziputils25&#64;gmail.com
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="copyright-text mt-3">
-          &copy; {{ currentYear }} Zip-Utils - All rights reserved | A free
-          utility platform for text, links, and QR tools
-        </div>
-      </div>
+    <!-- Contact -->
+    <div class="footer-section">
+      <h4 class="footer-heading">Contact</h4>
+      <ul class="footer-list">
+        <li>
+          <a href="mailto:ziputils25&#64;gmail.com">
+            ziputils25&#64;gmail.com
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
+
+  <div class="footer-bottom">
+    © {{ currentYear }} Zip-Utils · All rights reserved
+  </div>
+</footer>
