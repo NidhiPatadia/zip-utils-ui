@@ -11,7 +11,7 @@
   </div>
 
   <!-- GENERATOR -->
-  <section *ngIf="mode === 'generator'" class="qr-panel">
+  <section *ngIf="mode === 'generator'" class="qr-panel qr-generator">
     <input
       type="text"
       placeholder="Enter text or URL"
@@ -45,7 +45,7 @@
   </section>
 
   <!-- SCANNER -->
-  <section *ngIf="mode === 'scanner'" class="qr-panel">
+  <section class="qr-panel qr-scanner" [hidden]="mode !== 'scanner'">
     <div class="scanner-card">
       <zxing-scanner
         [formats]="allowedFormats"
@@ -55,8 +55,21 @@
     </div>
 
     <div *ngIf="scannedResult" class="scan-result">
-      <label>Scanned Result</label>
-      <p>{{ scannedResult }}</p>
+      <div class="scan-result-header">
+        <label>Scanned Result 👇</label>
+        <button
+          class="copy-text-btn"
+          (click)="copyText()"
+          [class.copied]="textCopied"
+          title="Copy text"
+        >
+          <span *ngIf="!textCopied"><i class="fa-solid fa fa-copy"></i></span>
+          <span *ngIf="textCopied"
+            ><i class="fa-solid fa fa-clipboard-check"></i
+          ></span>
+        </button>
+      </div>
+      <p class="scan-result-content">{{ scannedResult }}</p>
     </div>
   </section>
 </div>
@@ -65,3 +78,4 @@
   *ngIf="loading"
   [message]="'Generating link...'"
 ></app-loader-overlay>
+<app-faq [items]="faqItems"></app-faq>
