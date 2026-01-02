@@ -9,7 +9,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BarcodeFormat } from '@zxing/library';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 import { ZIP_QR_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
@@ -31,6 +31,7 @@ type Mode = 'generator' | 'scanner';
   styleUrl: './zip-qr.component.css',
 })
 export class ZipQrComponent implements OnInit {
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly headerService = inject(HeaderService);
   faqItems = ZIP_QR_FAQ;
   loading = false;
@@ -55,7 +56,7 @@ export class ZipQrComponent implements OnInit {
   }
 
   generateQr() {
-    // if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId)) return;
 
     this.loading = true;
     if (!this.inputValue.trim()) return;
@@ -71,7 +72,7 @@ export class ZipQrComponent implements OnInit {
   }
 
   downloadQr() {
-    // if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId)) return;
 
     const canvas = document.querySelector('canvas');
     if (!canvas) return;
@@ -83,7 +84,7 @@ export class ZipQrComponent implements OnInit {
   }
 
   async shareQr() {
-    // if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId)) return;
 
     const canvas = document.querySelector('canvas');
     if (!canvas || !navigator.canShare) return;
@@ -112,7 +113,7 @@ export class ZipQrComponent implements OnInit {
   }
 
   copyText() {
-    // if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId)) return;
 
     if (this.scannedResult) {
       navigator.clipboard.writeText(this.scannedResult as string);
