@@ -48,7 +48,11 @@
   </section>
 
   <!-- SCANNER -->
-  <section class="qr-panel qr-scanner" [hidden]="mode !== 'scanner'">
+  <section
+    class="qr-panel qr-scanner"
+    *ngIf="scannerPageVisited"
+    [hidden]="mode !== 'scanner'"
+  >
     <div class="scanner-card">
       <zxing-scanner
         [formats]="allowedFormats"
