@@ -5,11 +5,9 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SocialMetaResolver implements Resolve<boolean> {
-
   constructor(private meta: Meta) {}
 
   resolve(route: ActivatedRouteSnapshot): boolean {
-
     const data = route.data;
 
     const title = data['pageTitle'];
@@ -36,14 +34,20 @@ export class SocialMetaResolver implements Resolve<boolean> {
       this.meta.updateTag({ property: 'og:url', content: url });
     }
 
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    });
 
     if (title) {
       this.meta.updateTag({ name: 'twitter:title', content: title });
     }
 
     if (description) {
-      this.meta.updateTag({ name: 'twitter:description', content: description });
+      this.meta.updateTag({
+        name: 'twitter:description',
+        content: description,
+      });
     }
 
     return true;

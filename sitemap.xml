@@ -23,4 +23,10 @@
     <loc>https://ziputils.com/url/</loc>
     <lastmod>2025-05-30T05:36:59+00:00</lastmod>
   </url>
+
+  <!-- zip-qr page -->
+  <url>
+    <loc>https://ziputils.com/qr/</loc>
+    <lastmod>2026-01-02T05:36:59+00:00</lastmod>
+  </url>
 </urlset>
