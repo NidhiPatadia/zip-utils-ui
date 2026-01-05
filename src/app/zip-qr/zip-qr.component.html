@@ -1,11 +1,14 @@
 <div class="qr-container">
   <!-- Tabs -->
   <div class="qr-tabs">
-    <button [class.active]="mode === 'generator'" (click)="mode = 'generator'">
+    <button
+      [class.active]="mode === 'generator'"
+      (click)="changeMode('generator')"
+    >
       QR Generator
     </button>
 
-    <button [class.active]="mode === 'scanner'" (click)="mode = 'scanner'">
+    <button [class.active]="mode === 'scanner'" (click)="changeMode('scanner')">
       QR Scanner
     </button>
   </div>

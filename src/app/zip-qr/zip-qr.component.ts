@@ -37,6 +37,7 @@ export class ZipQrComponent implements OnInit {
   loading = false;
 
   mode: Mode = 'generator';
+  scannerPageVisited = false;
   allowedFormats = [BarcodeFormat.QR_CODE];
 
   // Generator
@@ -123,5 +124,12 @@ export class ZipQrComponent implements OnInit {
         this.textCopied = false;
       }, 2000);
     }
+  }
+
+  changeMode(selectedMode: Mode) {
+    if (selectedMode === 'scanner') {
+      this.scannerPageVisited = true;
+    }
+    this.mode = selectedMode;
   }
 }
