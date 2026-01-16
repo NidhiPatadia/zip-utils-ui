@@ -13,7 +13,6 @@ import { RouterLink } from '@angular/router';
 })
 export class PageNotFoundComponent implements OnInit {
   private readonly headerService = inject(HeaderService);
-  stars = Array(100).fill(0);
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
