@@ -1,51 +1,44 @@
-<div class="scenery">
-  <div class="stars">
-    <div *ngFor="let star of stars" class="star"></div>
-  </div>
-
-  <div class="planet planet1"></div>
-  <div class="planet planet2"></div>
-  <div class="planet planet3"></div>
-
-  <div class="girl">
-    <div class="head"></div>
-    <div class="body"></div>
-    <div class="legs"></div>
-  </div>
-
-  <div class="title">
-    <h1>
-      <span>4</span>
-      <div class="square">
-        <div class="light light1"></div>
-        <div class="light light2"></div>
-        <div class="light light3"></div>
-        <div class="light light4"></div>
-        <div class="shadow shadow1"></div>
-        <div class="shadow shadow2"></div>
-
-        <ul class="stairs1">
-          <li *ngFor="let i of [].constructor(12)"></li>
-        </ul>
-        <ul class="stairs2">
-          <li *ngFor="let i of [].constructor(11)"></li>
-        </ul>
-        <ul class="stairs3">
-          <li *ngFor="let i of [].constructor(10)"></li>
-        </ul>
-        <ul class="stairs4">
-          <li *ngFor="let i of [].constructor(11)"></li>
-        </ul>
-      </div>
-      <span>4</span>
-    </h1>
-  </div>
-
-  <div class="message">
-    <h2>Oops! Looks like you got lost</h2>
-  </div>
-
-  <div class="action">
+<div class="page">
+  <div class="content">
+    <div class="logo">Zip-Utils</div>
+    <p class="title">404. <span>That’s an error.</span></p>
+    <p class="desc">The requested URL was not found on this server.</p>
     <button routerLink="/">Take me back</button>
+  </div>
+
+  <div class="illustration">
+    <!-- Simple Google-like robot SVG -->
+    <svg width="160" height="200" viewBox="0 0 160 200" fill="none">
+      <rect
+        x="40"
+        y="40"
+        width="80"
+        height="80"
+        rx="4"
+        stroke="#1a73e8"
+        stroke-width="2"
+      />
+      <circle cx="65" cy="70" r="4" fill="#1a73e8" />
+      <circle cx="95" cy="70" r="4" fill="#1a73e8" />
+      <line
+        x1="60"
+        y1="95"
+        x2="100"
+        y2="95"
+        stroke="#1a73e8"
+        stroke-width="2"
+      />
+
+      <rect
+        x="55"
+        y="120"
+        width="50"
+        height="40"
+        stroke="#1a73e8"
+        stroke-width="2"
+      />
+      <line x1="80" y1="20" x2="80" y2="40" stroke="#1a73e8" stroke-width="2" />
+      <circle cx="80" cy="18" r="4" fill="#1a73e8" />
+    </svg>
   </div>
 </div>
