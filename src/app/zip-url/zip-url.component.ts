@@ -20,6 +20,7 @@ import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.compone
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_URL_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
+import { SeoSchemaService } from '../services/seo/seo-schema.service';
 
 @Component({
   selector: 'app-zip-url',
@@ -38,6 +39,7 @@ import { FaqComponent } from '../faq/faq.component';
 export class ZipUrlComponent implements OnInit {
   private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
+  private readonly seoSchemaService = inject(SeoSchemaService);
   readonly urlForm: FormGroup;
 
   loading = false;
@@ -60,6 +62,7 @@ export class ZipUrlComponent implements OnInit {
       pageDescription: COMPONENT_DESCRIPTION.ZIP_URL,
       tabTitle: TAB_TITLE.ZIP_URL,
     });
+    this.seoSchemaService.setFaqSchema(this.faqItems);
   }
 
   onSubmit(botGuard: any) {
