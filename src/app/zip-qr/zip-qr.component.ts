@@ -13,6 +13,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 import { ZIP_QR_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
+import { SeoSchemaService } from '../services/seo/seo-schema.service';
 
 type Mode = 'generator' | 'scanner';
 
@@ -33,6 +34,7 @@ type Mode = 'generator' | 'scanner';
 export class ZipQrComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly headerService = inject(HeaderService);
+  private readonly seoSchemaService = inject(SeoSchemaService);
   faqItems = ZIP_QR_FAQ;
   loading = false;
 
@@ -54,6 +56,7 @@ export class ZipQrComponent implements OnInit {
       pageDescription: COMPONENT_DESCRIPTION.ZIP_QR,
       tabTitle: TAB_TITLE.ZIP_QR,
     });
+    this.seoSchemaService.setFaqSchema(this.faqItems);
   }
 
   generateQr() {
