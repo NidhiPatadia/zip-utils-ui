@@ -21,7 +21,7 @@ export enum RedirectionType {
 }
 
 export enum TAB_TITLE {
-  ZIP_TEXT = 'Text Transfer Online – Secure Text Uploader with Expiry | ZipUtils',
+  ZIP_TEXT = 'Online Text Transfer Tool – Secure Text Uploader | ZipUtils',
   ZIP_URL = 'URL Shortener – Create Short Links Instantly | ZipUtils',
   ZIP_QR = 'QR Code Generator/Scanner – Create/Scan QR Codes for Links or Text | ZipUtils',
 }
