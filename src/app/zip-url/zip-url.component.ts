@@ -61,7 +61,7 @@ export class ZipUrlComponent implements OnInit {
 
     this.urlForm = this.fb.group({
       url: ['', [Validators.required, Validators.pattern(URL_REGEX)]],
-      expiryTime: [this.expiryTimes[5].value, Validators.required],
+      expiryTime: [this.expiryTimes[5].value],
     });
   }
 
