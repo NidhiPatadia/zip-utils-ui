@@ -25,10 +25,29 @@
         Please enter a valid URL.
       </div>
     </div>
-    <app-bot-guard #botGuard></app-bot-guard>
-    <button type="submit" class="btn btn-primary" [disabled]="urlForm.invalid">
-      Shorten URL
-    </button>
+
+    <div class="button-row">
+      <div class="dropdown-group">
+        <label for="expiry-select">Expiry Time:</label>
+        <select id="expiry-select" formControlName="expiryTime">
+          <option
+            *ngFor="let expiryTime of expiryTimes"
+            [value]="expiryTime.value"
+          >
+            {{ expiryTime.text }}
+          </option>
+        </select>
+      </div>
+      <app-bot-guard #botGuard></app-bot-guard>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="urlForm.invalid"
+      >
+        Shorten URL
+      </button>
+    </div>
   </form>
 
   <div *ngIf="shortUrl">
