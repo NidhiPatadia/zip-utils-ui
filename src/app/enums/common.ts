@@ -7,7 +7,7 @@ export enum PAGE_TITLE {
 }
 
 export enum PAGE_DESCRIPTION {
-  ZIP_UTILS = '⚡ One place. Many tools. Simply fast.',
+  ZIP_UTILS = '⚡ ZipUtils is a free online utility platform to securely transfer text, shorten long URLs, and generate QR codes instantly. All tools work directly in your browser with a focus on speed, privacy, and simplicity. 🔒',
   ZIP_TEXT = '💬 Paste and share instantly with a unique, secure link. 🔒',
   ZIP_URL = '🔗 Create short, simple, and shareable links in seconds.',
   ZIP_QR = '📱 Generate/Scan QR codes for links, text, or data — in one click.',
