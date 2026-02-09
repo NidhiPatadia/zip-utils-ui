@@ -2,17 +2,17 @@ import { FaqItem } from '../models/faq.model';
 
 export const ZIP_TEXT_FAQ: FaqItem[] = [
   {
-    question: 'How does text uploading work?',
+    question: 'How does online text transfer work?',
     answer:
       'Paste your text, choose an expiry time, and generate a secure link. The text is automatically deleted after expiry.',
   },
   {
-    question: 'Is uploaded text secure?',
+    question: 'Is online text transfer secure?',
     answer:
       'Yes. ZipUtils encrypts uploaded text and removes it permanently after the selected expiry time.',
   },
   {
-    question: 'How long is uploaded text stored?',
+    question: 'How long does shared text stay available online?',
     answer:
       'Uploaded text is stored only until the expiry time you choose, after which it is permanently deleted.',
   },
@@ -20,6 +20,21 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
     question: 'Who can access my uploaded text?',
     answer:
       'Only people with the generated private link can access your uploaded text. Once expired, the link no longer works.',
+  },
+  {
+    question: 'Can I share text online without email or messaging apps?',
+    answer:
+      'Yes. ZipUtils lets you paste text and generate a private link that you can share directly, without using email, WhatsApp, or any messaging app.',
+  },
+  {
+    question: 'Can I send long text online using this tool?',
+    answer:
+      'Yes. ZipUtils is designed for sharing long text, notes, or instructions online by converting them into a single secure, shareable link.',
+  },
+  {
+    question: 'Can I create a temporary text link that expires automatically?',
+    answer:
+      'Yes. You can choose an expiry time when generating the link. Once the expiry time is reached, the text is permanently deleted.',
   },
   {
     question: 'Can I share links or create QR codes instead of sharing text?',
@@ -126,6 +141,6 @@ export const ZIP_QR_FAQ: FaqItem[] = [
   {
     question: 'When should I use a QR code instead of text or URL sharing?',
     answer:
-      'QR codes are best when you want fast access on mobile devices, offline sharing, or clean presentation. For longer content, consider using <a href="/text/">Text Sharing</a> or a <a href="/url/">URL Shortener</a> and then generate a QR code for that link.',
+      'QR codes are best when you want fast access on mobile devices, offline sharing, or clean presentation. For longer content, consider using <a href="/text/">Online Text Transfer</a> or a <a href="/url/">URL Shortener</a> and then generate a QR code for that link.',
   },
 ];

@@ -49,6 +49,36 @@
   background: var(--secondary);
 }
 
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+.dropdown-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.dropdown-group label {
+  font-size: 1rem;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.dropdown-group select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  background: white;
+  color: #333;
+}
+
 .loader-overlay {
   position: absolute;
   inset: 0;
@@ -94,5 +124,27 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .button-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .dropdown-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown-group select {
+    flex: 1;
+    max-width: 60%;
+  }
+
+  button {
+    width: 100%;
   }
 }

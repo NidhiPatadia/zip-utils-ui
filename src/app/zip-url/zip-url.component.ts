@@ -20,6 +20,7 @@ import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.compone
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_URL_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
+import { SeoSchemaService } from '../services/seo/seo-schema.service';
 
 @Component({
   selector: 'app-zip-url',
@@ -38,7 +39,16 @@ import { FaqComponent } from '../faq/faq.component';
 export class ZipUrlComponent implements OnInit {
   private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
+  private readonly seoSchemaService = inject(SeoSchemaService);
   readonly urlForm: FormGroup;
+  readonly expiryTimes = [
+    { text: '10 min', value: 10 },
+    { text: '30 min', value: 30 },
+    { text: '1 hour', value: 60 },
+    { text: '6 hours', value: 360 },
+    { text: '1 day', value: 1440 },
+    { text: 'No Expiry', value: null },
+  ];
 
   loading = false;
   id: string | null = null;
@@ -51,6 +61,7 @@ export class ZipUrlComponent implements OnInit {
 
     this.urlForm = this.fb.group({
       url: ['', [Validators.required, Validators.pattern(URL_REGEX)]],
+      expiryTime: [this.expiryTimes[5].value],
     });
   }
 
@@ -60,6 +71,7 @@ export class ZipUrlComponent implements OnInit {
       pageDescription: COMPONENT_DESCRIPTION.ZIP_URL,
       tabTitle: TAB_TITLE.ZIP_URL,
     });
+    this.seoSchemaService.setFaqSchema(this.faqItems);
   }
 
   onSubmit(botGuard: any) {
@@ -70,15 +82,18 @@ export class ZipUrlComponent implements OnInit {
     }
     if (this.urlForm.valid) {
       const url = this.urlForm.value.url;
-      console.log('URL to shorten:', url);
-      this.generateShortUrl(url);
+      const expiry = this.urlForm.value.expiryTime
+        ? parseInt(this.urlForm.value.expiryTime.toString(), 10)
+        : null;
+      console.log('URL to shorten:', url, expiry);
+      this.generateShortUrl(url, expiry);
     }
   }
 
-  generateShortUrl(url: string) {
+  generateShortUrl(url: string, expiry: number | null) {
     this.loading = true;
     this.commonService
-      .generateZipShortUrl(url)
+      .generateZipShortUrl(url, expiry)
       .pipe(
         finalize(() =>
           setTimeout(() => {

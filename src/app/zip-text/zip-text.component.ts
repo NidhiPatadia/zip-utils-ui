@@ -13,6 +13,7 @@ import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.compone
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_TEXT_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
+import { SeoSchemaService } from '../services/seo/seo-schema.service';
 
 @Component({
   selector: 'app-zip-text',
@@ -31,6 +32,7 @@ export class ZipTextComponent implements OnInit {
   private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
   private readonly router = inject(Router);
+  private readonly seoSchemaService = inject(SeoSchemaService);
   readonly expiryTimes = [
     { text: '10 min', value: 10 },
     { text: '30 min', value: 30 },
@@ -51,6 +53,7 @@ export class ZipTextComponent implements OnInit {
       pageDescription: COMPONENT_DESCRIPTION.ZIP_TEXT,
       tabTitle: TAB_TITLE.ZIP_TEXT,
     });
+    this.seoSchemaService.setFaqSchema(this.faqItems);
   }
 
   generateLink(botGuard: any) {
