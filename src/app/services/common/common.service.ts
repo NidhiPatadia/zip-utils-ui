@@ -45,10 +45,10 @@ export class CommonService {
     });
   }
 
-  generateZipShortUrl(url: string) {
+  generateZipShortUrl(url: string, expiryInMinutes: number | null) {
     return this.apollo.mutate<IGenerateZipShortUrlResponse>({
       mutation: GraphQL.generateZipShortUrl,
-      variables: { url },
+      variables: { url, expiryInMinutes },
     });
   }
 
