@@ -35,6 +35,9 @@ body {
   --shadow: rgba(0, 0, 0, 0.06);
   --banner-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
   --scrollbar-color: var(--primary);
+  --faq-ans-color: #374151;
+  --faq-title-hover-color: #1D4ED8;
+  --faq-title-expand-color: #1E40AF;
 }
 
 [data-theme='dark'] {
@@ -46,6 +49,9 @@ body {
   --shadow: rgba(0, 0, 0, 0.4);
   --banner-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
   --scrollbar-color: #ddd;
+  --faq-ans-color: #a0aec0;
+  --faq-title-hover-color: #a0d9ff;
+  --faq-title-expand-color: #667eea;
 }
 
 /********** general css **********/
