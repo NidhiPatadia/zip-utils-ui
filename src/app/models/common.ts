@@ -23,3 +23,7 @@ export interface IGenerateZipShortUrlResponse {
 export interface IGetZipShortUrlResponse {
   getUrl: string;
 }
+
+export interface ICheckShortIdAvailabilityResponse {
+  isShortIdAvailable: boolean;
+}

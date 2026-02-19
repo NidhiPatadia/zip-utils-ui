@@ -14,6 +14,7 @@ import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_TEXT_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
 import { SeoSchemaService } from '../services/seo/seo-schema.service';
+import { CustomLinkComponent } from '../shared/components/custom-link/custom-link.component';
 
 @Component({
   selector: 'app-zip-text',
@@ -24,6 +25,7 @@ import { SeoSchemaService } from '../services/seo/seo-schema.service';
     LoaderOverlayComponent,
     BotGuardComponent,
     FaqComponent,
+    CustomLinkComponent,
   ],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',
@@ -46,6 +48,8 @@ export class ZipTextComponent implements OnInit {
   expiryInMinutes = 10;
   loading = false;
   faqItems = ZIP_TEXT_FAQ;
+  isSlugAvailable: boolean | null = null;
+  customSlug: string | null = null;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
@@ -69,19 +73,29 @@ export class ZipTextComponent implements OnInit {
     const expiry = this.expiryInMinutes
       ? parseInt(this.expiryInMinutes.toString(), 10)
       : null;
-    this.commonService.generateZipTextUrl(this.textInput, expiry).subscribe({
-      next: (response) => {
-        const id = response.data?.generateZipTextUrl;
-        if (id) {
-          setTimeout(() => {
+    this.commonService
+      .generateZipTextUrl(this.textInput, expiry, this.customSlug)
+      .subscribe({
+        next: (response) => {
+          const id = response.data?.generateZipTextUrl;
+          if (id) {
+            setTimeout(() => {
+              this.loading = false;
+              this.router.navigate(['/t', id]);
+            }, 300);
+          } else {
             this.loading = false;
-            this.router.navigate(['/t', id]);
-          }, 300);
-        } else {
-          this.loading = false;
-        }
-      },
-      error: (err) => console.error('Error generating link', err),
-    });
+          }
+        },
+        error: (err) => console.error('Error generating link', err),
+      });
+  }
+
+  onSlugAvailabilityChange(value: boolean | null): void {
+    this.isSlugAvailable = value;
+  }
+
+  onSlugChange(slug: string | null): void {
+    this.customSlug = slug;
   }
 }

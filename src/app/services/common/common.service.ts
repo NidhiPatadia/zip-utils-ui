@@ -1,12 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { GraphQL } from '../../graphql/zip-utils.graphql';
+import { GraphQLRedirectionType } from '../../enums/common';
 import {
   IHealthCheckResponse,
   IGenerateZipTextUrlResponse,
   IGetZipTextUrlResponse,
   IGetZipShortUrlResponse,
   IGenerateZipShortUrlResponse,
+  ICheckShortIdAvailabilityResponse,
 } from '../../models/common';
 
 @Injectable({
@@ -33,7 +35,11 @@ export class CommonService {
     });
   }
 
-  generateZipTextUrl(text: string, expiryInMinutes: number | null) {
+  generateZipTextUrl(
+    text: string,
+    expiryInMinutes: number | null,
+    customSlug?: string | null,
+  ) {
     const MUTATION = GraphQL.generateZipTextUrl;
 
     return this.apollo.mutate<IGenerateZipTextUrlResponse>({
@@ -41,6 +47,7 @@ export class CommonService {
       variables: {
         text,
         expiryInMinutes,
+        customSlug,
       },
     });
   }
@@ -70,5 +77,16 @@ export class CommonService {
 
   clearTempText() {
     this.tempText = '';
+  }
+
+  /**
+   * 🔍 Check if custom short ID is available
+   */
+  checkShortIdAvailability(id: string, type: GraphQLRedirectionType) {
+    return this.apollo.query<ICheckShortIdAvailabilityResponse>({
+      query: GraphQL.isShortIdAvailable,
+      variables: { id, type },
+      fetchPolicy: 'no-cache',
+    });
   }
 }

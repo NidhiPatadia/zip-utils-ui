@@ -9,9 +9,7 @@ export class SeoSchemaService {
   /**
    * Inject FAQPage schema into <head>
    */
-  setFaqSchema(
-    faqs: { question: string; answer: string }[] | undefined
-  ): void {
+  setFaqSchema(faqs: { question: string; answer: string }[] | undefined): void {
     if (!faqs || !faqs.length) return;
 
     // Remove existing FAQ schema (SPA safety)
