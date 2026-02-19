@@ -20,6 +20,12 @@ export enum RedirectionType {
   QR = 'q',
 }
 
+export enum GraphQLRedirectionType {
+  TEXT = 'TEXT',
+  URL = 'URL',
+  QR = 'QR',
+}
+
 export enum TAB_TITLE {
   ZIP_TEXT = 'Online Text Transfer Tool – Secure Text Uploader | ZipUtils',
   ZIP_URL = 'URL Shortener – Create Short Links Instantly | ZipUtils',

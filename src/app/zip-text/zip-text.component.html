@@ -1,14 +1,14 @@
 <div class="main-content-text" [class.fade-out]="loading">
-  <div class="textarea-flex-wrapper">
-    <textarea
-      [(ngModel)]="textInput"
-      rows="8"
-      placeholder="Paste your text here..."
-    ></textarea>
-
-    <div class="button-row">
-      <div class="dropdown-group">
-        <label for="expiry-select">Expiry Time:</label>
+  <textarea
+    [(ngModel)]="textInput"
+    class="textInput"
+    rows="8"
+    placeholder="Paste your text here..."
+  ></textarea>
+  <div class="controls">
+    <div class="control-row">
+      <div class="control-group">
+        <label for="expiry-select">Expiry Time</label>
         <select id="expiry-select" [(ngModel)]="expiryInMinutes">
           <option
             *ngFor="let expiryTime of expiryTimes"
@@ -18,21 +18,29 @@
           </option>
         </select>
       </div>
-      <app-bot-guard #botGuard></app-bot-guard>
-
-      <button [disabled]="!textInput.trim()" (click)="generateLink(botGuard)">
-        Generate Link
-      </button>
+      <div class="control-group">
+        <app-custom-link
+          (availabilityChange)="onSlugAvailabilityChange($event)"
+          (slugChange)="onSlugChange($event)"
+        ></app-custom-link>
+      </div>
     </div>
+    <app-bot-guard #botGuard></app-bot-guard>
+    <button
+      [disabled]="!textInput.trim() || isSlugAvailable === false"
+      (click)="generateLink(botGuard)"
+    >
+      Generate Link
+    </button>
   </div>
   <app-loader-overlay
     *ngIf="loading"
     [message]="'Generating link...'"
   ></app-loader-overlay>
+  <p class="footer-note">
+    Note - We encrypt every message before storing it, ensuring complete
+    privacy. No one can access your text, and it’s permanently removed once the
+    expiry time is reached.
+  </p>
 </div>
-<p class="footer-note">
-  Note - We encrypt every message before storing it, ensuring complete privacy.
-  No one can access your text, and it’s permanently removed once the expiry time
-  is reached.
-</p>
 <app-faq [items]="faqItems"></app-faq>

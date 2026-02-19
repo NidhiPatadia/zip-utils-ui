@@ -2,8 +2,9 @@
   <input
     *ngFor="let field of honeypots"
     type="text"
-    [name]="field.name"
+    [attr.name]="field.name"
     [(ngModel)]="field.value"
+    [ngModelOptions]="{ standalone: true }"
     tabindex="-1"
     autocomplete="off"
     class="host"

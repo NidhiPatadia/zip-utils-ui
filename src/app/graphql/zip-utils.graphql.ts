@@ -8,8 +8,16 @@ export const GraphQL = {
   `,
 
   generateZipTextUrl: gql`
-    mutation GenerateZipTextUrl($text: String!, $expiryInMinutes: Int) {
-      generateZipTextUrl(text: $text, expiryInMinutes: $expiryInMinutes)
+    mutation GenerateZipTextUrl(
+      $text: String!
+      $expiryInMinutes: Int
+      $customSlug: String
+    ) {
+      generateZipTextUrl(
+        text: $text
+        expiryInMinutes: $expiryInMinutes
+        customSlug: $customSlug
+      )
     }
   `,
 
@@ -28,6 +36,12 @@ export const GraphQL = {
   getZipShortUrl: gql`
     query GetZipShortUrl($url: String!) {
       getUrl(url: $url)
+    }
+  `,
+
+  isShortIdAvailable: gql`
+    query IsShortIdAvailable($id: String!, $type: RedirectionType!) {
+      isShortIdAvailable(id: $id, type: $type)
     }
   `,
 };
