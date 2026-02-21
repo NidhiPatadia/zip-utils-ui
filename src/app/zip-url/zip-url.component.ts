@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -21,6 +21,7 @@ import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_URL_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
 import { SeoSchemaService } from '../services/seo/seo-schema.service';
+import { CustomLinkComponent } from '../shared/components/custom-link/custom-link.component';
 
 @Component({
   selector: 'app-zip-url',
@@ -32,6 +33,7 @@ import { SeoSchemaService } from '../services/seo/seo-schema.service';
     LoaderOverlayComponent,
     BotGuardComponent,
     FaqComponent,
+    CustomLinkComponent,
   ],
   templateUrl: './zip-url.component.html',
   styleUrl: './zip-url.component.css',
@@ -54,6 +56,10 @@ export class ZipUrlComponent implements OnInit {
   id: string | null = null;
   faqItems = ZIP_URL_FAQ;
   shortUrl = '';
+  isSlugAvailable: boolean | null = null;
+  customSlug: string | null = null;
+  checkingSlug = false;
+  @ViewChild(CustomLinkComponent) customLinkComponent!: CustomLinkComponent;
 
   constructor(private fb: FormBuilder) {
     const URL_REGEX =
@@ -74,12 +80,39 @@ export class ZipUrlComponent implements OnInit {
     this.seoSchemaService.setFaqSchema(this.faqItems);
   }
 
-  onSubmit(botGuard: any) {
+  async onSubmit(botGuard: any) {
     const guardResult = botGuard.validate();
     if (!guardResult.valid) {
       console.warn('Blocked by bot guard:', guardResult.reason);
       return;
     }
+
+    if (
+      this.customSlug &&
+      this.isSlugAvailable === null &&
+      !this.checkingSlug
+    ) {
+      this.customLinkComponent.suppressAvailabilityUi = true; // hide "Available" from blur-triggered check
+      this.checkingSlug = true;
+      const availability =
+        await this.customLinkComponent.checkAvailability(true);
+      this.checkingSlug = false;
+
+      // After check completes, block if not available
+      if (availability === false) {
+        this.customLinkComponent.suppressAvailabilityUi = false;
+        return;
+      }
+      // Re-enable availability UI after a short delay (blur response may still be in flight)
+      setTimeout(
+        () => (this.customLinkComponent.suppressAvailabilityUi = false),
+        800,
+      );
+    }
+    if (this.customSlug && this.isSlugAvailable === false) {
+      return;
+    }
+
     if (this.urlForm.valid) {
       const url = this.urlForm.value.url;
       const expiry = this.urlForm.value.expiryTime
@@ -93,7 +126,7 @@ export class ZipUrlComponent implements OnInit {
   generateShortUrl(url: string, expiry: number | null) {
     this.loading = true;
     this.commonService
-      .generateZipShortUrl(url, expiry)
+      .generateZipShortUrl(url, expiry, this.customSlug)
       .pipe(
         finalize(() =>
           setTimeout(() => {
@@ -115,6 +148,26 @@ export class ZipUrlComponent implements OnInit {
           console.error(errMsg);
           alert(errMsg);
         },
+        complete: () => {
+          this.loading = false;
+        },
       });
+  }
+
+  onSlugAvailabilityChange(value: boolean | null): void {
+    this.isSlugAvailable = value;
+  }
+
+  onSlugChange(slug: string | null): void {
+    // Only reset availability if slug actually changed
+    // This prevents resetting when blur validation completes and emits the same slug
+    const slugChanged = slug !== this.customSlug;
+    this.customSlug = slug;
+
+    if (slugChanged) {
+      // Reset availability when slug changes (user typed something new)
+      this.isSlugAvailable = null;
+    }
+    // If slug didn't change, keep current availability status (don't reset)
   }
 }

@@ -28,8 +28,16 @@ export const GraphQL = {
   `,
 
   generateZipShortUrl: gql`
-    mutation GenerateZipShortUrl($url: String!, $expiryInMinutes: Int) {
-      generateUrl(url: $url, expiryInMinutes: $expiryInMinutes)
+    mutation GenerateZipShortUrl(
+      $url: String!
+      $expiryInMinutes: Int
+      $customSlug: String
+    ) {
+      generateUrl(
+        url: $url
+        expiryInMinutes: $expiryInMinutes
+        customSlug: $customSlug
+      )
     }
   `,
 

@@ -52,10 +52,14 @@ export class CommonService {
     });
   }
 
-  generateZipShortUrl(url: string, expiryInMinutes: number | null) {
+  generateZipShortUrl(
+    url: string,
+    expiryInMinutes: number | null,
+    customSlug?: string | null,
+  ) {
     return this.apollo.mutate<IGenerateZipShortUrlResponse>({
       mutation: GraphQL.generateZipShortUrl,
-      variables: { url, expiryInMinutes },
+      variables: { url, expiryInMinutes, customSlug },
     });
   }
 

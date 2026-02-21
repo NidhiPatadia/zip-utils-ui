@@ -82,3 +82,7 @@ label {
     font-size: 13px;
   }
 }
+
+.custom-link-group:focus-within {
+  border-color: #667eea;
+}
