@@ -12,7 +12,7 @@ import { RedirectionType, GraphQLRedirectionType } from '../../../enums/common';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './custom-link.component.html',
-  styleUrls: ['./custom-link.component.scss'],
+  styleUrls: ['./custom-link.component.css'],
 })
 export class CustomLinkComponent {
   customLink = '';
@@ -28,6 +28,9 @@ export class CustomLinkComponent {
   available: boolean | null = null;
   checking = false;
 
+  /** When true, do not update availability UI (e.g. Generate was clicked, suppress blur result) */
+  suppressAvailabilityUi = false;
+
   private readonly router = inject(Router);
   private readonly commonService = inject(CommonService);
 
@@ -42,65 +45,106 @@ export class CustomLinkComponent {
   }
 
   onBlur(): void {
-    const value = this.customLink;
+    this.performAvailabilityCheck(false);
+  }
 
-    // empty → neutral
-    if (!value) {
-      this.available = null;
-      this.availabilityChange.emit(null);
-      this.slugChange.emit(null);
-      return;
-    }
+  /** @param silent When true, don't update UI or emit (e.g. when triggered by Generate button) */
+  checkAvailability(silent = false): Promise<boolean | null> {
+    return this.performAvailabilityCheck(silent);
+  }
 
-    // invalid characters OR starts with number / '-'
-    if (!this.allowedPattern.test(value)) {
-      this.available = false;
-      this.availabilityChange.emit(false);
-      this.slugChange.emit(null);
-      return;
-    }
+  private performAvailabilityCheck(silent: boolean): Promise<boolean | null> {
+    return new Promise((resolve) => {
+      const value = this.customLink;
 
-    // length validation
-    if (value.length < 2 || value.length > 50) {
-      this.available = false;
-      this.availabilityChange.emit(false);
-      this.slugChange.emit(null);
-      return;
-    }
-
-    // no consecutive dashes
-    if (value.includes('--')) {
-      this.available = false;
-      this.availabilityChange.emit(false);
-      this.slugChange.emit(null);
-      return;
-    }
-
-    // < 2 chars → invalid
-    if (value.length < 2) {
-      this.available = false;
-      this.availabilityChange.emit(false);
-      this.slugChange.emit(null);
-      return;
-    }
-
-    this.checking = true;
-
-    this.commonService
-      .checkShortIdAvailability(value, this.mapToGraphQLType())
-      .subscribe({
-        next: (res) => {
-          this.available = res.data.isShortIdAvailable;
-          this.checking = false;
-          this.availabilityChange.emit(this.available);
-          this.slugChange.emit(value);
-        },
-        error: () => {
+      // empty → neutral
+      if (!value) {
+        if (!silent) {
           this.available = null;
-          this.checking = false;
           this.availabilityChange.emit(null);
-        },
-      });
+          this.slugChange.emit(null);
+        }
+        resolve(null);
+        return;
+      }
+
+      // invalid characters OR starts with number / '-'
+      if (!this.allowedPattern.test(value)) {
+        if (!silent) {
+          this.available = false;
+          this.availabilityChange.emit(false);
+          this.slugChange.emit(null);
+        }
+        resolve(false);
+        return;
+      }
+
+      // length validation
+      if (value.length < 2 || value.length > 50) {
+        if (!silent) {
+          this.available = false;
+          this.availabilityChange.emit(false);
+          this.slugChange.emit(null);
+        }
+        resolve(false);
+        return;
+      }
+
+      // no consecutive dashes
+      if (value.includes('--')) {
+        if (!silent) {
+          this.available = false;
+          this.availabilityChange.emit(false);
+          this.slugChange.emit(null);
+        }
+        resolve(false);
+        return;
+      }
+
+      // < 2 chars → invalid
+      if (value.length < 2) {
+        if (!silent) {
+          this.available = false;
+          this.availabilityChange.emit(false);
+          this.slugChange.emit(null);
+        }
+        resolve(false);
+        return;
+      }
+
+      if (!silent) {
+        this.checking = true;
+      }
+
+      this.commonService
+        .checkShortIdAvailability(value, this.mapToGraphQLType())
+        .subscribe({
+          next: (res) => {
+            const result = res.data.isShortIdAvailable;
+            const shouldUpdateUi = !silent && !this.suppressAvailabilityUi;
+            if (shouldUpdateUi) {
+              this.available = result;
+              this.checking = false;
+              this.availabilityChange.emit(this.available);
+              this.slugChange.emit(value);
+            } else if (!silent) {
+              this.checking = false;
+            }
+            resolve(result);
+          },
+          error: () => {
+            const shouldUpdateUi = !silent && !this.suppressAvailabilityUi;
+            if (shouldUpdateUi) {
+              this.available = null;
+              this.checking = false;
+              this.availabilityChange.emit(null);
+            } else if (!silent) {
+              this.checking = false;
+            }
+            resolve(null);
+          },
+        });
+    });
   }
 
   private mapToGraphQLType(): GraphQLRedirectionType {

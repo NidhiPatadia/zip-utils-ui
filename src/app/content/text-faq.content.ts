@@ -37,6 +37,11 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
       'Yes. You can choose an expiry time when generating the link. Once the expiry time is reached, the text is permanently deleted.',
   },
   {
+    question: 'Can I create a custom link for my shared text?',
+    answer:
+      'Yes. ZipUtils allows you to create a custom link for your uploaded text instead of a random one. Simply enter a custom link name (if available), and your text will be accessible using that personalized URL.',
+  },
+  {
     question: 'Can I share links or create QR codes instead of sharing text?',
     answer:
       'Yes. If you only need to share a website link, you can use the <a href="/url/">URL Shortener</a> to create a clean, shareable link. You can also generate a <a href="/qr/">QR Code</a> for your text or links to make sharing easier on mobile or offline.',
