@@ -6,11 +6,11 @@
   <input
     type="text"
     id="customLink"
-    maxlength="20"
     class="custom-link-input"
     placeholder="my-custom-link"
     maxlength="50"
     [(ngModel)]="customLink"
+    (ngModelChange)="slugChange.emit($event)"
     (blur)="onBlur()"
   />
 </div>
