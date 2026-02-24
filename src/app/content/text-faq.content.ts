@@ -55,6 +55,11 @@ export const ZIP_URL_FAQ: FaqItem[] = [
       'A URL shortener converts long, complex web links into short, easy-to-share URLs. This makes links cleaner, easier to remember, and more convenient to share across messages, emails, and social media.',
   },
   {
+    question: 'Can I create a custom short link for my URL?',
+    answer:
+      'Yes. ZipUtils allows you to create a custom short link instead of a randomly generated one. Simply enter a custom link name if it is available, or leave it blank to generate a random short URL.',
+  },
+  {
     question: 'Why should I use ZipUtils URL Shortener?',
     answer:
       'ZipUtils provides a fast and simple way to shorten links without unnecessary steps. Our URL shortener focuses on speed, reliability, and ease of use, helping you create clean links instantly.',
