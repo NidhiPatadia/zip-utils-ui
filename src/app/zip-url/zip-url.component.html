@@ -5,7 +5,7 @@
       name="url"
       type="text"
       formControlName="url"
-      class="form-control"
+      class="form-control text-url-input"
       placeholder="Paste your long URL here..."
       title="Paste your long URL here..."
     />
@@ -25,25 +25,32 @@
         Please enter a valid URL.
       </div>
     </div>
-
-    <div class="button-row">
-      <div class="dropdown-group">
-        <label for="expiry-select">Expiry Time:</label>
-        <select id="expiry-select" formControlName="expiryTime">
-          <option
-            *ngFor="let expiryTime of expiryTimes"
-            [value]="expiryTime.value"
-          >
-            {{ expiryTime.text }}
-          </option>
-        </select>
+    <div class="controls">
+      <div class="control-row">
+        <div class="control-group">
+          <label for="expiry-select">Expiry Time:</label>
+          <select id="expiry-select" formControlName="expiryTime">
+            <option
+              *ngFor="let expiryTime of expiryTimes"
+              [value]="expiryTime.value"
+            >
+              {{ expiryTime.text }}
+            </option>
+          </select>
+        </div>
+        <div class="control-group">
+          <app-custom-link
+            #customLink
+            (availabilityChange)="onSlugAvailabilityChange($event)"
+            (slugChange)="onSlugChange($event)"
+          ></app-custom-link>
+        </div>
       </div>
       <app-bot-guard #botGuard></app-bot-guard>
-
       <button
         type="submit"
         class="btn btn-primary"
-        [disabled]="urlForm.invalid"
+        [disabled]="urlForm.invalid || isSlugAvailable === false"
       >
         Shorten URL
       </button>

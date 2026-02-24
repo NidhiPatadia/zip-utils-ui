@@ -128,10 +128,10 @@
   }
 }
 
-.accordion-header[aria-expanded="true"] {
+.accordion-header[aria-expanded='true'] {
   color: var(--faq-title-expand-color);
 }
 
-.accordion-header[aria-expanded="true"] .arrow {
+.accordion-header[aria-expanded='true'] .arrow {
   border-color: var(--faq-title-expand-color);
 }

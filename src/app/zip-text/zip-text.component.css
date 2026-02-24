@@ -1,12 +1,13 @@
 .main-content-text {
   max-width: 1200px;
-  margin: 3rem auto;
+  margin: 2rem auto;
   padding: 2rem;
   background: var(--card-bg);
   border-radius: 1.5rem;
   box-shadow: 0 6px 16px var(--shadow);
   text-align: center;
   margin-bottom: 1rem;
+  box-sizing: border-box;
 }
 
 .main-content-text h3 {
@@ -26,19 +27,27 @@ input[type='text'] {
   color: #333;
 }
 
+.textInput:focus {
+  outline: 3px solid #667eea;
+}
+
 button {
-  background: var(--primary);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   color: white;
   border: none;
   padding: 0.7rem 1.4rem;
   font-size: 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
 button:hover {
-  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
 }
 
 button:disabled {
@@ -49,18 +58,51 @@ button:disabled {
   box-shadow: none;
 }
 
-.textarea-flex-wrapper {
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.control-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.control-group {
+  flex: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.button-row {
+.control-group label {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 1rem;
+}
+
+.control-group select {
+  cursor: pointer;
+  padding: 12px 16px;
+  border: 2px solid #4a5568;
+  border-radius: 8px;
+  font-size: 15px;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  background: transparent;
 }
 
 .dropdown-group {
@@ -96,9 +138,10 @@ button:disabled {
 }
 
 .footer-note {
-  max-width: 1200px;
-  margin: 1rem auto;
-  font-size: 14px;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 24px;
+  line-height: 1.6;
 }
 
 @media (max-width: 1024px) {
@@ -135,5 +178,69 @@ button:disabled {
     margin: 0.75rem;
     padding: 0 1rem;
     text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content-text {
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .control-row {
+    flex-direction: column;
+  }
+
+  textarea,
+  input[type='text'],
+  select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  textarea.textInput {
+    rows: 6;
+    min-height: 120px;
+    padding: 0.75rem;
+    font-size: 16px; /* avoids zoom on iOS */
+  }
+
+  button {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+
+  .dropdown-group select,
+  .control-group select {
+    width: 100%;
+    max-width: 100% !important;
+  }
+
+  .controls {
+    gap: 16px;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    margin-top: 16px;
+    padding: 0 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content-text {
+    margin: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .main-content-text h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .control-group label {
+    font-size: 12px;
   }
 }
