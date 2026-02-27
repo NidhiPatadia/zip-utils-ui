@@ -63,6 +63,16 @@ export class AppComponent {
       this.changeScreenToShowNotFoundPage();
       return;
     }
+
+    // If temp text is already set (from zip-text component), skip API call
+    const tempText = this.commonService.getTempText();
+    if (tempText) {
+      // Temp text exists, just show the app (text-viewer component will use it)
+      this.changeScreenToShowApp();
+      return;
+    }
+
+    // No temp text, fetch from API (user navigated directly to /t/:id)
     this.commonService.getZipText(id).subscribe({
       next: (response: any) => {
         const text = response.data?.getZipText || '';

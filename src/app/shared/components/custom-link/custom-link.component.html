@@ -1,0 +1,33 @@
+<label for="customLink" class="custom-link-label"> Custom Link </label>
+
+<div class="custom-link-group">
+  <span class="url-prefix"> {{ angularUrl }}/{{ prefixPath }}/ </span>
+
+  <input
+    type="text"
+    id="customLink"
+    class="custom-link-input"
+    placeholder="my-custom-link"
+    maxlength="50"
+    [(ngModel)]="customLink"
+    (ngModelChange)="slugChange.emit($event)"
+    (blur)="onBlur()"
+  />
+</div>
+
+<div class="helper-text">Leave blank for random link.</div>
+
+<!-- Checking -->
+<div class="availability" *ngIf="checking">Checking availability…</div>
+
+<!-- Available -->
+<div class="availability available" *ngIf="available === true">
+  <span class="availability-dot"></span>
+  Available
+</div>
+
+<!-- Not Available / Invalid -->
+<div class="availability unavailable" *ngIf="available === false">
+  <span class="availability-dot"></span>
+  Not Available
+</div>
