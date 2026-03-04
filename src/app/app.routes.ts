@@ -7,7 +7,7 @@ import { ZipUrlComponent } from './zip-url/zip-url.component';
 import { ZipFileComponent } from './zip-file/zip-file.component';
 import { ZipQrComponent } from './zip-qr/zip-qr.component';
 import { SocialMetaResolver } from './resolvers/social-meta.resolver';
-import { PAGE_DESCRIPTION, OPEN_GRAPH_TITLE } from './enums/common';
+import { PAGE_DESCRIPTION, OPEN_GRAPH_TITLE, TAB_TITLE } from './enums/common';
 
 export const routes: Routes = [
   {
@@ -21,6 +21,7 @@ export const routes: Routes = [
     data: {
       pageTitle: OPEN_GRAPH_TITLE.ZIP_TEXT,
       pageDescription: PAGE_DESCRIPTION.ZIP_TEXT,
+      tabTitle: TAB_TITLE.ZIP_TEXT,
       canonical: '/text',
     },
   },
@@ -31,6 +32,7 @@ export const routes: Routes = [
     data: {
       pageTitle: OPEN_GRAPH_TITLE.ZIP_URL,
       pageDescription: PAGE_DESCRIPTION.ZIP_URL,
+      tabTitle: TAB_TITLE.ZIP_URL,
       canonical: '/url',
     },
   },
@@ -41,6 +43,7 @@ export const routes: Routes = [
     data: {
       pageTitle: OPEN_GRAPH_TITLE.ZIP_QR,
       pageDescription: PAGE_DESCRIPTION.ZIP_QR,
+      tabTitle: TAB_TITLE.ZIP_QR,
       canonical: '/qr',
     },
   },
