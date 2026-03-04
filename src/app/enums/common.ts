@@ -3,6 +3,7 @@ export enum PAGE_TITLE {
   ZIP_TEXT = 'Text Uploader',
   ZIP_URL = 'URL Shortener',
   ZIP_QR = 'QR Code Generator/Scanner',
+  ZIP_FILE = 'File Transfer',
   NOT_FOUND = 'Page Not Found!',
 }
 
@@ -11,6 +12,7 @@ export enum PAGE_DESCRIPTION {
   ZIP_TEXT = '💬 Paste and share instantly with a unique, secure link. 🔒',
   ZIP_URL = '🔗 Create short, simple, and shareable links in seconds.',
   ZIP_QR = '📱 Generate/Scan QR codes for links, text, or data — in one click.',
+  ZIP_FILE = '📁 Upload and share files securely with a temporary download link. 🔒',
   NOT_FOUND = 'The page you are looking for does not exist or may have been moved.',
 }
 
