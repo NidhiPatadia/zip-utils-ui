@@ -1,5 +1,9 @@
 .tools-container {
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  justify-content: center;
+  column-gap: 2rem;  /* tight horizontal spacing */
+  row-gap: 2rem; /* comfortable vertical spacing */
 }
 
 .tool-card {
@@ -62,5 +66,25 @@
 
   .tool-card {
     max-width: 90%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tools-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tool-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .tools-container {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-card {
+    max-width: 100%;
   }
 }
