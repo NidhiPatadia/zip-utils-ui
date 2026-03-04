@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ZipTextComponent } from './zip-text/zip-text.component';
 import { ZipTextViewerComponent } from './zip-text/text-viewer/text-viewer.component';
 import { ZipUrlComponent } from './zip-url/zip-url.component';
+import { ZipFileComponent } from './zip-file/zip-file.component';
 import { ZipQrComponent } from './zip-qr/zip-qr.component';
 import { SocialMetaResolver } from './resolvers/social-meta.resolver';
 import { PAGE_DESCRIPTION, OPEN_GRAPH_TITLE } from './enums/common';
@@ -42,6 +43,10 @@ export const routes: Routes = [
       pageDescription: PAGE_DESCRIPTION.ZIP_QR,
       canonical: '/qr',
     },
+  },
+  {
+    path: 'file',
+    component: ZipFileComponent,
   },
   {
     path: 't/:id',
