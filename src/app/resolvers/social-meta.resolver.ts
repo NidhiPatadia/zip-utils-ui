@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+import { HeaderService } from '../services/header/header.service';
 
 @Injectable({ providedIn: 'root' })
 export class SocialMetaResolver implements Resolve<boolean> {
-  constructor(private meta: Meta) {}
+  constructor(private meta: Meta, private headerService: HeaderService) {}
 
   resolve(route: ActivatedRouteSnapshot): boolean {
     const data = route.data;
@@ -13,6 +14,7 @@ export class SocialMetaResolver implements Resolve<boolean> {
     const title = data['pageTitle'];
     const description = data['pageDescription'];
     const canonicalPath = data['canonical'];
+    const tabTitle = data['tabTitle'];
 
     if (title) {
       this.meta.updateTag({ property: 'og:title', content: title });
@@ -20,6 +22,13 @@ export class SocialMetaResolver implements Resolve<boolean> {
 
     if (description) {
       this.meta.updateTag({ property: 'og:description', content: description });
+    }
+
+    if (tabTitle && description) {
+      this.headerService.setTitleAndDescription({
+        pageTitle: tabTitle,
+        pageDescription: description,
+      });
     }
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });

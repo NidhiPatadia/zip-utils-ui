@@ -4,47 +4,57 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
   {
     question: 'How does online text transfer work?',
     answer:
-      'Paste your text, choose an expiry time, and generate a secure link. The text is automatically deleted after expiry.',
+      'Paste your text, choose an expiry time, and generate a secure shareable link. Anyone with the link can access the text until it expires.',
   },
   {
     question: 'Is online text transfer secure?',
     answer:
-      'Yes. ZipUtils encrypts uploaded text and removes it permanently after the selected expiry time.',
+      'Yes. ZipUtils encrypts uploaded text and automatically deletes it after the selected expiry time, ensuring that your shared text remains private.',
   },
   {
     question: 'How long does shared text stay available online?',
     answer:
-      'Uploaded text is stored only until the expiry time you choose, after which it is permanently deleted.',
+      'Uploaded text is stored only until the expiry time you choose. After the expiry time is reached, the text is permanently deleted.',
   },
   {
     question: 'Who can access my uploaded text?',
     answer:
-      'Only people with the generated private link can access your uploaded text. Once expired, the link no longer works.',
+      'Only people with the generated private link can access your uploaded text. Once the link expires, the text can no longer be viewed.',
   },
   {
     question: 'Can I share text online without email or messaging apps?',
     answer:
-      'Yes. ZipUtils lets you paste text and generate a private link that you can share directly, without using email, WhatsApp, or any messaging app.',
+      'Yes. ZipUtils allows you to paste text and generate a private link that can be shared directly without using email, WhatsApp, or other messaging apps.',
   },
   {
     question: 'Can I send long text online using this tool?',
     answer:
-      'Yes. ZipUtils is designed for sharing long text, notes, or instructions online by converting them into a single secure, shareable link.',
+      'Yes. This tool allows you to upload long text, notes, instructions, or code snippets and share them easily using a single secure link.',
   },
   {
     question: 'Can I create a temporary text link that expires automatically?',
     answer:
-      'Yes. You can choose an expiry time when generating the link. Once the expiry time is reached, the text is permanently deleted.',
+      'Yes. You can select an expiry time when generating the link. Once the expiry time passes, the text is automatically removed from the server.',
   },
   {
     question: 'Can I create a custom link for my shared text?',
     answer:
-      'Yes. ZipUtils allows you to create a custom link for your uploaded text instead of a random one. Simply enter a custom link name (if available), and your text will be accessible using that personalized URL.',
+      'Yes. ZipUtils allows you to create a custom link for your uploaded text instead of a random one, as long as the custom name is available.',
+  },
+  {
+    question: 'Is there a free text uploader online?',
+    answer:
+      'Yes. ZipUtils provides a free online text uploader that lets you paste text and instantly generate a secure shareable link.',
+  },
+  {
+    question: 'How can I upload text and share it with a link?',
+    answer:
+      'Paste your text into the text uploader, choose the expiry time, and click generate link. A unique URL will be created that you can share with others.',
   },
   {
     question: 'Can I share links or create QR codes instead of sharing text?',
     answer:
-      'Yes. If you only need to share a website link, you can use the <a href="/url/">URL Shortener</a> to create a clean, shareable link. You can also generate a <a href="/qr/">QR Code</a> for your text or links to make sharing easier on mobile or offline.',
+      'Yes. If you want to share a website link, you can use the <a href="/url/">URL Shortener</a>. You can also generate a <a href="/qr/">QR Code</a> to easily share links or text using mobile devices.',
   },
 ];
 
@@ -52,48 +62,53 @@ export const ZIP_URL_FAQ: FaqItem[] = [
   {
     question: 'What is a URL shortener?',
     answer:
-      'A URL shortener converts long, complex web links into short, easy-to-share URLs. This makes links cleaner, easier to remember, and more convenient to share across messages, emails, and social media.',
+      'A URL shortener converts long web links into short, easy-to-share URLs. Short links are cleaner, easier to remember, and ideal for sharing across social media, messages, and emails.',
+  },
+  {
+    question: 'How do I shorten a URL?',
+    answer:
+      'Paste the long URL into the ZipUtils URL Shortener and click generate. The tool will create a short link that redirects users to the original destination.',
   },
   {
     question: 'Can I create a custom short link for my URL?',
     answer:
-      'Yes. ZipUtils allows you to create a custom short link instead of a randomly generated one. Simply enter a custom link name if it is available, or leave it blank to generate a random short URL.',
+      'Yes. ZipUtils allows you to create a custom short link instead of a randomly generated one. Simply enter a custom link name if it is available.',
   },
   {
     question: 'Why should I use ZipUtils URL Shortener?',
     answer:
-      'ZipUtils provides a fast and simple way to shorten links without unnecessary steps. Our URL shortener focuses on speed, reliability, and ease of use, helping you create clean links instantly.',
+      'ZipUtils provides a fast and simple way to shorten URLs without unnecessary steps. Our link shortener focuses on speed, reliability, and ease of use.',
   },
   {
     question: 'Are shortened URLs safe to use?',
     answer:
-      'Yes. Shortened URLs created using ZipUtils simply redirect users to the original destination. Always ensure the original URL is trustworthy before sharing it publicly.',
+      'Yes. Shortened URLs created using ZipUtils simply redirect users to the original destination. Always ensure the original link is trustworthy before sharing.',
   },
   {
     question: 'Can I shorten any type of URL?',
     answer:
-      'You can shorten most valid URLs, including website links, blog posts, product pages, and social media links, as long as they follow a standard web URL format.',
+      'You can shorten most valid URLs including website links, blog posts, product pages, and social media links.',
   },
   {
     question: 'Do shortened links expire?',
     answer:
-      'Shortened links created with ZipUtils do not expire unless explicitly configured in the future. They remain accessible as long as the service is active.',
+      'Shortened links created with ZipUtils do not expire unless configured otherwise. They remain accessible as long as the service is active.',
   },
   {
     question: 'Is the URL shortener free to use?',
     answer:
-      'Yes. ZipUtils URL Shortener is free to use and does not require account registration for basic link shortening.',
+      'Yes. ZipUtils URL Shortener is completely free and does not require account registration.',
   },
   {
     question: 'Can I share shortened URLs on social media?',
     answer:
-      'Absolutely. Shortened URLs are ideal for sharing on social media platforms, messaging apps, emails, and anywhere character limits or clean presentation matter.',
+      'Yes. Short URLs are ideal for sharing on social media platforms, messaging apps, and emails because they are shorter and easier to read.',
   },
   {
     question:
       'Can I share text or create QR codes instead of shortening a URL?',
     answer:
-      'Yes. If you need to share actual content like notes or messages, you can use the <a href="/text/">Text<a> Sharing tool to generate a private link. If you want to share links or text offline or on mobile, you can also create a <a href="/qr/">QR Code</a> for quick scanning.',
+      'Yes. If you need to share notes or messages, you can use the <a href="/text/">Text Sharing</a> tool. You can also generate a <a href="/qr/">QR Code</a> to easily share links on mobile devices.',
   },
 ];
 
