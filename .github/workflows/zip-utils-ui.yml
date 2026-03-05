@@ -74,13 +74,8 @@ jobs:
 
       - name: Copy build files to target
         run: |
+          rm -rf compiled-js/*
           cp -r dist/zip-utils-ui/browser/* compiled-js/
-
-      - name: Copy Compiled JS
-        run: |
-          # Copy files from dist/zip-utils-ui/browser to compiled-js/, replacing existing files
-          cp -r dist/zip-utils-ui/browser/* compiled-js/
-          echo "Copied compiled JS files to compiled-js, replacing existing files"
 
       - name: Commit and Push from compiled-js to GitHub repo
         run: |
