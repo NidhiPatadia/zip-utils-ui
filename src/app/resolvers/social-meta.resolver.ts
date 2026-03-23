@@ -6,7 +6,10 @@ import { HeaderService } from '../services/header/header.service';
 
 @Injectable({ providedIn: 'root' })
 export class SocialMetaResolver implements Resolve<boolean> {
-  constructor(private meta: Meta, private headerService: HeaderService) {}
+  constructor(
+    private meta: Meta,
+    private headerService: HeaderService,
+  ) {}
 
   resolve(route: ActivatedRouteSnapshot): boolean {
     const data = route.data;

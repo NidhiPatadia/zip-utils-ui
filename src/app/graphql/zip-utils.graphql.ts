@@ -12,11 +12,13 @@ export const GraphQL = {
       $text: String!
       $expiryInMinutes: Int
       $customSlug: String
+      $isIpRestricted: Boolean
     ) {
       generateZipTextUrl(
         text: $text
         expiryInMinutes: $expiryInMinutes
         customSlug: $customSlug
+        isIpRestricted: $isIpRestricted
       )
     }
   `,
