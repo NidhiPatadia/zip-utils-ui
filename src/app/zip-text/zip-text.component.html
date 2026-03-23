@@ -26,8 +26,49 @@
         ></app-custom-link>
       </div>
     </div>
+    <div
+      class="additional-options-wrapper"
+      id="additionalOptionsWrapper"
+      [class.expanded]="isExpanded"
+    >
+      <button
+        class="additional-options-toggle"
+        type="button"
+        (click)="toggleAdditionalOptions()"
+      >
+        <span>Additional Options</span>
+        <svg
+          class="toggle-chevron"
+          width="16"
+          height="16"
+          viewBox="0 0 20 20"
+          fill="none"
+        >
+          <path
+            d="M5 7.5L10 12.5L15 7.5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+      </button>
+      <div class="additional-options-content" id="additionalOptions">
+        <div class="security-options">
+          <label class="checkbox-label">
+            <input type="checkbox" id="ipRestrict" class="checkbox-input" [(ngModel)]="isIpRestricted"/>
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-text">
+              Share only within this network (Wi-Fi/VPN)
+              <span class="feature-badge">🔒 Secure</span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
     <app-bot-guard #botGuard></app-bot-guard>
     <button
+      class="generate-button"
       [disabled]="!textInput.trim() || isSlugAvailable === false"
       (click)="generateLink(botGuard)"
     >

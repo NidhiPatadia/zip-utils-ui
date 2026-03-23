@@ -53,6 +53,8 @@ export class ZipTextComponent implements OnInit {
   isSlugAvailable: boolean | null = null;
   customSlug: string | null = null;
   checkingSlug = false;
+  isExpanded = false;
+  isIpRestricted = false;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
@@ -104,7 +106,7 @@ export class ZipTextComponent implements OnInit {
       ? parseInt(this.expiryInMinutes.toString(), 10)
       : null;
     this.commonService
-      .generateZipTextUrl(this.textInput, expiry, this.customSlug)
+      .generateZipTextUrl(this.textInput, expiry, this.customSlug, this.isIpRestricted)
       .subscribe({
         next: (response) => {
           const id = response.data?.generateZipTextUrl;
@@ -143,5 +145,9 @@ export class ZipTextComponent implements OnInit {
       this.isSlugAvailable = null;
     }
     // If slug didn't change, keep current availability status (don't reset)
+  }
+
+  toggleAdditionalOptions() {
+    this.isExpanded = !this.isExpanded;
   }
 }
