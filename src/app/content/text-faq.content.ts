@@ -110,6 +110,16 @@ export const ZIP_URL_FAQ: FaqItem[] = [
     answer:
       'Yes. If you need to share notes or messages, you can use the <a href="/text/">Text Sharing</a> tool. You can also generate a <a href="/qr/">QR Code</a> to easily share links on mobile devices.',
   },
+  {
+    question: 'Can I restrict text sharing to the same Wi-Fi or network?',
+    answer:
+      'Yes. You can enable the same network restriction while generating the link. This ensures the text can only be accessed from the same Wi-Fi or internet connection where the link was created.',
+  },
+  {
+    question: 'What happens if I open the link from a different network?',
+    answer:
+      'If the link is opened from a different network such as mobile data or another Wi-Fi, the text will not be accessible and will behave like an invalid or expired link.',
+  },
 ];
 
 export const ZIP_QR_FAQ: FaqItem[] = [

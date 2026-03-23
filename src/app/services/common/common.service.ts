@@ -39,6 +39,7 @@ export class CommonService {
     text: string,
     expiryInMinutes: number | null,
     customSlug?: string | null,
+    isIpRestricted?: boolean
   ) {
     const MUTATION = GraphQL.generateZipTextUrl;
 
@@ -48,6 +49,7 @@ export class CommonService {
         text,
         expiryInMinutes,
         customSlug,
+        isIpRestricted,
       },
     });
   }

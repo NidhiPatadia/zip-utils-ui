@@ -38,6 +38,10 @@ body {
   --faq-ans-color: #374151;
   --faq-title-hover-color: #1d4ed8;
   --faq-title-expand-color: #1e40af;
+  --border-color: #ccc;
+  --additional-option-text: #4a5568;
+  --checkbox-bg-color: #ffffff;
+  --badge-text-color: #4c51bf;
 }
 
 [data-theme='dark'] {
@@ -52,6 +56,10 @@ body {
   --faq-ans-color: #a0aec0;
   --faq-title-hover-color: #a0d9ff;
   --faq-title-expand-color: #667eea;
+  --border-color: #4a5568;
+  --additional-option-text: #a0aec0;
+  --checkbox-bg-color: #1a1a1a;
+  --badge-text-color: #a0d9ff;;
 }
 
 /********** general css **********/
