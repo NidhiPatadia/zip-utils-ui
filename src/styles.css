@@ -59,7 +59,7 @@ body {
   --border-color: #4a5568;
   --additional-option-text: #a0aec0;
   --checkbox-bg-color: #1a1a1a;
-  --badge-text-color: #a0d9ff;;
+  --badge-text-color: #a0d9ff;
 }
 
 /********** general css **********/
@@ -108,4 +108,9 @@ textarea::-webkit-scrollbar-thumb:hover {
 textarea {
   scrollbar-width: thin;
   scrollbar-color: var(--primary) #f1f1f1;
+}
+
+/* Global CSS */
+[data-theme='dark'] select option {
+  background-color: var(--card-bg);
 }
