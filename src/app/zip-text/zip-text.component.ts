@@ -106,7 +106,12 @@ export class ZipTextComponent implements OnInit {
       ? parseInt(this.expiryInMinutes.toString(), 10)
       : null;
     this.commonService
-      .generateZipTextUrl(this.textInput, expiry, this.customSlug, this.isIpRestricted)
+      .generateZipTextUrl(
+        this.textInput,
+        expiry,
+        this.customSlug,
+        this.isIpRestricted,
+      )
       .subscribe({
         next: (response) => {
           const id = response.data?.generateZipTextUrl;

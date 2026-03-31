@@ -1,0 +1,27 @@
+<div class="share-card" *ngIf="url">
+  <div class="qr-wrapper">
+    <qrcode [qrdata]="url" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="share-info">
+    <span class="share-label">Share this link</span>
+    <span class="share-url">{{ url }}</span>
+    <div class="share-actions">
+      <button class="btn-copy-link" (click)="copyUrl()" [class.copied]="copied">
+        <span *ngIf="!copied"><i class="fa fa-copy"></i> Copy link</span>
+        <span *ngIf="copied"
+          ><i class="fa fa-clipboard-check"></i> Copied!</span
+        >
+      </button>
+      <button class="btn-download-qr" (click)="downloadQr()">
+        <i class="fa fa-qrcode"></i> Download QR
+      </button>
+    </div>
+  </div>
+
+  <div class="snackbar" *ngIf="showSnackbar">
+    <i class="fa fa-check-circle"></i> Copied to clipboard!
+  </div>
+</div>
