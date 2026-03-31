@@ -57,9 +57,7 @@
     </div>
   </form>
 
-  <div *ngIf="shortUrl">
-    <app-copy-url-box [shortUrl]="shortUrl"></app-copy-url-box>
-  </div>
+  <app-share-card *ngIf="shortUrl" [url]="shortUrl"></app-share-card>
   <app-loader-overlay
     *ngIf="loading"
     [message]="'Processing...'"
