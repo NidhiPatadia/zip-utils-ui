@@ -54,7 +54,7 @@
         </svg>
       </button>
       <div class="additional-options-content" id="additionalOptions">
-        <div class="security-options">
+        <div class="security-option">
           <label class="checkbox-label">
             <input
               type="checkbox"
@@ -67,6 +67,25 @@
               Share only within this network (Wi-Fi/VPN)
               <span class="feature-badge">🔒 Secure</span>
             </span>
+          </label>
+        </div>
+
+        <div class="one-time-option">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              id="oneTimeView"
+              class="checkbox-input"
+              [(ngModel)]="isOneTimeView"
+            />
+            <span class="checkbox-custom"></span>
+            <div class="one-time-text-wrapper">
+              <span class="one-time-text">
+                One-time access
+                <span class="expiry-icon">🕒</span>
+              </span>
+              <span class="feature-subtitle">Permanently deleted after first open</span>
+            </div>
           </label>
         </div>
       </div>

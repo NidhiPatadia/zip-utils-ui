@@ -1,7 +1,14 @@
 <div class="main-content-text">
-  <button class="back-btn" (click)="goBack()" title="Go back">
-    <i class="fa-solid fa-arrow-left fa"></i> {{ backButtonText }}
-  </button>
+  <div class="top-row">
+    <button class="back-btn" (click)="goBack()" title="Go back">
+      <i class="fa-solid fa-arrow-left fa"></i> {{ backButtonText }}
+    </button>
+    <div *ngIf="!isCreator && isOneTimeView" class="one-time-badge">
+      <div class="badge-dot"></div>
+      One-time view
+    </div>
+  </div>
+
   <div class="textarea-flex-wrapper">
     <textarea rows="8" readonly>{{ text }}</textarea>
     <button
@@ -17,4 +24,14 @@
     </button>
   </div>
   <app-share-card [url]="currentUrl"></app-share-card>
+
+  <div *ngIf="isCreator && isOneTimeView && text" class="warning-box">
+    <div class="warn-icon">!</div>
+    <p><strong>One-time link.</strong> The receiver can only open this once. After they close the page, the text is permanently deleted and the link is invalidated forever.</p>
+  </div>
+
+  <div *ngIf="!isCreator && isOneTimeView && text" class="warning-box">
+    <div class="warn-icon">!</div>
+    <p><strong>Copy this text now.</strong> This link has been opened and will be permanently deleted once you leave this page. It cannot be accessed again.</p>
+  </div>
 </div>
