@@ -6,12 +6,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../services/header/header.service';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../../enums/common';
-import { CopyUrlBoxComponent } from '../../copy-url-box/copy-url-box.component';
+import { ShareCardComponent } from '../../shared/components/share-card/share-card.component';
 
 @Component({
   selector: 'app-text-viewer',
   standalone: true,
-  imports: [CommonModule, CopyUrlBoxComponent],
+  imports: [CommonModule, ShareCardComponent],
   templateUrl: './text-viewer.component.html',
   styleUrl: './text-viewer.component.css',
 })

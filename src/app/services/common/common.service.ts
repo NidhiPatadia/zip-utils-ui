@@ -1,4 +1,5 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Apollo, gql } from 'apollo-angular';
 import { GraphQL } from '../../graphql/zip-utils.graphql';
 import { GraphQLRedirectionType } from '../../enums/common';
@@ -16,6 +17,7 @@ import {
 })
 export class CommonService {
   private readonly apollo = inject(Apollo);
+  private readonly platformId = inject(PLATFORM_ID);
   private tempText: string = '';
 
   constructor() {}
@@ -39,7 +41,7 @@ export class CommonService {
     text: string,
     expiryInMinutes: number | null,
     customSlug?: string | null,
-    isIpRestricted?: boolean
+    isIpRestricted?: boolean,
   ) {
     const MUTATION = GraphQL.generateZipTextUrl;
 
@@ -94,5 +96,17 @@ export class CommonService {
       variables: { id, type },
       fetchPolicy: 'no-cache',
     });
+  }
+
+  downloadQr(canvasSelector: string, filename: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const canvas = document.querySelector(canvasSelector) as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = `${filename}.png`;
+    link.click();
   }
 }

@@ -1,0 +1,167 @@
+.share-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 16px auto 0;
+  position: relative;
+  box-shadow: 0 4px 12px var(--shadow);
+  max-width: 500px;
+}
+
+.qr-wrapper {
+  flex-shrink: 0;
+  background: white;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.qr-wrapper canvas,
+.qr-wrapper img {
+  display: block;
+}
+
+.divider {
+  width: 1px;
+  height: 60px;
+  background: var(--border-color);
+  flex-shrink: 0;
+}
+
+.share-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.share-label {
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.share-url {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.share-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btn-copy-link,
+.btn-download-qr {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  border-radius: 6px;
+}
+
+.btn-copy-link {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+}
+
+.btn-copy-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-copy-link.copied {
+  background: #28a745;
+}
+
+.btn-download-qr {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-color);
+}
+
+.btn-download-qr:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.snackbar {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #28a745;
+  color: #fff;
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: fadeInOut 2s forwards;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+}
+
+@media (max-width: 600px) {
+  .share-card {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .qr-wrapper {
+    margin: 0 auto;
+  }
+
+  .share-info {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .share-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
