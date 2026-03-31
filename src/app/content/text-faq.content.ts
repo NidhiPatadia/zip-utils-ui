@@ -56,6 +56,16 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
     answer:
       'Yes. If you want to share a website link, you can use the <a href="/url/">URL Shortener</a>. You can also generate a <a href="/qr/">QR Code</a> to easily share links or text using mobile devices.',
   },
+  {
+    question: 'How do I copy the generated text link?',
+    answer:
+      'After generating your text link, simply click the "Copy link" button. The link will be copied to your clipboard instantly, and you can share it anywhere.',
+  },
+  {
+    question: 'Can I download a QR code for my shared text?',
+    answer:
+      'Yes. Once your text link is generated, you can click "Download QR" to get a QR code image. This QR code can be printed or shared to let others scan and access your text.',
+  },
 ];
 
 export const ZIP_URL_FAQ: FaqItem[] = [
@@ -119,6 +129,16 @@ export const ZIP_URL_FAQ: FaqItem[] = [
     question: 'What happens if I open the link from a different network?',
     answer:
       'If the link is opened from a different network such as mobile data or another Wi-Fi, the text will not be accessible and will behave like an invalid or expired link.',
+  },
+  {
+    question: 'How do I copy the shortened URL?',
+    answer:
+      'After shortening your URL, simply click the "Copy link" button. The shortened URL will be copied to your clipboard instantly, and you can share it anywhere.',
+  },
+  {
+    question: 'Can I download a QR code for my shortened URL?',
+    answer:
+      'Yes. Once your URL is shortened, you can click "Download QR" to get a QR code image. This QR code can be printed or shared to let others scan and access your shortened link.',
   },
 ];
 

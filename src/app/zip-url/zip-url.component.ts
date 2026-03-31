@@ -15,7 +15,7 @@ import {
 import { CommonService } from '../services/common/common.service';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { environment } from '../../environments/environment';
-import { CopyUrlBoxComponent } from '../copy-url-box/copy-url-box.component';
+import { ShareCardComponent } from '../shared/components/share-card/share-card.component';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_URL_FAQ } from '../content/text-faq.content';
@@ -29,7 +29,7 @@ import { CustomLinkComponent } from '../shared/components/custom-link/custom-lin
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    CopyUrlBoxComponent,
+    ShareCardComponent,
     LoaderOverlayComponent,
     BotGuardComponent,
     FaqComponent,

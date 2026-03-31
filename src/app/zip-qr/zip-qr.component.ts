@@ -5,6 +5,7 @@ import {
   TAB_TITLE,
 } from '../enums/common';
 import { HeaderService } from '../services/header/header.service';
+import { CommonService } from '../services/common/common.service';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { BarcodeFormat } from '@zxing/library';
@@ -34,6 +35,7 @@ type Mode = 'generator' | 'scanner';
 export class ZipQrComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly headerService = inject(HeaderService);
+  private readonly commonService = inject(CommonService);
   private readonly seoSchemaService = inject(SeoSchemaService);
   faqItems = ZIP_QR_FAQ;
   loading = false;
@@ -76,15 +78,7 @@ export class ZipQrComponent implements OnInit {
   }
 
   downloadQr() {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    const canvas = document.querySelector('canvas');
-    if (!canvas) return;
-
-    const link = document.createElement('a');
-    link.href = canvas.toDataURL();
-    link.download = `${TAB_TITLE.ZIP_QR}.png`;
-    link.click();
+    this.commonService.downloadQr('canvas', TAB_TITLE.ZIP_QR);
   }
 
   async shareQr() {
