@@ -13,7 +13,10 @@ export interface IGenerateZipTextUrlResponse {
 }
 
 export interface IGetZipTextUrlResponse {
-  getZipText: string;
+  getZipText: {
+    text: string;
+    isOneTimeView: boolean;
+  };
 }
 
 export interface IGenerateZipShortUrlResponse {

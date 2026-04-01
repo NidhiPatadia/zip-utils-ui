@@ -55,6 +55,7 @@ export class ZipTextComponent implements OnInit {
   checkingSlug = false;
   isExpanded = false;
   isIpRestricted = false;
+  isOneTimeView = false;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
@@ -102,6 +103,8 @@ export class ZipTextComponent implements OnInit {
 
     this.loading = true;
     this.commonService.setTempText(this.textInput);
+    this.commonService.setTempIsOneTimeView(this.isOneTimeView);
+    this.commonService.setIsFromBackend(false);
     const expiry = this.expiryInMinutes
       ? parseInt(this.expiryInMinutes.toString(), 10)
       : null;
@@ -111,6 +114,7 @@ export class ZipTextComponent implements OnInit {
         expiry,
         this.customSlug,
         this.isIpRestricted,
+        this.isOneTimeView,
       )
       .subscribe({
         next: (response) => {

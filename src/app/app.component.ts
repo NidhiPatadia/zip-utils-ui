@@ -75,8 +75,20 @@ export class AppComponent {
     // No temp text, fetch from API (user navigated directly to /t/:id)
     this.commonService.getZipText(id).subscribe({
       next: (response: any) => {
-        const text = response.data?.getZipText || '';
+        const result = response.data?.getZipText;
+        let text = '';
+        let isOneTimeView = false;
+        
+        if (typeof result === 'string') {
+          text = result;
+        } else if (result && result.text !== undefined) {
+          text = result.text;
+          isOneTimeView = result.isOneTimeView || false;
+        }
+        
         this.commonService.setTempText(text);
+        this.commonService.setTempIsOneTimeView(isOneTimeView);
+        this.commonService.setIsFromBackend(true);
         setTimeout(() => this.changeScreenToShowApp(), 500);
         this.router.navigate(['/t', id]);
       },
