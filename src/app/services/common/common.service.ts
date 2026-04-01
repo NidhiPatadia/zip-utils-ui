@@ -19,8 +19,38 @@ export class CommonService {
   private readonly apollo = inject(Apollo);
   private readonly platformId = inject(PLATFORM_ID);
   private tempText: string = '';
+  private tempIsOneTimeView: boolean = false;
+  private isFromBackend: boolean = false;
 
-  constructor() {}
+  setTempText(text: string) {
+    this.tempText = text;
+  }
+
+  getTempText(): string {
+    return this.tempText;
+  }
+
+  setTempIsOneTimeView(isOneTimeView: boolean) {
+    this.tempIsOneTimeView = isOneTimeView;
+  }
+
+  getTempIsOneTimeView(): boolean {
+    return this.tempIsOneTimeView;
+  }
+
+  setIsFromBackend(value: boolean) {
+    this.isFromBackend = value;
+  }
+
+  getIsFromBackend(): boolean {
+    return this.isFromBackend;
+  }
+
+  clearTempText() {
+    this.tempText = '';
+    this.tempIsOneTimeView = false;
+    this.isFromBackend = false;
+  }
 
   healthCheck() {
     return this.apollo.query<IHealthCheckResponse>({
@@ -32,7 +62,7 @@ export class CommonService {
   getZipText(id: String) {
     return this.apollo.query<IGetZipTextUrlResponse>({
       query: GraphQL.getZipText,
-      variables: { id },
+      variables: { url: id },
       fetchPolicy: 'no-cache',
     });
   }
@@ -42,6 +72,7 @@ export class CommonService {
     expiryInMinutes: number | null,
     customSlug?: string | null,
     isIpRestricted?: boolean,
+    isOneTimeView?: boolean,
   ) {
     const MUTATION = GraphQL.generateZipTextUrl;
 
@@ -52,6 +83,7 @@ export class CommonService {
         expiryInMinutes,
         customSlug,
         isIpRestricted,
+        isOneTimeView,
       },
     });
   }
@@ -73,18 +105,6 @@ export class CommonService {
       variables: { url: id },
       fetchPolicy: 'no-cache',
     });
-  }
-
-  setTempText(text: string) {
-    this.tempText = text;
-  }
-
-  getTempText(): string {
-    return this.tempText;
-  }
-
-  clearTempText() {
-    this.tempText = '';
   }
 
   /**

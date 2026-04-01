@@ -13,19 +13,24 @@ export const GraphQL = {
       $expiryInMinutes: Int
       $customSlug: String
       $isIpRestricted: Boolean
+      $isOneTimeView: Boolean
     ) {
       generateZipTextUrl(
         text: $text
         expiryInMinutes: $expiryInMinutes
         customSlug: $customSlug
         isIpRestricted: $isIpRestricted
+        isOneTimeView: $isOneTimeView
       )
     }
   `,
 
   getZipText: gql`
-    query GetZipText($id: String!) {
-      getZipText(url: $id)
+    query GetZipText($url: String!) {
+      getZipText(url: $url) {
+        text
+        isOneTimeView
+      }
     }
   `,
 
