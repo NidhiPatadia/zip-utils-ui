@@ -14,6 +14,10 @@
   margin-bottom: 16px;
 }
 
+.textarea-flex-wrapper {
+  position: relative;
+}
+
 .textarea-flex-wrapper textarea {
   width: 100%;
   padding: 1rem;

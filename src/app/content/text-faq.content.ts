@@ -32,6 +32,26 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
       'Yes. This tool allows you to upload long text, notes, instructions, or code snippets and share them easily using a single secure link.',
   },
   {
+    question: 'What is a one-time text link?',
+    answer:
+      'A one-time text link can only be viewed once. After the recipient opens the link, the text is permanently deleted from the server and the link becomes invalid.',
+  },
+  {
+    question: 'How does one-time view work?',
+    answer:
+      'When you create a one-time text link, the text is stored and can be accessed only once. As soon as someone opens the link, the text is deleted and cannot be retrieved again.',
+  },
+  {
+    question: 'Can I recover text after it is deleted from a one-time link?',
+    answer:
+      'No. Once a one-time link is opened and the text is deleted, it cannot be recovered. The link becomes invalid and the text is permanently removed from the server.',
+  },
+  {
+    question: 'When should I use one-time text links?',
+    answer:
+      'One-time text links are ideal for sharing sensitive information like passwords, OTPs, private keys, or any content that should only be viewed once for security reasons.',
+  },
+  {
     question: 'Can I create a temporary text link that expires automatically?',
     answer:
       'Yes. You can select an expiry time when generating the link. Once the expiry time passes, the text is automatically removed from the server.',
