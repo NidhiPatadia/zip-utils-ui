@@ -29,6 +29,7 @@ export class ZipTextViewerComponent implements OnInit {
   backButtonText: string = '';
   isOneTimeView: boolean = false;
   isCreator: boolean = false;
+  showDeleteModal: boolean = false;
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -59,14 +60,14 @@ export class ZipTextViewerComponent implements OnInit {
           const result = response.data?.getZipText;
           let textValue = '';
           let isOneTime = false;
-          
+
           if (typeof result === 'string') {
             textValue = result;
           } else if (result && result.text !== undefined) {
             textValue = result.text;
             isOneTime = result.isOneTimeView || false;
           }
-          
+
           this.text = textValue;
           this.isOneTimeView = isOneTime;
           this.isCreator = false;
@@ -101,5 +102,30 @@ export class ZipTextViewerComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/text']);
+  }
+
+  openDeleteModal() {
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+  }
+
+  confirmDelete() {
+    this.commonService.deleteZipText(this.id!).subscribe({
+      next: () => {
+        this.showDeleteModal = false;
+        if (isPlatformBrowser(this.platformId)) {
+          sessionStorage.setItem('textDeleted', 'true');
+        }
+        this.router.navigate(['/text']);
+      },
+      error: (err) => {
+        console.error('Error deleting text', err);
+        this.showDeleteModal = false;
+        this.router.navigate(['/text']);
+      },
+    });
   }
 }

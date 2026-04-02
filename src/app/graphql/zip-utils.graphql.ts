@@ -34,6 +34,12 @@ export const GraphQL = {
     }
   `,
 
+  deleteZipText: gql`
+    mutation DeleteZipText($id: String!) {
+      deleteZipText(id: $id)
+    }
+  `,
+
   generateZipShortUrl: gql`
     mutation GenerateZipShortUrl(
       $url: String!

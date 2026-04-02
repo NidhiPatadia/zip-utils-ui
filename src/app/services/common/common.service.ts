@@ -10,6 +10,7 @@ import {
   IGetZipShortUrlResponse,
   IGenerateZipShortUrlResponse,
   ICheckShortIdAvailabilityResponse,
+  IDeleteZipTextResponse,
 } from '../../models/common';
 
 @Injectable({
@@ -115,6 +116,13 @@ export class CommonService {
       query: GraphQL.isShortIdAvailable,
       variables: { id, type },
       fetchPolicy: 'no-cache',
+    });
+  }
+
+  deleteZipText(id: string) {
+    return this.apollo.mutate<IDeleteZipTextResponse>({
+      mutation: GraphQL.deleteZipText,
+      variables: { id },
     });
   }
 
