@@ -78,14 +78,14 @@ export class AppComponent {
         const result = response.data?.getZipText;
         let text = '';
         let isOneTimeView = false;
-        
+
         if (typeof result === 'string') {
           text = result;
         } else if (result && result.text !== undefined) {
           text = result.text;
           isOneTimeView = result.isOneTimeView || false;
         }
-        
+
         this.commonService.setTempText(text);
         this.commonService.setTempIsOneTimeView(isOneTimeView);
         this.commonService.setIsFromBackend(true);

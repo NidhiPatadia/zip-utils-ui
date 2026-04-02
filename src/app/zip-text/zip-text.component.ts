@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  PLATFORM_ID,
+} from '@angular/core';
 import { CommonService } from '../services/common/common.service';
 import { FormsModule } from '@angular/forms';
 import { HeaderService } from '../services/header/header.service';
@@ -8,7 +14,7 @@ import {
   COMPONENT_DESCRIPTION,
 } from '../enums/common';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
 import { BotGuardComponent } from '../bot-guard/bot-guard.component';
 import { ZIP_TEXT_FAQ } from '../content/text-faq.content';
@@ -35,6 +41,7 @@ export class ZipTextComponent implements OnInit {
   private readonly commonService = inject(CommonService);
   private readonly router = inject(Router);
   private readonly seoSchemaService = inject(SeoSchemaService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   @ViewChild(CustomLinkComponent) customLinkComponent!: CustomLinkComponent;
   readonly expiryTimes = [
@@ -56,6 +63,7 @@ export class ZipTextComponent implements OnInit {
   isExpanded = false;
   isIpRestricted = false;
   isOneTimeView = false;
+  showDeleteSuccess = false;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
@@ -64,6 +72,16 @@ export class ZipTextComponent implements OnInit {
       tabTitle: TAB_TITLE.ZIP_TEXT,
     });
     this.seoSchemaService.setFaqSchema(this.faqItems);
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.showDeleteSuccess = sessionStorage.getItem('textDeleted') === 'true';
+      if (this.showDeleteSuccess) {
+        sessionStorage.removeItem('textDeleted');
+        setTimeout(() => {
+          this.showDeleteSuccess = false;
+        }, 2000);
+      }
+    }
   }
 
   async generateLink(botGuard: any) {
