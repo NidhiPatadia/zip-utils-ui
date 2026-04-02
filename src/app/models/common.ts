@@ -16,6 +16,7 @@ export interface IGetZipTextUrlResponse {
   getZipText: {
     text: string;
     isOneTimeView: boolean;
+    hasPin: boolean;
   };
 }
 

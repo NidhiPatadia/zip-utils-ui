@@ -1,0 +1,57 @@
+<div
+  *ngIf="showDeleteModal"
+  class="modal-backdrop"
+  (click)="onBackdropClick($event)"
+>
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    (click)="$event.stopPropagation()"
+  >
+    <button class="modal-close-x" (click)="onClose()">✕</button>
+
+    <div class="modal-icon-wrap">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#ef4444"
+        stroke-width="2"
+      >
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6l-1 14H6L5 6"></path>
+        <path d="M10 11v6M14 11v6"></path>
+        <path d="M9 6V4h6v2"></path>
+      </svg>
+    </div>
+
+    <h2>Delete this link?</h2>
+
+    <p class="modal-body">
+      You're about to permanently delete this link. Once deleted, it cannot be
+      recovered.
+    </p>
+
+    <div class="modal-url-preview">
+      {{ currentUrl }}
+    </div>
+
+    <div class="modal-warning">
+      <span>⚠</span>
+      This action is irreversible. Anyone with the link will lose access
+      immediately.
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" (click)="onClose()">
+        Cancel
+      </button>
+
+      <button class="btn-modal-confirm" (click)="onConfirm()">
+        Yes, delete it
+      </button>
+    </div>
+  </div>
+</div>

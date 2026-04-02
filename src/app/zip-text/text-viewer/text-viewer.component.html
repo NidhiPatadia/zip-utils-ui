@@ -25,6 +25,29 @@
   </div>
   <app-share-card [url]="currentUrl"></app-share-card>
 
+  <!-- Delete Row - Only show for creator -->
+  <div *ngIf="isCreator" class="delete-row">
+    <div class="delete-row-content">
+      <div class="delete-row-title">Changed your mind?</div>
+      <div class="delete-row-sub">
+        You can delete this link from here. This option won't be available
+        later.
+      </div>
+    </div>
+    <button class="btn-delete" (click)="openDeleteModal()">
+      <i class="fa fa-trash"></i>
+      Delete link
+    </button>
+  </div>
+
+  <div *ngIf="isCreator && hasPin && text" class="warning-box pin-notice">
+    <div class="warn-icon">🔒</div>
+    <p>
+      <strong>PIN protected.</strong> This link is protected with a PIN. Make sure
+      to share it with the receiver.
+    </p>
+  </div>
+
   <div *ngIf="isCreator && isOneTimeView && text" class="warning-box">
     <div class="warn-icon">!</div>
     <p>
@@ -41,78 +64,18 @@
       permanently deleted once you leave this page. It cannot be accessed again.
     </p>
   </div>
-
-  <!-- Delete Row - Only show for creator -->
-  <div *ngIf="isCreator" class="delete-row">
-    <div class="delete-row-content">
-      <div class="delete-row-title">Changed your mind?</div>
-      <div class="delete-row-sub">
-        You can delete this link from here. This option won't be available
-        later.
-      </div>
-    </div>
-    <button class="btn-delete" (click)="openDeleteModal()">
-      <i class="fa fa-trash"></i>
-      Delete link
-    </button>
-  </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
-<div
-  *ngIf="showDeleteModal"
-  class="modal-backdrop"
-  (click)="closeDeleteModal()"
->
-  <div
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    (click)="$event.stopPropagation()"
-  >
-    <button class="modal-close-x" (click)="closeDeleteModal()">✕</button>
+<app-delete-modal
+  [showDeleteModal]="showDeleteModal"
+  [currentUrl]="currentUrl"
+  (close)="closeDeleteModal()"
+  (confirm)="confirmDelete()"
+></app-delete-modal>
 
-    <div class="modal-icon-wrap">
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#ef4444"
-        stroke-width="2"
-      >
-        <polyline points="3 6 5 6 21 6"></polyline>
-        <path d="M19 6l-1 14H6L5 6"></path>
-        <path d="M10 11v6M14 11v6"></path>
-        <path d="M9 6V4h6v2"></path>
-      </svg>
-    </div>
-
-    <h2>Delete this link?</h2>
-
-    <p class="modal-body">
-      You're about to permanently delete this link. Once deleted, it cannot be
-      recovered.
-    </p>
-
-    <div class="modal-url-preview">
-      {{ currentUrl }}
-    </div>
-
-    <div class="modal-warning">
-      <span>⚠</span>
-      This action is irreversible. Anyone with the link will lose access
-      immediately.
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn-modal-cancel" (click)="closeDeleteModal()">
-        Cancel
-      </button>
-
-      <button class="btn-modal-confirm" (click)="confirmDelete()">
-        Yes, delete it
-      </button>
-    </div>
-  </div>
-</div>
+<app-pin-modal
+  [showPinModal]="showPinModal"
+  [pinError]="pinError"
+  (close)="onPinModalClose()"
+  (submit)="onPinSubmit($event)"
+></app-pin-modal>
