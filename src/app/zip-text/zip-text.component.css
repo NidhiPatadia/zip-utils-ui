@@ -326,6 +326,10 @@ app-pin-toggle {
   margin-top: 12px;
 }
 
+.one-time-option {
+  margin-top: 12px;
+}
+
 .checkbox-label {
   display: flex;
   align-items: flex-start;
