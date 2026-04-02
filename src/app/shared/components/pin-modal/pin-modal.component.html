@@ -1,8 +1,4 @@
-<div
-  *ngIf="showPinModal"
-  class="modal-backdrop"
-  (click)="onClose()"
->
+<div *ngIf="showPinModal" class="modal-backdrop" (click)="onClose()">
   <div
     class="modal"
     role="dialog"
@@ -28,7 +24,8 @@
     <h2>Enter PIN</h2>
 
     <p class="modal-body">
-      This text is protected with a PIN. Please enter the PIN to view the content.
+      This text is protected with a PIN. Please enter the PIN to view the
+      content.
     </p>
 
     <div class="pin-input-wrapper">
@@ -44,16 +41,14 @@
       />
     </div>
 
-    <div *ngIf="localError || pinError" class="pin-error">{{ localError || pinError }}</div>
+    <div *ngIf="localError || pinError" class="pin-error">
+      {{ localError || pinError }}
+    </div>
 
     <div class="modal-actions">
-      <button class="btn-modal-cancel" (click)="onClose()">
-        Cancel
-      </button>
+      <button class="btn-modal-cancel" (click)="onClose()">Cancel</button>
 
-      <button class="btn-modal-confirm" (click)="onSubmit()">
-        Submit
-      </button>
+      <button class="btn-modal-confirm" (click)="onSubmit()">Submit</button>
     </div>
   </div>
 </div>

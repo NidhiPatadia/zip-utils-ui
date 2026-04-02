@@ -1,6 +1,10 @@
 import { Component, forwardRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  FormsModule,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-pin-toggle',
@@ -42,9 +46,9 @@ export class PinToggleComponent implements ControlValueAccessor {
     if (event) {
       event.stopPropagation();
     }
-    
+
     this.pinEnabled = !this.pinEnabled;
-    
+
     if (!this.pinEnabled) {
       this.pinValue = '';
       this.pinError = '';
@@ -57,7 +61,7 @@ export class PinToggleComponent implements ControlValueAccessor {
         }
       }, 320);
     }
-    
+
     this.onTouched();
   }
 

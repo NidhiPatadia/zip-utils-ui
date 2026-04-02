@@ -1,5 +1,9 @@
 <div class="pin-option-wrapper">
-  <div class="pin-toggle-row" [class.pin-on]="pinEnabled" (click)="onPinToggleClick($event)">
+  <div
+    class="pin-toggle-row"
+    [class.pin-on]="pinEnabled"
+    (click)="onPinToggleClick($event)"
+  >
     <div class="pin-toggle-content">
       <span class="pin-toggle-label">PIN Protection</span>
       <span class="pin-toggle-sub">Require a code to view</span>
@@ -25,6 +29,8 @@
       autocomplete="off"
     />
     <div class="pin-error-msg" [class.visible]="pinError">{{ pinError }}</div>
-    <div class="pin-hint">4–6 digits only. You'll need to share this separately.</div>
+    <div class="pin-hint">
+      4–6 digits only. You'll need to share this separately.
+    </div>
   </div>
 </div>

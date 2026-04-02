@@ -13,7 +13,12 @@ import { DeleteModalComponent } from '../../shared/components/delete-modal/delet
 @Component({
   selector: 'app-text-viewer',
   standalone: true,
-  imports: [CommonModule, ShareCardComponent, PinModalComponent, DeleteModalComponent],
+  imports: [
+    CommonModule,
+    ShareCardComponent,
+    PinModalComponent,
+    DeleteModalComponent,
+  ],
   templateUrl: './text-viewer.component.html',
   styleUrl: './text-viewer.component.css',
 })
@@ -91,22 +96,22 @@ export class ZipTextViewerComponent implements OnInit {
         error: (err) => {
           console.error('Full error:', err);
           let errorMsg = '';
-          
+
           if (err?.graphQLErrors?.length) {
             errorMsg = err.graphQLErrors[0].message;
           } else if (err?.message) {
             errorMsg = err.message;
           }
-          
+
           console.error('Error message:', errorMsg);
-          
+
           if (errorMsg.includes('PIN')) {
             this.hasPin = true;
             this.showPinModal = true;
             this.setupUrl();
             return;
           }
-          
+
           this.router.navigate(['/404']);
         },
       });
@@ -171,7 +176,7 @@ export class ZipTextViewerComponent implements OnInit {
       this.pinError = 'Please enter a PIN';
       return;
     }
-    
+
     this.pinError = '';
     this.commonService.getZipText(this.id!, pin).subscribe({
       next: (response: any) => {
