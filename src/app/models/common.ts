@@ -30,3 +30,7 @@ export interface IGetZipShortUrlResponse {
 export interface ICheckShortIdAvailabilityResponse {
   isShortIdAvailable: boolean;
 }
+
+export interface IDeleteZipTextResponse {
+  deleteZipText: boolean;
+}
