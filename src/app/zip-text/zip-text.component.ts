@@ -21,6 +21,7 @@ import { ZIP_TEXT_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
 import { SeoSchemaService } from '../services/seo/seo-schema.service';
 import { CustomLinkComponent } from '../shared/components/custom-link/custom-link.component';
+import { PinToggleComponent } from '../shared/components/pin-toggle/pin-toggle.component';
 
 @Component({
   selector: 'app-zip-text',
@@ -32,6 +33,7 @@ import { CustomLinkComponent } from '../shared/components/custom-link/custom-lin
     BotGuardComponent,
     FaqComponent,
     CustomLinkComponent,
+    PinToggleComponent,
   ],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',
@@ -44,6 +46,7 @@ export class ZipTextComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
 
   @ViewChild(CustomLinkComponent) customLinkComponent!: CustomLinkComponent;
+  @ViewChild(PinToggleComponent) pinToggleComponent!: PinToggleComponent;
   readonly expiryTimes = [
     { text: '10 min', value: 10 },
     { text: '30 min', value: 30 },
@@ -119,6 +122,18 @@ export class ZipTextComponent implements OnInit {
       return;
     }
 
+    if (this.pinToggleComponent?.pinEnabled) {
+      const pinError = this.pinToggleComponent.validatePin();
+      if (pinError) {
+        this.pinToggleComponent.showPinError(pinError);
+        const input = document.getElementById('pinInput');
+        if (input) {
+          input.focus();
+        }
+        return;
+      }
+    }
+
     this.loading = true;
     this.commonService.setTempText(this.textInput);
     this.commonService.setTempIsOneTimeView(this.isOneTimeView);
@@ -133,11 +148,14 @@ export class ZipTextComponent implements OnInit {
         this.customSlug,
         this.isIpRestricted,
         this.isOneTimeView,
+        this.pinToggleComponent?.pinValue || null,
       )
       .subscribe({
         next: (response) => {
           const id = response.data?.generateZipTextUrl;
           if (id) {
+            const hasPin = !!this.pinToggleComponent?.pinValue;
+            this.commonService.setTempHasPin(hasPin);
             setTimeout(() => {
               this.loading = false;
               this.router.navigate(['/t', id]);

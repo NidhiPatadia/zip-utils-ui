@@ -86,6 +86,41 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
     answer:
       'Yes. Once your text link is generated, you can click "Download QR" to get a QR code image. This QR code can be printed or shared to let others scan and access your text.',
   },
+  {
+    question: 'What is PIN protection for text links?',
+    answer:
+      'PIN protection adds an extra layer of security to your shared text. When enabled, the recipient must enter a PIN code to view the text content.',
+  },
+  {
+    question: 'How does PIN protection work?',
+    answer:
+      'When you create a text link with PIN protection, the recipient will be prompted to enter a PIN before they can view the text. Without the correct PIN, the text remains hidden.',
+  },
+  {
+    question: 'How do I share the PIN with the recipient?',
+    answer:
+      'You need to share the PIN separately with your recipient through a different channel (e.g., phone call, message, email). The link and PIN should not be sent together for better security.',
+  },
+  {
+    question: 'Can I combine PIN protection with other features?',
+    answer:
+      'Yes. PIN protection can be combined with one-time view and IP restriction features for enhanced security. You can enable multiple protection options when creating a link.',
+  },
+  {
+    question: 'Can I delete a text link after creating it?',
+    answer:
+      'Yes. As the creator of the text link, you can delete it at any time from the viewer page. Once deleted, the link becomes invalid and the text cannot be accessed.',
+  },
+  {
+    question: 'What happens when I delete a text link?',
+    answer:
+      'When you delete a text link, the text is permanently removed from the server and the link becomes invalid. Neither you nor anyone else will be able to access it again.',
+  },
+  {
+    question: 'Where can I find the delete option for my text link?',
+    answer:
+      'The delete option appears on the text viewer page immediately after you create the link. Look for the "Changed your mind?" section below the share card.',
+  },
 ];
 
 export const ZIP_URL_FAQ: FaqItem[] = [

@@ -1,0 +1,32 @@
+<div class="pin-option-wrapper">
+  <div class="pin-toggle-row" [class.pin-on]="pinEnabled">
+    <div class="pin-toggle-content" (click)="$event.stopPropagation()">
+      <span class="pin-toggle-label">PIN Protection</span>
+      <span class="pin-toggle-sub">Require a code to view</span>
+    </div>
+    <div class="pin-switch" [class.on]="pinEnabled" (click)="onPinToggleClick($event)">
+      <div class="pin-switch-knob"></div>
+    </div>
+  </div>
+
+  <div class="pin-input-wrap" [class.open]="pinEnabled">
+    <span class="pin-input-label">Enter PIN</span>
+    <input
+      type="text"
+      id="pinInput"
+      class="pin-input"
+      [class.pin-error]="pinError"
+      [(ngModel)]="pinValue"
+      (input)="onPinInputChange()"
+      (keydown)="onKeyDown($event)"
+      placeholder="_ _ _ _"
+      maxlength="6"
+      inputmode="numeric"
+      autocomplete="off"
+    />
+    <div class="pin-error-msg" [class.visible]="pinError">{{ pinError }}</div>
+    <div class="pin-hint">
+      4–6 digits only. You'll need to share this separately.
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ export const GraphQL = {
       $customSlug: String
       $isIpRestricted: Boolean
       $isOneTimeView: Boolean
+      $pin: String
     ) {
       generateZipTextUrl(
         text: $text
@@ -21,15 +22,17 @@ export const GraphQL = {
         customSlug: $customSlug
         isIpRestricted: $isIpRestricted
         isOneTimeView: $isOneTimeView
+        pin: $pin
       )
     }
   `,
 
   getZipText: gql`
-    query GetZipText($url: String!) {
-      getZipText(url: $url) {
+    query GetZipText($url: String!, $pin: String) {
+      getZipText(url: $url, pin: $pin) {
         text
         isOneTimeView
+        hasPin
       }
     }
   `,

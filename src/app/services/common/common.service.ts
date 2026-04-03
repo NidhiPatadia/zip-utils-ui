@@ -21,6 +21,7 @@ export class CommonService {
   private readonly platformId = inject(PLATFORM_ID);
   private tempText: string = '';
   private tempIsOneTimeView: boolean = false;
+  private tempHasPin: boolean = false;
   private isFromBackend: boolean = false;
 
   setTempText(text: string) {
@@ -39,6 +40,14 @@ export class CommonService {
     return this.tempIsOneTimeView;
   }
 
+  setTempHasPin(hasPin: boolean) {
+    this.tempHasPin = hasPin;
+  }
+
+  getTempHasPin(): boolean {
+    return this.tempHasPin;
+  }
+
   setIsFromBackend(value: boolean) {
     this.isFromBackend = value;
   }
@@ -50,6 +59,7 @@ export class CommonService {
   clearTempText() {
     this.tempText = '';
     this.tempIsOneTimeView = false;
+    this.tempHasPin = false;
     this.isFromBackend = false;
   }
 
@@ -60,10 +70,10 @@ export class CommonService {
     });
   }
 
-  getZipText(id: String) {
+  getZipText(id: string, pin?: string | null) {
     return this.apollo.query<IGetZipTextUrlResponse>({
       query: GraphQL.getZipText,
-      variables: { url: id },
+      variables: { url: id, pin },
       fetchPolicy: 'no-cache',
     });
   }
@@ -74,6 +84,7 @@ export class CommonService {
     customSlug?: string | null,
     isIpRestricted?: boolean,
     isOneTimeView?: boolean,
+    pin?: string | null,
   ) {
     const MUTATION = GraphQL.generateZipTextUrl;
 
@@ -85,6 +96,7 @@ export class CommonService {
         customSlug,
         isIpRestricted,
         isOneTimeView,
+        pin,
       },
     });
   }
