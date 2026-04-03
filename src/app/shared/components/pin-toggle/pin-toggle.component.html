@@ -1,20 +1,16 @@
 <div class="pin-option-wrapper">
-  <div
-    class="pin-toggle-row"
-    [class.pin-on]="pinEnabled"
-    (click)="onPinToggleClick($event)"
-  >
-    <div class="pin-toggle-content">
+  <div class="pin-toggle-row" [class.pin-on]="pinEnabled">
+    <div class="pin-toggle-content" (click)="$event.stopPropagation()">
       <span class="pin-toggle-label">PIN Protection</span>
       <span class="pin-toggle-sub">Require a code to view</span>
     </div>
-    <div class="pin-switch" [class.on]="pinEnabled">
+    <div class="pin-switch" [class.on]="pinEnabled" (click)="onPinToggleClick($event)">
       <div class="pin-switch-knob"></div>
     </div>
   </div>
 
   <div class="pin-input-wrap" [class.open]="pinEnabled">
-    <label class="pin-input-label" for="pinInput">Enter PIN</label>
+    <span class="pin-input-label">Enter PIN</span>
     <input
       type="text"
       id="pinInput"

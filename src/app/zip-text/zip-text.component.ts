@@ -122,6 +122,18 @@ export class ZipTextComponent implements OnInit {
       return;
     }
 
+    if (this.pinToggleComponent?.pinEnabled) {
+      const pinError = this.pinToggleComponent.validatePin();
+      if (pinError) {
+        this.pinToggleComponent.showPinError(pinError);
+        const input = document.getElementById('pinInput');
+        if (input) {
+          input.focus();
+        }
+        return;
+      }
+    }
+
     this.loading = true;
     this.commonService.setTempText(this.textInput);
     this.commonService.setTempIsOneTimeView(this.isOneTimeView);
