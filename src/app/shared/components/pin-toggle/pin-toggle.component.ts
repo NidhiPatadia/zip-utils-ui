@@ -41,7 +41,6 @@ export class PinToggleComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  @HostListener('click')
   onPinToggleClick(event?: Event) {
     if (event) {
       event.stopPropagation();
