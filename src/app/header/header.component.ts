@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.healthCheck();
+    // this.healthCheck();
 
     // if code is executing in browser then get theme from localStorage or user prefrence
     let theme = ThemeType.LIGHT;

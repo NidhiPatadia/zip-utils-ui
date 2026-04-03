@@ -7,11 +7,18 @@ import { Router } from '@angular/router';
 import { HeaderService } from '../../services/header/header.service';
 import { PAGE_DESCRIPTION, PAGE_TITLE } from '../../enums/common';
 import { ShareCardComponent } from '../../shared/components/share-card/share-card.component';
+import { PinModalComponent } from '../../shared/components/pin-modal/pin-modal.component';
+import { DeleteModalComponent } from '../../shared/components/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-text-viewer',
   standalone: true,
-  imports: [CommonModule, ShareCardComponent],
+  imports: [
+    CommonModule,
+    ShareCardComponent,
+    PinModalComponent,
+    DeleteModalComponent,
+  ],
   templateUrl: './text-viewer.component.html',
   styleUrl: './text-viewer.component.css',
 })
@@ -30,14 +37,20 @@ export class ZipTextViewerComponent implements OnInit {
   isOneTimeView: boolean = false;
   isCreator: boolean = false;
   showDeleteModal: boolean = false;
+  hasPin: boolean = false;
+  showPinModal: boolean = false;
+  enteredPin: string = '';
+  pinError: string = '';
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     const tempText = this.commonService.getTempText();
     const isOneTimeView = this.commonService.getTempIsOneTimeView();
+    const hasPin = this.commonService.getTempHasPin();
     const fromBackend = this.commonService.getIsFromBackend();
 
     this.isOneTimeView = isOneTimeView;
+    this.hasPin = hasPin;
     this.isCreator = !fromBackend;
 
     this.headerService.setTitleAndDescription({
@@ -60,12 +73,19 @@ export class ZipTextViewerComponent implements OnInit {
           const result = response.data?.getZipText;
           let textValue = '';
           let isOneTime = false;
+          let hasPin = false;
 
-          if (typeof result === 'string') {
-            textValue = result;
-          } else if (result && result.text !== undefined) {
-            textValue = result.text;
+          if (result && typeof result === 'object') {
+            textValue = result.text || '';
             isOneTime = result.isOneTimeView || false;
+            hasPin = result.hasPin || false;
+          }
+
+          if (hasPin && !textValue) {
+            this.hasPin = true;
+            this.showPinModal = true;
+            this.setupUrl();
+            return;
           }
 
           this.text = textValue;
@@ -74,7 +94,24 @@ export class ZipTextViewerComponent implements OnInit {
           this.setupUrl();
         },
         error: (err) => {
-          console.error('Error fetching text', err);
+          console.error('Full error:', err);
+          let errorMsg = '';
+
+          if (err?.graphQLErrors?.length) {
+            errorMsg = err.graphQLErrors[0].message;
+          } else if (err?.message) {
+            errorMsg = err.message;
+          }
+
+          console.error('Error message:', errorMsg);
+
+          if (errorMsg.includes('PIN')) {
+            this.hasPin = true;
+            this.showPinModal = true;
+            this.setupUrl();
+            return;
+          }
+
           this.router.navigate(['/404']);
         },
       });
@@ -125,6 +162,35 @@ export class ZipTextViewerComponent implements OnInit {
         console.error('Error deleting text', err);
         this.showDeleteModal = false;
         this.router.navigate(['/text']);
+      },
+    });
+  }
+
+  onPinModalClose() {
+    this.showPinModal = false;
+    this.router.navigate(['/text']);
+  }
+
+  onPinSubmit(pin: string) {
+    if (!pin.trim()) {
+      this.pinError = 'Please enter a PIN';
+      return;
+    }
+
+    this.pinError = '';
+    this.commonService.getZipText(this.id!, pin).subscribe({
+      next: (response: any) => {
+        const result = response.data?.getZipText;
+        if (result && result.text !== undefined) {
+          this.showPinModal = false;
+          this.text = result.text;
+          this.isOneTimeView = result.isOneTimeView || false;
+          this.isCreator = false;
+        }
+      },
+      error: (err) => {
+        console.error('Error verifying PIN', err);
+        this.pinError = 'Invalid PIN';
       },
     });
   }
