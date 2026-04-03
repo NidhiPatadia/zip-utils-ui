@@ -1,0 +1,54 @@
+<div *ngIf="showPinModal" class="modal-backdrop" (click)="onClose()">
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    (click)="$event.stopPropagation()"
+  >
+    <button class="modal-close-x" (click)="onClose()">✕</button>
+
+    <div class="modal-icon-wrap">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#6b7280"
+        stroke-width="2"
+      >
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+
+    <h2>Enter PIN</h2>
+
+    <p class="modal-body">
+      This text is protected with a PIN. Please enter the PIN to view the
+      content.
+    </p>
+
+    <div class="pin-input-wrapper">
+      <input
+        #pinInput
+        type="text"
+        [(ngModel)]="enteredPin"
+        placeholder="Enter PIN"
+        class="pin-input"
+        (keyup)="onKeyUp($event)"
+        maxlength="6"
+        inputmode="numeric"
+      />
+    </div>
+
+    <div *ngIf="localError || pinError" class="pin-error">
+      {{ localError || pinError }}
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" (click)="onClose()">Cancel</button>
+
+      <button class="btn-modal-confirm" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+</div>
