@@ -137,10 +137,15 @@ export class ZipTextComponent implements OnInit {
     this.loading = true;
     this.commonService.setTempText(this.textInput);
     this.commonService.setTempIsOneTimeView(this.isOneTimeView);
-    this.commonService.setIsFromBackend(false);
+    this.commonService.setTempHasPin(!!this.pinToggleComponent?.pinValue);
+    this.commonService.setTempIsIpRestricted(this.isIpRestricted);
     const expiry = this.expiryInMinutes
       ? parseInt(this.expiryInMinutes.toString(), 10)
       : null;
+    this.commonService.setTempExpiryInMinutes(expiry);
+    const expiryTimestamp = expiry ? Math.floor(Date.now() / 1000) + (expiry * 60) : null;
+    this.commonService.setTempExpiryTime(expiryTimestamp);
+    this.commonService.setIsFromBackend(false);
     this.commonService
       .generateZipTextUrl(
         this.textInput,
@@ -154,8 +159,6 @@ export class ZipTextComponent implements OnInit {
         next: (response) => {
           const id = response.data?.generateZipTextUrl;
           if (id) {
-            const hasPin = !!this.pinToggleComponent?.pinValue;
-            this.commonService.setTempHasPin(hasPin);
             setTimeout(() => {
               this.loading = false;
               this.router.navigate(['/t', id]);

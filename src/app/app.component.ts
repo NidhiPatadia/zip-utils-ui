@@ -78,16 +78,26 @@ export class AppComponent {
         const result = response.data?.getZipText;
         let text = '';
         let isOneTimeView = false;
+        let hasPin = false;
+        let isIpRestricted = false;
+        let expiryTime = null;
 
         if (typeof result === 'string') {
           text = result;
         } else if (result && result.text !== undefined) {
           text = result.text;
           isOneTimeView = result.isOneTimeView || false;
+          hasPin = result.hasPin || false;
+          isIpRestricted = result.isIpRestricted || false;
+          expiryTime = result.expiryTime || null;
         }
 
         this.commonService.setTempText(text);
         this.commonService.setTempIsOneTimeView(isOneTimeView);
+        this.commonService.setTempHasPin(hasPin);
+        this.commonService.setTempIsIpRestricted(isIpRestricted);
+        this.commonService.setTempExpiryInMinutes(null);
+        this.commonService.setTempExpiryTime(expiryTime);
         this.commonService.setIsFromBackend(true);
         setTimeout(() => this.changeScreenToShowApp(), 500);
         this.router.navigate(['/t', id]);
