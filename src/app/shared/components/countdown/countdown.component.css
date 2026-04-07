@@ -1,0 +1,67 @@
+.countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--warning-bg, #131a35);
+  border: 1.5px solid var(--warning-border, #2a3670);
+  border-radius: 999px;
+  padding: 4px 12px 4px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warning-text, #8fa3ff);
+}
+
+.countdown-badge .mini-ring {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.countdown-badge .mini-ring svg {
+  transform: rotate(-90deg);
+  width: 24px;
+  height: 24px;
+}
+
+.countdown-badge .mini-ring-bg {
+  fill: none;
+  stroke: var(--surface);
+  stroke-width: 3;
+}
+
+.countdown-badge .mini-ring-fill {
+  fill: none;
+  stroke: var(--accent, #5b6ef5);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 69.115;
+  stroke-dashoffset: 0;
+  transition: stroke 0.5s;
+}
+
+.countdown-badge .mini-ring-fill.warn {
+  stroke: #f7a44f;
+}
+
+.countdown-badge .mini-ring-fill.danger {
+  stroke: var(--danger, #f75f5f);
+}
+
+.countdown-badge.warn {
+  border-color: rgba(247, 164, 79, 0.4);
+  background: rgba(42, 31, 14, 1);
+  color: #f7a44f;
+}
+
+.countdown-badge.danger {
+  border-color: rgba(247, 95, 95, 0.4);
+  background: rgba(42, 14, 14, 1);
+  color: var(--danger, #f75f5f);
+}
+
+.countdown-badge .countdown-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+}

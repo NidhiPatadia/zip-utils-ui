@@ -176,6 +176,139 @@
   border-radius: 50%;
 }
 
+.badges {
+  display: flex;
+  gap: 10px;
+}
+
+.pin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--warning-bg, #131a35);
+  border: 1.5px solid var(--warning-border, #2a3670);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warning-text, #8fa3ff);
+}
+
+.pin-badge .badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent, #5b6ef5);
+  border-radius: 50%;
+}
+
+.ip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--warning-bg, #131a35);
+  border: 1.5px solid var(--warning-border, #2a3670);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warning-text, #8fa3ff);
+}
+
+.ip-badge .badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent, #5b6ef5);
+  border-radius: 50%;
+}
+
+.expiry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--warning-bg, #131a35);
+  border: 1.5px solid var(--warning-border, #2a3670);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warning-text, #8fa3ff);
+}
+
+.expiry-badge .badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent, #5b6ef5);
+  border-radius: 50%;
+}
+
+.countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--warning-bg, #131a35);
+  border: 1.5px solid var(--warning-border, #2a3670);
+  border-radius: 999px;
+  padding: 4px 12px 4px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warning-text, #8fa3ff);
+}
+
+.countdown-badge .mini-ring {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.countdown-badge .mini-ring svg {
+  transform: rotate(-90deg);
+  width: 24px;
+  height: 24px;
+}
+
+.countdown-badge .mini-ring-bg {
+  fill: none;
+  stroke: var(--surface);
+  stroke-width: 3;
+}
+
+.countdown-badge .mini-ring-fill {
+  fill: none;
+  stroke: var(--accent, #5b6ef5);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 69.115;
+  stroke-dashoffset: 0;
+  transition: stroke 0.5s;
+}
+
+.countdown-badge .mini-ring-fill.warn {
+  stroke: #f7a44f;
+}
+
+.countdown-badge .mini-ring-fill.danger {
+  stroke: var(--danger, #f75f5f);
+}
+
+.countdown-badge.warn {
+  border-color: rgba(247, 164, 79, 0.4);
+  background: rgba(42, 31, 14, 1);
+  color: #f7a44f;
+}
+
+.countdown-badge.danger {
+  border-color: rgba(247, 95, 95, 0.4);
+  background: rgba(42, 14, 14, 1);
+  color: var(--danger, #f75f5f);
+}
+
+.countdown-badge .countdown-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .delete-row {
   background: var(--card-bg);
   border: 1px dashed var(--border-color);
@@ -384,4 +517,39 @@
   font-size: 12px;
   text-align: center;
   margin-top: 8px;
+}
+
+.textarea-flex-wrapper.expired {
+  background: transparent;
+  border: 2px dashed var(--border-color);
+}
+
+.textarea-flex-wrapper.expired textarea {
+  opacity: 0.3;
+}
+
+.expired-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 11, 18, 0.92);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.expired-overlay h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--danger, #f75f5f);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.expired-overlay p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-align: center;
+  max-width: 320px;
 }

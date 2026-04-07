@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, PLATFORM_ID, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonService } from '../../services/common/common.service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { PAGE_DESCRIPTION, PAGE_TITLE } from '../../enums/common';
 import { ShareCardComponent } from '../../shared/components/share-card/share-card.component';
 import { PinModalComponent } from '../../shared/components/pin-modal/pin-modal.component';
 import { DeleteModalComponent } from '../../shared/components/delete-modal/delete-modal.component';
+import { CountdownComponent } from '../../shared/components/countdown/countdown.component';
 
 @Component({
   selector: 'app-text-viewer',
@@ -18,16 +19,18 @@ import { DeleteModalComponent } from '../../shared/components/delete-modal/delet
     ShareCardComponent,
     PinModalComponent,
     DeleteModalComponent,
+    CountdownComponent,
   ],
   templateUrl: './text-viewer.component.html',
   styleUrl: './text-viewer.component.css',
 })
-export class ZipTextViewerComponent implements OnInit {
+export class ZipTextViewerComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
   private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
 
   id: string | null = null;
   text: string = '';
@@ -38,6 +41,11 @@ export class ZipTextViewerComponent implements OnInit {
   isCreator: boolean = false;
   showDeleteModal: boolean = false;
   hasPin: boolean = false;
+  isIpRestricted: boolean = false;
+  expiryInMinutes: number | null = null;
+  expiryTime: number | null = null;
+  originalExpiryTime: number | null = null;
+  isExpired: boolean = false;
   showPinModal: boolean = false;
   enteredPin: string = '';
   pinError: string = '';
@@ -47,10 +55,17 @@ export class ZipTextViewerComponent implements OnInit {
     const tempText = this.commonService.getTempText();
     const isOneTimeView = this.commonService.getTempIsOneTimeView();
     const hasPin = this.commonService.getTempHasPin();
-    const fromBackend = this.commonService.getIsFromBackend();
-
+    const isIpRestricted = this.commonService.getTempIsIpRestricted();
+    const expiryInMinutes = this.commonService.getTempExpiryInMinutes();
+    const expiryTime = this.commonService.getTempExpiryTime();
     this.isOneTimeView = isOneTimeView;
     this.hasPin = hasPin;
+    this.isIpRestricted = isIpRestricted;
+    this.expiryInMinutes = expiryInMinutes;
+    this.expiryTime = expiryTime;
+    this.originalExpiryTime = expiryTime;
+    const fromBackend = this.commonService.getIsFromBackend();
+
     this.isCreator = !fromBackend;
 
     this.headerService.setTitleAndDescription({
@@ -74,15 +89,22 @@ export class ZipTextViewerComponent implements OnInit {
           let textValue = '';
           let isOneTime = false;
           let hasPin = false;
+          let isIp = false;
+          let expiryT = null;
 
           if (result && typeof result === 'object') {
             textValue = result.text || '';
             isOneTime = result.isOneTimeView || false;
             hasPin = result.hasPin || false;
+            isIp = result.isIpRestricted || false;
+            expiryT = result.expiryTime || null;
           }
 
           if (hasPin && !textValue) {
             this.hasPin = true;
+            this.isIpRestricted = isIp;
+            this.expiryTime = expiryT;
+            this.originalExpiryTime = expiryT;
             this.showPinModal = true;
             this.setupUrl();
             return;
@@ -90,6 +112,10 @@ export class ZipTextViewerComponent implements OnInit {
 
           this.text = textValue;
           this.isOneTimeView = isOneTime;
+          this.hasPin = hasPin;
+          this.isIpRestricted = isIp;
+          this.expiryTime = expiryT;
+          this.originalExpiryTime = expiryT;
           this.isCreator = false;
           this.setupUrl();
         },
@@ -185,6 +211,10 @@ export class ZipTextViewerComponent implements OnInit {
           this.showPinModal = false;
           this.text = result.text;
           this.isOneTimeView = result.isOneTimeView || false;
+          this.hasPin = result.hasPin || false;
+          this.isIpRestricted = result.isIpRestricted || false;
+          this.expiryTime = result.expiryTime || null;
+          this.originalExpiryTime = result.expiryTime || null;
           this.isCreator = false;
         }
       },
@@ -193,5 +223,26 @@ export class ZipTextViewerComponent implements OnInit {
         this.pinError = 'Invalid PIN';
       },
     });
+  }
+
+  getExpiryText(): string {
+    if (!this.expiryInMinutes) return '';
+    if (this.expiryInMinutes < 60) {
+      return `${this.expiryInMinutes} min`;
+    }
+    const hours = Math.floor(this.expiryInMinutes / 60);
+    const minutes = this.expiryInMinutes % 60;
+    if (minutes === 0) {
+      return `${hours} hr`;
+    }
+    return `${hours} hr ${minutes} min`;
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  onExpired(): void {
+    this.isExpired = true;
+    this.text = '';
   }
 }

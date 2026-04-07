@@ -17,6 +17,8 @@ export interface IGetZipTextUrlResponse {
     text: string;
     isOneTimeView: boolean;
     hasPin: boolean;
+    isIpRestricted: boolean;
+    expiryTime: number | null;
   };
 }
 

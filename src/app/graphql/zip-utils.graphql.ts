@@ -33,6 +33,8 @@ export const GraphQL = {
         text
         isOneTimeView
         hasPin
+        isIpRestricted
+        expiryTime
       }
     }
   `,
