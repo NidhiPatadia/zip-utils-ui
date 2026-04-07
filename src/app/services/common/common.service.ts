@@ -22,6 +22,9 @@ export class CommonService {
   private tempText: string = '';
   private tempIsOneTimeView: boolean = false;
   private tempHasPin: boolean = false;
+  private tempIsIpRestricted: boolean = false;
+  private tempExpiryInMinutes: number | null = null;
+  private tempExpiryTime: number | null = null;
   private isFromBackend: boolean = false;
 
   setTempText(text: string) {
@@ -48,6 +51,30 @@ export class CommonService {
     return this.tempHasPin;
   }
 
+  setTempIsIpRestricted(isIpRestricted: boolean) {
+    this.tempIsIpRestricted = isIpRestricted;
+  }
+
+  getTempIsIpRestricted(): boolean {
+    return this.tempIsIpRestricted;
+  }
+
+  setTempExpiryInMinutes(expiryInMinutes: number | null) {
+    this.tempExpiryInMinutes = expiryInMinutes;
+  }
+
+  getTempExpiryInMinutes(): number | null {
+    return this.tempExpiryInMinutes;
+  }
+
+  setTempExpiryTime(expiryTime: number | null) {
+    this.tempExpiryTime = expiryTime;
+  }
+
+  getTempExpiryTime(): number | null {
+    return this.tempExpiryTime;
+  }
+
   setIsFromBackend(value: boolean) {
     this.isFromBackend = value;
   }
@@ -60,6 +87,9 @@ export class CommonService {
     this.tempText = '';
     this.tempIsOneTimeView = false;
     this.tempHasPin = false;
+    this.tempIsIpRestricted = false;
+    this.tempExpiryInMinutes = null;
+    this.tempExpiryTime = null;
     this.isFromBackend = false;
   }
 
