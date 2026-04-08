@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, OnDestroy, PLATFORM_ID, NgZone } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  OnDestroy,
+  PLATFORM_ID,
+  NgZone,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonService } from '../../services/common/common.service';
 import { ActivatedRoute } from '@angular/router';
@@ -238,8 +245,7 @@ export class ZipTextViewerComponent implements OnInit, OnDestroy {
     return `${hours} hr ${minutes} min`;
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   onExpired(): void {
     this.isExpired = true;

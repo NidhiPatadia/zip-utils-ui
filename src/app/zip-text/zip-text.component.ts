@@ -143,7 +143,9 @@ export class ZipTextComponent implements OnInit {
       ? parseInt(this.expiryInMinutes.toString(), 10)
       : null;
     this.commonService.setTempExpiryInMinutes(expiry);
-    const expiryTimestamp = expiry ? Math.floor(Date.now() / 1000) + (expiry * 60) : null;
+    const expiryTimestamp = expiry
+      ? Math.floor(Date.now() / 1000) + expiry * 60
+      : null;
     this.commonService.setTempExpiryTime(expiryTimestamp);
     this.commonService.setIsFromBackend(false);
     this.commonService

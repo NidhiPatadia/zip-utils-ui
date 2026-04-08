@@ -16,10 +16,4 @@ export interface FaqItem {
 export class FaqComponent {
   @Input() title = 'Frequently Asked Questions';
   @Input() items: FaqItem[] = [];
-
-  openIndex: number | null = 0;
-
-  toggle(index: number) {
-    this.openIndex = this.openIndex === index ? null : index;
-  }
 }
