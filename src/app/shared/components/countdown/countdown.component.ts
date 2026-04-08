@@ -1,4 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  NgZone,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -47,12 +55,14 @@ export class CountdownComponent implements OnInit, OnDestroy {
     }
 
     const setRing = (ratio: number) => {
-      const ring = document.querySelector('.mini-ring-fill') as SVGCircleElement;
+      const ring = document.querySelector(
+        '.mini-ring-fill',
+      ) as SVGCircleElement;
       const badge = document.querySelector('.countdown-badge');
       if (ring) {
         ring.style.strokeDasharray = `${circumference}`;
         ring.style.strokeDashoffset = `${circumference * (1 - ratio)}`;
-        
+
         const warn = ratio <= 0.5 && ratio > 0.25;
         const danger = ratio <= 0.25;
         ring.classList.toggle('warn', warn);

@@ -16,11 +16,17 @@
         <div class="badge-dot"></div>
         Same Network
       </div>
-      <div *ngIf="isCreator && (expiryInMinutes || expiryTime)" class="expiry-badge">
+      <div
+        *ngIf="isCreator && (expiryInMinutes || expiryTime)"
+        class="expiry-badge"
+      >
         <div class="badge-dot"></div>
         {{ getExpiryText() }}
       </div>
-      <div *ngIf="isCreator && !expiryInMinutes && !expiryTime" class="expiry-badge">
+      <div
+        *ngIf="isCreator && !expiryInMinutes && !expiryTime"
+        class="expiry-badge"
+      >
         <div class="badge-dot"></div>
         No Expiry
       </div>
@@ -29,7 +35,11 @@
         No Expiry
       </div>
       <div *ngIf="!isCreator && expiryTime">
-        <app-countdown [expiryTime]="expiryTime" [isCreator]="isCreator" (expired)="onExpired()"></app-countdown>
+        <app-countdown
+          [expiryTime]="expiryTime"
+          [isCreator]="isCreator"
+          (expired)="onExpired()"
+        ></app-countdown>
       </div>
     </div>
   </div>
@@ -108,12 +118,22 @@
 
 <!-- Expired Overlay -->
 <div *ngIf="isExpired" class="expired-overlay">
-  <svg width="56" height="56" fill="none" stroke="#f75f5f" stroke-width="2" viewBox="0 0 24 24">
+  <svg
+    width="56"
+    height="56"
+    fill="none"
+    stroke="#f75f5f"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+  >
     <circle cx="12" cy="12" r="10"></circle>
     <line x1="12" y1="8" x2="12" y2="12"></line>
     <line x1="12" y1="16" x2="12.01" y2="16"></line>
   </svg>
   <h2>Link Expired</h2>
-  <p>This link has expired. The text has been permanently deleted and cannot be accessed again.</p>
+  <p>
+    This link has expired. The text has been permanently deleted and cannot be
+    accessed again.
+  </p>
   <button class="back-btn" (click)="goBack()">Go back</button>
 </div>

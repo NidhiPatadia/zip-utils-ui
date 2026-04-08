@@ -1,18 +1,4 @@
 <div class="qr-container">
-  <!-- Tabs -->
-  <div class="qr-tabs">
-    <button
-      [class.active]="mode === 'generator'"
-      (click)="changeMode('generator')"
-    >
-      QR Generator
-    </button>
-
-    <button [class.active]="mode === 'scanner'" (click)="changeMode('scanner')">
-      QR Scanner
-    </button>
-  </div>
-
   <!-- GENERATOR -->
   <section *ngIf="mode === 'generator'" class="qr-panel qr-generator">
     <input
@@ -44,39 +30,6 @@
         <button (click)="downloadQr()">Download</button>
         <button (click)="shareQr()">Share</button>
       </div>
-    </div>
-  </section>
-
-  <!-- SCANNER -->
-  <section
-    class="qr-panel qr-scanner"
-    *ngIf="scannerPageVisited"
-    [hidden]="mode !== 'scanner'"
-  >
-    <div class="scanner-card">
-      <zxing-scanner
-        [formats]="allowedFormats"
-        (scanSuccess)="onScanSuccess($event)"
-      >
-      </zxing-scanner>
-    </div>
-
-    <div *ngIf="scannedResult" class="scan-result">
-      <div class="scan-result-header">
-        <label>Scanned Result 👇</label>
-        <button
-          class="copy-text-btn"
-          (click)="copyText()"
-          [class.copied]="textCopied"
-          title="Copy text"
-        >
-          <span *ngIf="!textCopied"><i class="fa-solid fa fa-copy"></i></span>
-          <span *ngIf="textCopied"
-            ><i class="fa-solid fa fa-clipboard-check"></i
-          ></span>
-        </button>
-      </div>
-      <p class="scan-result-content">{{ scannedResult }}</p>
     </div>
   </section>
 </div>

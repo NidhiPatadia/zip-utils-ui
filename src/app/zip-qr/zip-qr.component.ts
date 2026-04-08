@@ -7,8 +7,6 @@ import {
 import { HeaderService } from '../services/header/header.service';
 import { CommonService } from '../services/common/common.service';
 import { QRCodeModule } from 'angularx-qrcode';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { BarcodeFormat } from '@zxing/library';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LoaderOverlayComponent } from '../loader-overlay/loader-overlay.component';
@@ -16,7 +14,7 @@ import { ZIP_QR_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
 import { SeoSchemaService } from '../services/seo/seo-schema.service';
 
-type Mode = 'generator' | 'scanner';
+type Mode = 'generator';
 
 @Component({
   selector: 'app-zip-qr',
@@ -25,7 +23,6 @@ type Mode = 'generator' | 'scanner';
     FormsModule,
     CommonModule,
     QRCodeModule,
-    ZXingScannerModule,
     LoaderOverlayComponent,
     FaqComponent,
   ],
@@ -41,16 +38,9 @@ export class ZipQrComponent implements OnInit {
   loading = false;
 
   mode: Mode = 'generator';
-  scannerPageVisited = false;
-  allowedFormats = [BarcodeFormat.QR_CODE];
 
-  // Generator
   inputValue = '';
   generatedValue: string | null = null;
-
-  // Scanner
-  scannedResult: string | null = null;
-  textCopied = false;
 
   ngOnInit(): void {
     this.headerService.setTitleAndDescription({
@@ -106,27 +96,7 @@ export class ZipQrComponent implements OnInit {
     });
   }
 
-  onScanSuccess(result: string) {
-    this.scannedResult = result;
-  }
-
-  copyText() {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    if (this.scannedResult) {
-      navigator.clipboard.writeText(this.scannedResult as string);
-      this.textCopied = true;
-
-      setTimeout(() => {
-        this.textCopied = false;
-      }, 2000);
-    }
-  }
-
   changeMode(selectedMode: Mode) {
-    if (selectedMode === 'scanner') {
-      this.scannerPageVisited = true;
-    }
     this.mode = selectedMode;
   }
 }
