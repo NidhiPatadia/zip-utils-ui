@@ -46,6 +46,7 @@
   text-align: left;
   font-family: inherit;
   transition: all 0.2s;
+  color: var(--faq-title-hover-color);
 }
 
 .accordion-header:hover {
