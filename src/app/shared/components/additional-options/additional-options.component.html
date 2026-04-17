@@ -1,0 +1,27 @@
+<div class="additional-options-wrapper" [class.expanded]="isExpanded">
+  <button
+    class="additional-options-toggle"
+    type="button"
+    (click)="toggle.emit()"
+  >
+    <span>{{ title }}</span>
+    <svg
+      class="toggle-chevron"
+      width="16"
+      height="16"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path
+        d="M5 7.5L10 12.5L15 7.5"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </button>
+  <div class="additional-options-content">
+    <ng-content></ng-content>
+  </div>
+</div>

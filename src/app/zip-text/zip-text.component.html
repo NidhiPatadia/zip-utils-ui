@@ -27,74 +27,27 @@
         ></app-custom-link>
       </div>
     </div>
-    <div
-      class="additional-options-wrapper"
-      id="additionalOptionsWrapper"
-      [class.expanded]="isExpanded"
+    <app-additional-options
+      [isExpanded]="isExpanded"
+      (toggle)="toggleAdditionalOptions()"
     >
-      <button
-        class="additional-options-toggle"
-        type="button"
-        (click)="toggleAdditionalOptions()"
-      >
-        <span>Additional Options</span>
-        <svg
-          class="toggle-chevron"
-          width="16"
-          height="16"
-          viewBox="0 0 20 20"
-          fill="none"
+      <div class="security-option">
+        <app-option-checkbox
+          [checked]="isIpRestricted"
+          (checkedChange)="isIpRestricted = $event"
+          title="Share only within this network (Wi-Fi/VPN)"
         >
-          <path
-            d="M5 7.5L10 12.5L15 7.5"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-        </svg>
-      </button>
-      <div class="additional-options-content" id="additionalOptions">
-        <div class="security-option">
-          <label class="checkbox-label">
-            <input
-              type="checkbox"
-              id="ipRestrict"
-              class="checkbox-input"
-              [(ngModel)]="isIpRestricted"
-            />
-            <span class="checkbox-custom"></span>
-            <span class="checkbox-text">
-              Share only within this network (Wi-Fi/VPN)
-              <span class="feature-badge">🔒 Secure</span>
-            </span>
-          </label>
-        </div>
-
-        <div class="one-time-option">
-          <label class="checkbox-label">
-            <input
-              type="checkbox"
-              id="oneTimeView"
-              class="checkbox-input"
-              [(ngModel)]="isOneTimeView"
-            />
-            <span class="checkbox-custom"></span>
-            <div class="one-time-text-wrapper">
-              <span class="one-time-text">
-                One-time access
-                <span class="expiry-icon">🕒</span>
-              </span>
-              <span class="feature-subtitle"
-                >Permanently deleted after first open</span
-              >
-            </div>
-          </label>
-        </div>
-
-        <app-pin-toggle #pinToggle></app-pin-toggle>
+          <span suffix class="feature-badge">🔒 Secure</span>
+        </app-option-checkbox>
       </div>
-    </div>
+
+      <app-one-time-toggle
+        [isOneTimeView]="isOneTimeView"
+        (isOneTimeViewChange)="isOneTimeView = $event"
+      ></app-one-time-toggle>
+
+      <app-pin-toggle #pinToggle></app-pin-toggle>
+    </app-additional-options>
     <app-bot-guard #botGuard></app-bot-guard>
     <button
       class="generate-button"

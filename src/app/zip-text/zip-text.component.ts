@@ -22,6 +22,9 @@ import { FaqComponent } from '../faq/faq.component';
 import { SeoSchemaService } from '../services/seo/seo-schema.service';
 import { CustomLinkComponent } from '../shared/components/custom-link/custom-link.component';
 import { PinToggleComponent } from '../shared/components/pin-toggle/pin-toggle.component';
+import { OptionCheckboxComponent } from '../shared/components/option-checkbox/option-checkbox.component';
+import { OneTimeToggleComponent } from '../shared/components/one-time-toggle/one-time-toggle.component';
+import { AdditionalOptionsComponent } from '../shared/components/additional-options/additional-options.component';
 
 @Component({
   selector: 'app-zip-text',
@@ -34,6 +37,9 @@ import { PinToggleComponent } from '../shared/components/pin-toggle/pin-toggle.c
     FaqComponent,
     CustomLinkComponent,
     PinToggleComponent,
+    OptionCheckboxComponent,
+    OneTimeToggleComponent,
+    AdditionalOptionsComponent,
   ],
   templateUrl: './zip-text.component.html',
   styleUrl: './zip-text.component.css',

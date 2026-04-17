@@ -1,4 +1,4 @@
-<div class="main-content-url">
+<div class="main-content-url" *ngIf="!isRedirect && !showShareCard">
   <form [formGroup]="urlForm" (ngSubmit)="onSubmit(botGuard)" class="tool-box">
     <input
       id="url"
@@ -10,7 +10,6 @@
       title="Paste your long URL here..."
     />
 
-    <!-- Error message box -->
     <div
       *ngIf="
         urlForm.get('url')?.invalid &&
@@ -46,6 +45,16 @@
           ></app-custom-link>
         </div>
       </div>
+      <app-additional-options
+        [isExpanded]="isExpanded"
+        (toggle)="toggleAdditionalOptions()"
+      >
+        <app-one-time-toggle
+          [isOneTimeView]="isOneTimeView"
+          (isOneTimeViewChange)="isOneTimeView = $event"
+        ></app-one-time-toggle>
+        <app-pin-toggle></app-pin-toggle>
+      </app-additional-options>
       <app-bot-guard #botGuard></app-bot-guard>
       <button
         type="submit"
@@ -56,11 +65,27 @@
       </button>
     </div>
   </form>
-
-  <app-share-card *ngIf="shortUrl" [url]="shortUrl"></app-share-card>
   <app-loader-overlay
     *ngIf="loading"
     [message]="'Processing...'"
   ></app-loader-overlay>
 </div>
-<app-faq [items]="faqItems"></app-faq>
+
+<div class="share-card-wrapper" *ngIf="showShareCard && shortUrl">
+  <div class="share-card-container">
+    <button class="new-link-btn" (click)="createNewLink()">
+      + Create New Link
+    </button>
+    <app-share-card [url]="shortUrl"></app-share-card>
+    <app-share-card-options
+      [isOneTimeView]="isOneTimeView"
+      [hasPin]="hasPin"
+      [isCreator]="true"
+      [showDeleteOption]="true"
+      [showWarnings]="true"
+      [currentUrl]="shortUrl"
+      (onDelete)="deleteShortUrl()"
+    ></app-share-card-options>
+  </div>
+</div>
+<app-faq [items]="faqItems" *ngIf="!isRedirect && !showShareCard"></app-faq>

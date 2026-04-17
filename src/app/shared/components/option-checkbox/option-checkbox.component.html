@@ -1,0 +1,22 @@
+<div class="checkbox-wrapper">
+  <label class="checkbox-label">
+    <input
+      type="checkbox"
+      class="checkbox-input"
+      [checked]="checked"
+      (change)="onChange($event)"
+    />
+    <span class="checkbox-custom"></span>
+  </label>
+
+  <div class="content">
+    <span class="title">
+      {{ title }}
+      <ng-content select="[suffix]"></ng-content>
+    </span>
+
+    <span *ngIf="subtitle" class="subtitle">
+      {{ subtitle }}
+    </span>
+  </div>
+</div>
