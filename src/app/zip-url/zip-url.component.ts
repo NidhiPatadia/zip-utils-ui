@@ -22,6 +22,10 @@ import { ZIP_URL_FAQ } from '../content/text-faq.content';
 import { FaqComponent } from '../faq/faq.component';
 import { SeoSchemaService } from '../services/seo/seo-schema.service';
 import { CustomLinkComponent } from '../shared/components/custom-link/custom-link.component';
+import { PinToggleComponent } from '../shared/components/pin-toggle/pin-toggle.component';
+import { OneTimeToggleComponent } from '../shared/components/one-time-toggle/one-time-toggle.component';
+import { AdditionalOptionsComponent } from '../shared/components/additional-options/additional-options.component';
+import { ShareCardOptionsComponent } from '../shared/components/share-card-options/share-card-options.component';
 
 @Component({
   selector: 'app-zip-url',
@@ -34,6 +38,10 @@ import { CustomLinkComponent } from '../shared/components/custom-link/custom-lin
     BotGuardComponent,
     FaqComponent,
     CustomLinkComponent,
+    PinToggleComponent,
+    OneTimeToggleComponent,
+    AdditionalOptionsComponent,
+    ShareCardOptionsComponent,
   ],
   templateUrl: './zip-url.component.html',
   styleUrl: './zip-url.component.css',
@@ -42,6 +50,7 @@ export class ZipUrlComponent implements OnInit {
   private readonly headerService = inject(HeaderService);
   private readonly commonService = inject(CommonService);
   private readonly seoSchemaService = inject(SeoSchemaService);
+  isRedirect = false;
   readonly urlForm: FormGroup;
   readonly expiryTimes = [
     { text: '10 min', value: 10 },
@@ -56,10 +65,19 @@ export class ZipUrlComponent implements OnInit {
   id: string | null = null;
   faqItems = ZIP_URL_FAQ;
   shortUrl = '';
+  showShareCard = false;
   isSlugAvailable: boolean | null = null;
   customSlug: string | null = null;
   checkingSlug = false;
+  isExpanded = false;
+  isOneTimeView = false;
+  hasPin = false;
   @ViewChild(CustomLinkComponent) customLinkComponent!: CustomLinkComponent;
+  @ViewChild(PinToggleComponent) pinToggleComponent!: PinToggleComponent;
+
+  toggleAdditionalOptions() {
+    this.isExpanded = !this.isExpanded;
+  }
 
   constructor(private fb: FormBuilder) {
     const URL_REGEX =
@@ -72,6 +90,9 @@ export class ZipUrlComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isRedirect = this.commonService.getIsUrlRedirect();
+    this.commonService.setIsUrlRedirect(false);
+
     this.headerService.setTitleAndDescription({
       pageTitle: COMPONENT_TITLE.ZIP_URL,
       pageDescription: COMPONENT_DESCRIPTION.ZIP_URL,
@@ -125,8 +146,15 @@ export class ZipUrlComponent implements OnInit {
 
   generateShortUrl(url: string, expiry: number | null) {
     this.loading = true;
+    const pin = this.pinToggleComponent?.pinValue || null;
     this.commonService
-      .generateZipShortUrl(url, expiry, this.customSlug)
+      .generateZipShortUrl(
+        url,
+        expiry,
+        this.customSlug,
+        this.isOneTimeView,
+        pin,
+      )
       .pipe(
         finalize(() =>
           setTimeout(() => {
@@ -140,8 +168,10 @@ export class ZipUrlComponent implements OnInit {
           if (!shortUrl) {
             throw new Error();
           }
+          this.id = shortUrl;
           this.shortUrl = `${environment.angularUrl}/u/${shortUrl}`;
-          this.urlForm.reset();
+          this.hasPin = !!pin;
+          this.showShareCard = true;
         },
         error: (err) => {
           const errMsg = `Error generating link, ${err}`;
@@ -169,5 +199,36 @@ export class ZipUrlComponent implements OnInit {
       this.isSlugAvailable = null;
     }
     // If slug didn't change, keep current availability status (don't reset)
+  }
+
+  createNewLink(): void {
+    this.showShareCard = false;
+    this.shortUrl = '';
+    this.id = null;
+    this.hasPin = false;
+    this.urlForm.reset({ expiryTime: this.expiryTimes[5].value });
+    this.isExpanded = false;
+    this.isOneTimeView = false;
+  }
+
+  deleteShortUrl(): void {
+    if (!this.id) return;
+    const idToDelete = this.id;
+    this.commonService.deleteZipShortUrl(idToDelete).subscribe({
+      next: () => {
+        this.showShareCard = false;
+        this.shortUrl = '';
+        this.id = null;
+        this.urlForm.reset({ expiryTime: this.expiryTimes[5].value });
+        this.isExpanded = false;
+        this.isOneTimeView = false;
+      },
+      error: (err) => {
+        console.error('Error deleting URL', err);
+        this.showShareCard = false;
+        this.shortUrl = '';
+        this.id = null;
+      },
+    });
   }
 }

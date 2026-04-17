@@ -27,7 +27,12 @@ export interface IGenerateZipShortUrlResponse {
 }
 
 export interface IGetZipShortUrlResponse {
-  getUrl: string;
+  getUrl: {
+    url: string;
+    hasPin: boolean;
+    isOneTimeView: boolean;
+    expiryTime: number | null;
+  };
 }
 
 export interface ICheckShortIdAvailabilityResponse {
@@ -36,4 +41,8 @@ export interface ICheckShortIdAvailabilityResponse {
 
 export interface IDeleteZipTextResponse {
   deleteZipText: boolean;
+}
+
+export interface IDeleteZipShortUrlResponse {
+  deleteUrl: boolean;
 }

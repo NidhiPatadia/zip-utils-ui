@@ -50,18 +50,33 @@ export const GraphQL = {
       $url: String!
       $expiryInMinutes: Int
       $customSlug: String
+      $isOneTimeView: Boolean
+      $pin: String
     ) {
       generateUrl(
         url: $url
         expiryInMinutes: $expiryInMinutes
         customSlug: $customSlug
+        isOneTimeView: $isOneTimeView
+        pin: $pin
       )
     }
   `,
 
   getZipShortUrl: gql`
-    query GetZipShortUrl($url: String!) {
-      getUrl(url: $url)
+    query GetZipShortUrl($url: String!, $pin: String) {
+      getUrl(url: $url, pin: $pin) {
+        url
+        hasPin
+        isOneTimeView
+        expiryTime
+      }
+    }
+  `,
+
+  deleteZipShortUrl: gql`
+    mutation DeleteZipShortUrl($id: String!) {
+      deleteUrl(id: $id)
     }
   `,
 

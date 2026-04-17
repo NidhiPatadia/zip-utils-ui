@@ -11,6 +11,7 @@ import {
   IGenerateZipShortUrlResponse,
   ICheckShortIdAvailabilityResponse,
   IDeleteZipTextResponse,
+  IDeleteZipShortUrlResponse,
 } from '../../models/common';
 
 @Injectable({
@@ -26,6 +27,7 @@ export class CommonService {
   private tempExpiryInMinutes: number | null = null;
   private tempExpiryTime: number | null = null;
   private isFromBackend: boolean = false;
+  private isUrlRedirect: boolean = false;
 
   setTempText(text: string) {
     this.tempText = text;
@@ -93,6 +95,14 @@ export class CommonService {
     this.isFromBackend = false;
   }
 
+  setIsUrlRedirect(value: boolean) {
+    this.isUrlRedirect = value;
+  }
+
+  getIsUrlRedirect(): boolean {
+    return this.isUrlRedirect;
+  }
+
   healthCheck() {
     return this.apollo.query<IHealthCheckResponse>({
       query: GraphQL.HealthCheck,
@@ -135,18 +145,27 @@ export class CommonService {
     url: string,
     expiryInMinutes: number | null,
     customSlug?: string | null,
+    isOneTimeView?: boolean,
+    pin?: string | null,
   ) {
     return this.apollo.mutate<IGenerateZipShortUrlResponse>({
       mutation: GraphQL.generateZipShortUrl,
-      variables: { url, expiryInMinutes, customSlug },
+      variables: { url, expiryInMinutes, customSlug, isOneTimeView, pin },
     });
   }
 
-  getZipShortUrl(id: String) {
+  getZipShortUrl(id: String, pin?: string | null) {
     return this.apollo.query<IGetZipShortUrlResponse>({
       query: GraphQL.getZipShortUrl,
-      variables: { url: id },
+      variables: { url: id, pin },
       fetchPolicy: 'no-cache',
+    });
+  }
+
+  deleteZipShortUrl(id: string) {
+    return this.apollo.mutate<IDeleteZipShortUrlResponse>({
+      mutation: GraphQL.deleteZipShortUrl,
+      variables: { id },
     });
   }
 

@@ -51,6 +51,11 @@ export const ZIP_TEXT_FAQ: FaqItem[] = [
     answer:
       'Yes, you can delete a text link at any time. Once deleted, the link becomes invalid and the text is permanently removed.',
   },
+  {
+    question: 'Can I share this text using a QR code or a short link?',
+    answer:
+      'Yes, you can easily share your text using a QR code or a short link. After creating the text link, you can generate a QR code for quick mobile access or use the URL shortener to make the link easier to share. Try the <a href="/qr/">QR Code Generator</a> or <a href="/url/">URL Shortener</a> for more options.',
+  },
 ];
 
 export const ZIP_URL_FAQ: FaqItem[] = [
@@ -103,6 +108,11 @@ export const ZIP_URL_FAQ: FaqItem[] = [
     question: 'Can I generate a QR code for a shortened URL?',
     answer:
       'Yes, after creating a short link, you can generate and download a QR code to easily share it using mobile devices.',
+  },
+  {
+    question: 'Can I share text or create a QR code instead of shortening a URL?',
+    answer:
+      'Yes, if you want to share notes, messages, or sensitive content, you can use the <a href="/text/">Text Sharing</a> tool to generate a secure link with expiry, PIN protection, or one-time access. You can also use the <a href="/qr/">QR Code Generator</a> to create a scannable QR code for any link, making it easy to share across devices.',
   },
 ];
 
