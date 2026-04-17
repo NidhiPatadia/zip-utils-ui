@@ -1,0 +1,50 @@
+<div class="delete-card">
+  <div *ngIf="showDeleteOption && isCreator" class="delete-row">
+    <div class="delete-row-content">
+      <div class="delete-row-title">Changed your mind?</div>
+      <div class="delete-row-sub">
+        You can delete this link from here. This option won't be available
+        later.
+      </div>
+    </div>
+    <button class="btn-delete" (click)="openDeleteModal()">
+      <i class="fa fa-trash"></i>
+      Delete link
+    </button>
+  </div>
+
+  <ng-container *ngIf="showWarnings">
+    <div *ngIf="isCreator && hasPin" class="warning-box pin-notice">
+      <div class="warn-icon">🔒</div>
+      <p>
+        <strong>PIN protected.</strong> This link is protected with a PIN. Make
+        sure to share it with the receiver.
+      </p>
+    </div>
+
+    <div *ngIf="isCreator && isOneTimeView" class="warning-box">
+      <div class="warn-icon">!</div>
+      <p>
+        <strong>One-time link.</strong> The receiver can only open this once.
+        After they close the page, the link is permanently deleted and
+        invalidated forever.
+      </p>
+    </div>
+
+    <div *ngIf="!isCreator && isOneTimeView" class="warning-box">
+      <div class="warn-icon">!</div>
+      <p>
+        <strong>Link will expire.</strong> This link has been opened and will be
+        permanently deleted once you leave this page. It cannot be accessed
+        again.
+      </p>
+    </div>
+  </ng-container>
+</div>
+
+<app-delete-modal
+  [showDeleteModal]="showDeleteModal"
+  [currentUrl]="currentUrl"
+  (close)="closeDeleteModal()"
+  (confirm)="confirmDelete()"
+></app-delete-modal>

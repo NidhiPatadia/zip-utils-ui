@@ -1,5 +1,5 @@
 <ng-container *ngIf="!showLoaderOverlay && !showNotFoundPage; else initialView">
-  <div class="custom-container">
+  <div class="custom-container" *ngIf="!showUrlPinModal && !showRedirectLoader">
     <div class="header-container">
       <app-header></app-header>
     </div>
@@ -10,9 +10,22 @@
       <app-footer></app-footer>
     </div>
   </div>
+  <router-outlet *ngIf="showUrlPinModal" />
+  <app-loader-overlay
+    *ngIf="showRedirectLoader"
+    [message]="'Redirecting...'"
+  ></app-loader-overlay>
 </ng-container>
 
 <ng-template #initialView>
   <app-loader-overlay *ngIf="showLoaderOverlay"></app-loader-overlay>
   <app-page-not-found *ngIf="showNotFoundPage"></app-page-not-found>
 </ng-template>
+
+<app-pin-modal
+  *ngIf="showUrlPinModal"
+  [showPinModal]="showUrlPinModal"
+  [pinError]="urlPinError"
+  (close)="onUrlPinClose()"
+  (submit)="onUrlPinSubmit($event)"
+></app-pin-modal>
