@@ -10,6 +10,7 @@ import { LoaderOverlayComponent } from './loader-overlay/loader-overlay.componen
 import { RedirectionType } from './enums/common';
 import { CommonService } from './services/common/common.service';
 import { HeaderService } from './services/header/header.service';
+import { PinModalComponent } from './shared/components/pin-modal/pin-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import { HeaderService } from './services/header/header.service';
     PageNotFoundComponent,
     CommonModule,
     LoaderOverlayComponent,
+    PinModalComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -31,6 +33,11 @@ export class AppComponent {
   private readonly headerService = inject(HeaderService);
   showNotFoundPage = false;
   showLoaderOverlay = true;
+  showUrlPinModal = false;
+  showRedirectLoader = false;
+  urlPinError = '';
+  private currentUrlId: string | null = null;
+  private enteredPin = '';
 
   constructor(private router: Router) {
     this.changeScreenToShowLoader();
@@ -115,23 +122,88 @@ export class AppComponent {
       this.changeScreenToShowNotFoundPage();
       return;
     }
+
+    this.currentUrlId = id;
+    this.commonService.setIsUrlRedirect(true);
     this.commonService.getZipShortUrl(id).subscribe({
       next: (response) => {
-        let shortUrl = response?.data?.getUrl;
-        if (isPlatformBrowser(this.platformId)) {
-          shortUrl = shortUrl.trim();
-          // If user forgot protocol, assume protocol to be https://
-          if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(shortUrl)) {
-            shortUrl = 'https://' + shortUrl;
-          }
-          window.location.assign(shortUrl);
+        const result = response?.data?.getUrl;
+        if (!result) {
+          this.changeScreenToShowNotFoundPage();
+          return;
+        }
+
+        if (result.hasPin && !this.enteredPin) {
+          this.showUrlPinModal = true;
+          this.changeScreenToShowApp();
+          return;
+        }
+
+        if (result.url) {
+          this.redirectToUrl(result.url);
+        } else {
+          this.changeScreenToShowNotFoundPage();
         }
       },
-      error: (err) => {
-        console.error('Error fetching URL', err);
+      error: () => {
         this.changeScreenToShowNotFoundPage();
       },
     });
+  }
+
+  private redirectToUrl(url: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      url = url.trim();
+      if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url)) {
+        url = 'https://' + url;
+      }
+      window.location.href = url;
+    }
+  }
+
+  onUrlPinSubmit(pin: string): void {
+    this.enteredPin = pin;
+    this.showUrlPinModal = false;
+    this.redirectToUrlWithPin();
+  }
+
+  onUrlPinClose(): void {
+    this.showUrlPinModal = false;
+    this.currentUrlId = null;
+    this.enteredPin = '';
+  }
+
+  private redirectToUrlWithPin(): void {
+    if (!this.currentUrlId) return;
+
+    this.showRedirectLoader = true;
+    this.showUrlPinModal = false;
+
+    this.commonService
+      .getZipShortUrl(this.currentUrlId, this.enteredPin)
+      .subscribe({
+        next: (response) => {
+          const result = response?.data?.getUrl;
+          if (result?.url) {
+            const url = result.url.trim();
+            const finalUrl = /^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url)
+              ? url
+              : 'https://' + url;
+            window.location.href = finalUrl;
+          } else {
+            this.changeScreenToShowNotFoundPage();
+          }
+        },
+        error: (err) => {
+          if (err?.graphQLErrors?.[0]?.message?.includes('Incorrect PIN')) {
+            this.urlPinError = 'Incorrect PIN';
+            this.showRedirectLoader = false;
+            this.showUrlPinModal = true;
+          } else {
+            this.changeScreenToShowNotFoundPage();
+          }
+        },
+      });
   }
 
   private changeScreenToShowLoader() {

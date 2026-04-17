@@ -106,50 +106,6 @@
   }
 }
 
-.warning-box {
-  background: var(--warning-bg, #131a35);
-  border: 1.5px solid var(--warning-border, #2a3670);
-  border-radius: 10px;
-  padding: 14px 16px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-  margin: 16px auto 0;
-  text-align: center;
-  max-width: 500px;
-}
-
-.warn-icon {
-  width: 20px;
-  height: 20px;
-  background: var(--warning-icon, #5b6ef5);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.warning-box p {
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--warning-text, #8fa3ff);
-  margin-bottom: 0;
-}
-
-.warning-box p strong {
-  color: var(--accent2, #7c8ff7);
-}
-
-.pin-notice .warn-icon {
-  background: #10b981;
-}
-
 .one-time-badge-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -307,66 +263,6 @@
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
   font-weight: 600;
-}
-
-.delete-row {
-  background: var(--card-bg);
-  border: 1px dashed var(--border-color);
-  border-radius: 12px;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 16px auto 0;
-  max-width: 500px;
-  transition: border-color 0.2s;
-}
-
-.delete-row:hover {
-  border-color: var(--primary);
-}
-
-.delete-row-content {
-  flex: 1;
-}
-
-.delete-row-title {
-  font-size: 13px;
-  color: var(--text);
-  margin-bottom: 2px;
-}
-
-.delete-row-sub {
-  font-size: 11px;
-  color: var(--text-secondary);
-}
-
-.btn-delete {
-  background: transparent;
-  border: 1px solid #f56565;
-  color: #f56565;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 7px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: background 0.2s;
-}
-
-.btn-delete:hover {
-  background: rgba(245, 101, 101, 0.12);
-}
-
-.delete-row.deleted {
-  border-color: #2d3748;
-  opacity: 0.45;
-  pointer-events: none;
 }
 
 .modal-backdrop {

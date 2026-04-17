@@ -17,6 +17,7 @@ import { ShareCardComponent } from '../../shared/components/share-card/share-car
 import { PinModalComponent } from '../../shared/components/pin-modal/pin-modal.component';
 import { DeleteModalComponent } from '../../shared/components/delete-modal/delete-modal.component';
 import { CountdownComponent } from '../../shared/components/countdown/countdown.component';
+import { ShareCardOptionsComponent } from '../../shared/components/share-card-options/share-card-options.component';
 
 @Component({
   selector: 'app-text-viewer',
@@ -27,6 +28,7 @@ import { CountdownComponent } from '../../shared/components/countdown/countdown.
     PinModalComponent,
     DeleteModalComponent,
     CountdownComponent,
+    ShareCardOptionsComponent,
   ],
   templateUrl: './text-viewer.component.html',
   styleUrl: './text-viewer.component.css',
@@ -46,7 +48,6 @@ export class ZipTextViewerComponent implements OnInit, OnDestroy {
   backButtonText: string = '';
   isOneTimeView: boolean = false;
   isCreator: boolean = false;
-  showDeleteModal: boolean = false;
   hasPin: boolean = false;
   isIpRestricted: boolean = false;
   expiryInMinutes: number | null = null;
@@ -174,18 +175,9 @@ export class ZipTextViewerComponent implements OnInit, OnDestroy {
     this.router.navigate(['/text']);
   }
 
-  openDeleteModal() {
-    this.showDeleteModal = true;
-  }
-
-  closeDeleteModal() {
-    this.showDeleteModal = false;
-  }
-
   confirmDelete() {
     this.commonService.deleteZipText(this.id!).subscribe({
       next: () => {
-        this.showDeleteModal = false;
         if (isPlatformBrowser(this.platformId)) {
           sessionStorage.setItem('textDeleted', 'true');
         }
@@ -193,7 +185,6 @@ export class ZipTextViewerComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('Error deleting text', err);
-        this.showDeleteModal = false;
         this.router.navigate(['/text']);
       },
     });

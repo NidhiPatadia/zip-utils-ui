@@ -61,53 +61,16 @@
   </div>
   <app-share-card [url]="currentUrl"></app-share-card>
 
-  <!-- Delete Row - Only show for creator -->
-  <div *ngIf="isCreator" class="delete-row">
-    <div class="delete-row-content">
-      <div class="delete-row-title">Changed your mind?</div>
-      <div class="delete-row-sub">
-        You can delete this link from here. This option won't be available
-        later.
-      </div>
-    </div>
-    <button class="btn-delete" (click)="openDeleteModal()">
-      <i class="fa fa-trash"></i>
-      Delete link
-    </button>
-  </div>
-
-  <div *ngIf="isCreator && hasPin && text" class="warning-box pin-notice">
-    <div class="warn-icon">🔒</div>
-    <p>
-      <strong>PIN protected.</strong> This link is protected with a PIN. Make
-      sure to share it with the receiver.
-    </p>
-  </div>
-
-  <div *ngIf="isCreator && isOneTimeView && text" class="warning-box">
-    <div class="warn-icon">!</div>
-    <p>
-      <strong>One-time link.</strong> The receiver can only open this once.
-      After they close the page, the text is permanently deleted and the link is
-      invalidated forever.
-    </p>
-  </div>
-
-  <div *ngIf="!isCreator && isOneTimeView && text" class="warning-box">
-    <div class="warn-icon">!</div>
-    <p>
-      <strong>Copy this text now.</strong> This link has been opened and will be
-      permanently deleted once you leave this page. It cannot be accessed again.
-    </p>
-  </div>
+  <app-share-card-options
+    [isOneTimeView]="isOneTimeView"
+    [hasPin]="hasPin"
+    [isCreator]="isCreator"
+    [showDeleteOption]="true"
+    [showWarnings]="!!text"
+    [currentUrl]="currentUrl"
+    (onDelete)="confirmDelete()"
+  ></app-share-card-options>
 </div>
-
-<app-delete-modal
-  [showDeleteModal]="showDeleteModal"
-  [currentUrl]="currentUrl"
-  (close)="closeDeleteModal()"
-  (confirm)="confirmDelete()"
-></app-delete-modal>
 
 <app-pin-modal
   [showPinModal]="showPinModal"
